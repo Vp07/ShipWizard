@@ -1,4 +1,4 @@
-package com.example.trongnghia.shipwizard_v11;
+package com.example.trongnghia.shipwizard_v11.LogIn;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

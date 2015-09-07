@@ -1,4 +1,4 @@
-package com.example.trongnghia.shipwizard_v11;
+package com.example.trongnghia.shipwizard_v11.LogIn;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -70,8 +70,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
                 // If there is a validation error, display the error
                 if (validationError) {
-                    Toast.makeText(LoginActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG)
-                            .show();
+                    Toast.makeText(LoginActivity.this, validationErrorMessage.toString(), Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -125,6 +124,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                             Log.d("MyApp", "User signed up and logged in through Facebook!");
                         } else {
                             Log.d("MyApp", "User logged in through Facebook!");
+                            Intent intent = new Intent(LoginActivity.this, DispatchActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         }
                     }
                 });

@@ -1,22 +1,45 @@
-package com.example.trongnghia.shipwizard_v11;
+package com.example.trongnghia.shipwizard_v11.NewTransaction;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.parse.ParseUser;
 
+public class NewTrans_Option extends Activity implements View.OnClickListener {
 
-public class MyActivity extends Activity {
+    Button post;
+    Button view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.new_transaction_activity);
+
+        post = (Button)findViewById(R.id.bPost);
+        view = (Button)findViewById(R.id.bView);
+
+        post.setOnClickListener(this);
+        view.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bPost:
+                Intent intent = new Intent(NewTrans_Option.this, Post_Transaction.class);
+                startActivity(intent);
+                break;
+            case R.id.bView:
+                break;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,7 +56,7 @@ public class MyActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             ParseUser.getCurrentUser().logOut();
-            startActivity(new Intent(MyActivity.this, DispatchActivity.class));
+            startActivity(new Intent(NewTrans_Option.this, DispatchActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

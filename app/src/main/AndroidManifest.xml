@@ -6,26 +6,24 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".LogIn.SampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".SampleApplication">
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".MyActivity"
+            android:name=".LogIn.MyActivity"
             android:label="@string/app_name" >
-
         </activity>
-
-        <activity android:name=".DispatchActivity"
-            android:label="@string/app_name">
+        <activity
+            android:name=".LogIn.DispatchActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -36,9 +34,18 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SignUpOrLoginActivity" />
+        <activity android:name=".LogIn.LoginActivity" />
+        <activity android:name=".LogIn.SignUpActivity" />
+        <activity android:name=".LogIn.SignUpOrLoginActivity" />
+        <activity android:name=".LogIn.Forget_password" />
+        <activity
+            android:name=".NewTransaction.NewTrans_Option"
+            android:label="@string/title_activity_new_trans__option" >
+        </activity>
+        <activity
+            android:name=".NewTransaction.Post_Transaction"
+            android:label="@string/title_activity_post__transaction" >
+        </activity>
     </application>
 
 </manifest>
