@@ -17,6 +17,7 @@ public class NewTrans_Option extends Activity implements View.OnClickListener {
 
     Button post;
     Button view;
+    // testing
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
