@@ -3,15 +3,21 @@ package com.example.trongnghia.shipwizard_v11.NewTransaction;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
@@ -20,6 +26,9 @@ import com.example.trongnghia.shipwizard_v11.R;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +50,8 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     TextView Pre_carrier_place;
     TextView Pre_item;
     TextView Pre_price;
+
+    ListView Capture_or_pick;
 
 
     ParseUser current_user;
@@ -75,6 +86,34 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bUpload_Image:
+                final Dialog dialog_image = new Dialog(getActivity());
+                dialog_image.setContentView(R.layout.fragment_transaction_image_list);
+                List<String> items = new ArrayList<String>();
+                items.add("Capture a photo!");
+                items.add("Pick photo from galery!");
+
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items );
+                Capture_or_pick = (ListView) dialog_image.findViewById(R.id.capture_or_pick);
+                Capture_or_pick.setAdapter(adapter);
+                Capture_or_pick.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        //use POSITION to get item clicked
+                        if(position==0){
+                            Toast.makeText(getActivity(), "Capture photo",Toast.LENGTH_SHORT).show();
+                        }
+                        if(position ==1){
+                            Toast.makeText(getActivity(), "Pick photo form gallery",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+                //dialog_image.
+
+                dialog_image.show();
                 break;
 
             // Preview a post
