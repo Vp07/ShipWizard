@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.trongnghia.shipwizard_v11.NewTransaction.Order_Fragment;
 import com.example.trongnghia.shipwizard_v11.NewTransaction.PagerAdapter;
 import com.example.trongnghia.shipwizard_v11.R;
 
@@ -135,17 +136,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFrameLayout_About.setOnClickListener(this);
 
         // Set the first item as selected for the first time
-        getSupportActionBar().setTitle(R.string.toolbar_title_home);
-        mFrameLayout_Home.setSelected(true);
+
+        //getSupportActionBar().setTitle(R.string.toolbar_title_home);
+        // mFrameLayout_Home.setSelected(true);
+
+        getSupportActionBar().setTitle(R.string.post_transaction);
 
         // Create the first fragment to be shown
-        Bundle bundle = new Bundle();
-        bundle.putInt(ColorFragment.sARGUMENT_COLOR, R.color.blue_500);
+        //Bundle bundle = new Bundle();
+        //bundle.putInt(ColorFragment.sARGUMENT_COLOR, R.color.blue_500);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.main_activity_content_frame, ColorFragment.newInstance(bundle))
-                .commit();
+        //Fragment_post_transaction post = new Fragment_post_transaction();
+        //getSupportFragmentManager().beginTransaction().add(R.id.main_activity_content_frame, post).commit();
     }
 
     // Set up for transaction tabs

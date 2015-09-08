@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trongnghia.shipwizard_v11.R;
@@ -28,12 +27,6 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
     EditText ship_item;
     EditText ship_price;
     EditText ship_time;
-
-    TextView Pre_ship_place;
-    TextView Pre_destination_place;
-    TextView Pre_ship_item;
-    TextView Pre_ship_price;
-    TextView Pre_ship_time;
 
     Button ship_upload_image;
     Button ship_preview;
@@ -52,7 +45,6 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
         carrier_place = (EditText)shipView.findViewById(R.id.etShip_place);
         ship_item = (EditText)shipView.findViewById(R.id.etShip_item);
         ship_price = (EditText)shipView.findViewById(R.id.etShip_price);
-        ship_time = (EditText) shipView.findViewById(R.id.etShip_time);
 
         ship_upload_image = (Button)shipView.findViewById(R.id.bShip_upload);
         ship_preview = (Button)shipView.findViewById(R.id.bShip_preview);
@@ -84,20 +76,6 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                 dialog.setTitle("Preview this Message");
                 dialog.setCancelable(true);
                 dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-
-                //setup preview ship information
-                Pre_ship_place = (TextView) dialog.findViewById(R.id.etPre_curent_info);
-                Pre_destination_place = (TextView) dialog.findViewById(R.id.etPre_destination_info);
-                Pre_ship_item = (TextView) dialog.findViewById(R.id.etPre_item_info);
-                Pre_ship_price = (TextView) dialog.findViewById(R.id.etPre_price_info);
-                Pre_ship_time = (TextView) dialog.findViewById(R.id.etPre_time_info);
-
-                Pre_ship_place.setText(order_place.getText().toString());
-                Pre_destination_place.setText(carrier_place.getText().toString());
-                Pre_ship_item.setText(ship_item.getText().toString());
-                Pre_ship_price.setText(ship_price.getText().toString());
-                Pre_ship_time.setText(ship_time.getText().toString());
-
                 //set up button
                 Button button = (Button)dialog.findViewById(R.id.Button01);
                 button.setOnClickListener(new View.OnClickListener(){
