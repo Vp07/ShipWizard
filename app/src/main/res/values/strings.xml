@@ -49,17 +49,27 @@
     <string name="order_transaction">View Transactions</string>
     <string name="title_activity_post__transaction">Post a Transaction</string>
     <string name="current_place">Where are you living now?</string>
+    <string name="current_place_info">You are living at</string>
     <string name="order_place">Where do you want to order your items?</string>
+    <string name="order_place_info">You want to order item(s) at/in</string>
     <string name="order_time">When do you want to get your items?</string>
+    <string name="order_time_info">You want to get your item at</string>
     <string name="order_item">What items do you want to order?</string>
+    <string name="order_item_info">You want to order</string>
     <string name="order_price">How much do you want to pay for your items?</string>
+    <string name="order_price_info">The amount you want to pay for your item</string>
     <string name="post_successful">Your order message has been successfully posted on the DashBoard</string>
 
     <string name="ship_current_place">Where do you buy your items?</string>
+    <string name="ship_current_place_info">You buy your item(s) at/in</string>
     <string name="ship_destination">Where do you want to ship your items to?</string>
+    <string name="ship_destination_info">You want to ship your item(s) to</string>
     <string name="ship_items">What do you want to ship?</string>
-    <string name="ship_price">How much do you expect for your items?</string>
+    <string name="ship_items_info">You want to ship</string>
+    <string name="ship_price">How much do you expect for your item(s)?</string>
+    <string name="ship_price_info">The amount you expect for your item(s)</string>
     <string name="ship_time">When will you ship your items?</string>
+    <string name="ship_time_info">You will ship your item(s) at</string>
     <string name="test_text">This text is for test purpose</string>
 
 <!-- TODO: Remove or change this placeholder text -->

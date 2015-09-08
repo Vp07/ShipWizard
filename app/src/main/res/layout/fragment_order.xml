@@ -9,7 +9,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/current_place"/>
+        android:text="@string/current_place" />
 
     <EditText
         android:id="@+id/etCurrent_place"

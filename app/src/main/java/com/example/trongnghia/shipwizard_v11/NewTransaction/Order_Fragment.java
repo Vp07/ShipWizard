@@ -37,6 +37,11 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     Button preView;
     Button post;
 
+    TextView Pre_buyer_place;
+    TextView Pre_carrier_place;
+    TextView Pre_item;
+    TextView Pre_price;
+
 
     ParseUser current_user;
     String userID;
@@ -82,6 +87,18 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 dialog.setTitle("Preview this Message");
                 dialog.setCancelable(true);
                 dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
+                //set up text content for preview
+                Pre_buyer_place = (TextView) dialog.findViewById(R.id.etPre_current_place);
+                Pre_carrier_place = (TextView) dialog.findViewById(R.id.etPre_order_place);
+                Pre_item = (TextView) dialog.findViewById(R.id.etPre_order_item);
+                Pre_price =(TextView) dialog.findViewById(R.id.etPre_order_price);
+
+                Pre_buyer_place.setText(buyer_place.getText().toString());
+                Pre_carrier_place.setText(carrier_place.getText().toString());
+                Pre_item.setText(item.getText().toString());
+                Pre_price.setText(price.getText().toString());
+
                 //set up button
                 Button button = (Button) dialog.findViewById(R.id.Button01);
                 button.setOnClickListener(new View.OnClickListener() {
