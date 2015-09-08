@@ -11,13 +11,13 @@ import android.widget.Button;
 
 import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.R;
+import com.example.trongnghia.shipwizard_v11.SlideMenu.MainActivity;
 import com.parse.ParseUser;
 
 public class NewTrans_Option extends Activity implements View.OnClickListener {
 
     Button post;
     Button view;
-    // testing
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class NewTrans_Option extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bPost:
-                Intent intent = new Intent(NewTrans_Option.this, Post_Transaction.class);
+                Intent intent = new Intent(NewTrans_Option.this, MainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.bView:
