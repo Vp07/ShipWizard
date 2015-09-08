@@ -38,10 +38,12 @@
         <activity android:name=".LogIn.SignUpActivity" />
         <activity android:name=".LogIn.SignUpOrLoginActivity" />
         <activity android:name=".LogIn.Forget_password" />
+        <activity android:name=".SlideMenu.MainActivity" />
         <activity
-            android:name=".NewTransaction.NewTrans_Option"
-            android:label="@string/title_activity_new_trans__option" >
-        </activity>
+            android:name=".SlideMenu.OtherActivity"
+            android:label= "Custom Activity"/>
+        <activity android:name=".NewTransaction.NewTrans_Option" />
+
         <activity
             android:name=".NewTransaction.Post_Transaction"
             android:label="@string/title_activity_post__transaction" >
