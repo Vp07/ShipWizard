@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.example.trongnghia.shipwizard_v11.NewTransaction.Order_Fragment;
 import com.example.trongnghia.shipwizard_v11.NewTransaction.PagerAdapter;
+import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.example.trongnghia.shipwizard_v11.R;
+import com.parse.ParseUser;
 
 /**
  * Main class hosting the navigation drawer
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mFrameLayout_About;
     private TextView mTextView_AccountDisplayName, mTextView_AccountEmail;
     private TextView mTextView_Home, mTextView_Explore, mTextView_HelpAndFeedback, mTextView_About;
+
+    // Get user name and email of current user from Parse
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,7 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFrameLayout_About = (FrameLayout) findViewById(R.id.navigation_drawer_items_list_linearLayout_about);
 
         mTextView_AccountDisplayName = (TextView) findViewById(R.id.navigation_drawer_account_information_display_name);
+        mTextView_AccountDisplayName.setText(UserInfo.username);
         mTextView_AccountEmail = (TextView) findViewById(R.id.navigation_drawer_account_information_email);
+        mTextView_AccountEmail.setText(UserInfo.email);
 
         mTextView_Home = (TextView) findViewById(R.id.navigation_drawer_items_textView_home);
         mTextView_Explore = (TextView) findViewById(R.id.navigation_drawer_items_textView_explore);
@@ -79,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Typefaces
         mTextView_AccountDisplayName.setTypeface(ManagerTypeface.getTypeface(this, R.string.typeface_roboto_medium));
         mTextView_AccountEmail.setTypeface(ManagerTypeface.getTypeface(this, R.string.typeface_roboto_regular));
+
         mTextView_Home.setTypeface(ManagerTypeface.getTypeface(this, R.string.typeface_roboto_medium));
         mTextView_Explore.setTypeface(ManagerTypeface.getTypeface(this, R.string.typeface_roboto_medium));
         mTextView_HelpAndFeedback.setTypeface(ManagerTypeface.getTypeface(this, R.string.typeface_roboto_medium));
@@ -138,16 +145,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Set the first item as selected for the first time
 
         //getSupportActionBar().setTitle(R.string.toolbar_title_home);
-        // mFrameLayout_Home.setSelected(true);
+        mFrameLayout_Home.setSelected(true);
 
         getSupportActionBar().setTitle(R.string.post_transaction);
 
         // Create the first fragment to be shown
-        //Bundle bundle = new Bundle();
-        //bundle.putInt(ColorFragment.sARGUMENT_COLOR, R.color.blue_500);
-
-        //Fragment_post_transaction post = new Fragment_post_transaction();
-        //getSupportFragmentManager().beginTransaction().add(R.id.main_activity_content_frame, post).commit();
+//        Bundle bundle = new Bundle();
+//        bundle.putInt(ColorFragment.sARGUMENT_COLOR, R.color.blue_500);
+//
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.main_activity_content_frame, ColorFragment.newInstance(bundle))
+//                .commit();
     }
 
     // Set up for transaction tabs
@@ -253,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else
             {
-                mDrawerLayout.closeDrawer(Gravity.START);
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
             }
         }
     }
@@ -287,7 +296,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-
-        mDrawerLayout.closeDrawer(Gravity.START);
+        mDrawerLayout.closeDrawer(Gravity.RIGHT);
     }
+
+    private void display_info(){
+
+    }
+
 }

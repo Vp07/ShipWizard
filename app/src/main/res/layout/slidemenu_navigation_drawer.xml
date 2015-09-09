@@ -52,17 +52,17 @@
                     android:layout_alignParentBottom="true"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
-
+                    <!-- The navigation drawer -->
                     <TextView
                         android:id="@+id/navigation_drawer_account_information_display_name"
                         style="@style/NavDrawerAccountInfoText"
-                        android:text="@string/tools_text_account_information_username"
+                        android:text=""
                         tools:fontFamily="sans-serif-medium"/>
 
                     <TextView
                         android:id="@+id/navigation_drawer_account_information_email"
                         style="@style/NavDrawerAccountInfoText"
-                        android:text="@string/tools_text_account_information_email"
+                        android:text=""
                         tools:fontFamily="sans-serif"/>
 
                 </LinearLayout>

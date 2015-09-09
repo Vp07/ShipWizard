@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.R;
+import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -43,8 +45,6 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     TextView Pre_price;
 
 
-    ParseUser current_user;
-    String userID;
     String post_message = "Your message has been successfully posted on the DashBoard";
     public ParseObject Order_post = new ParseObject("OrderPost");
 
@@ -65,9 +65,6 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         preView.setOnClickListener(this);
         post.setOnClickListener(this);
 
-        current_user = ParseUser.getCurrentUser();
-        userID = current_user.getObjectId();
-
         return orderView;
     }
 
@@ -75,6 +72,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bUpload_Image:
+                //Toast.makeText(getActivity(), UserInfo.username,Toast.LENGTH_SHORT).show();
                 break;
 
             // Preview a post
@@ -113,7 +111,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
             // Post this order transaction to the Dashboard
             case R.id.bPost:
-                Order_post.put("UserID", userID);
+                Order_post.put("UserID", UserInfo.userID);
                 Order_post.put("Buyer_place", buyer_place.getText().toString());
                 Order_post.put("Carrier_place", carrier_place.getText().toString());
                 Order_post.put("Item", item.getText().toString());

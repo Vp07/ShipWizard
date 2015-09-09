@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.trongnghia.shipwizard_v11.NewTransaction.NewTrans_Option;
+import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.ParseUser;
 
 /**
@@ -12,12 +13,16 @@ import com.parse.ParseUser;
  */
 public class DispatchActivity extends Activity {
 
+    // Just create a UserInfo object here and just call UserInfo.xxx at anywhere
+    public static UserInfo current_user;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         // Check if there is current user info
         if (ParseUser.getCurrentUser() != null) {
             // Start an intent for the logged in activity
+            current_user = new UserInfo();
             startActivity(new Intent(this, NewTrans_Option.class));
         } else {
             // Start and intent for the logged out activity
