@@ -38,5 +38,5 @@ public class Transaction_Image extends Fragment{
 //        });
         return orderView;
     }
- 
+
 }
