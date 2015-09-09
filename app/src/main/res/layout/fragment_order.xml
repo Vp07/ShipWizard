@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/textView"
@@ -50,18 +54,34 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"/>
 
-    <Button
-        android:id="@+id/bUpload_Image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload Image"
-        android:layout_marginBottom="20dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/bUpload_Image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Image"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="0.15" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/Order_imageView"
+            android:layout_weight="0.04" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_weight="0.15">
 
         <Button
             android:id="@+id/bPreview"
@@ -77,6 +97,5 @@
     </LinearLayout>
 
 
-
-
 </LinearLayout>
+ </ScrollView>
