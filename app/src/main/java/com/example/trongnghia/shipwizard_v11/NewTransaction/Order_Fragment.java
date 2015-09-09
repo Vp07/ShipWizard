@@ -3,9 +3,14 @@ package com.example.trongnghia.shipwizard_v11.NewTransaction;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +32,15 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,7 +65,11 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     TextView Pre_price;
 
     ListView Capture_or_pick;
-
+    private static final int PICK_IMAGE = 100;
+    private static final int REQUEST_CAMERA = 1;
+    Uri imageUri;
+    ImageView imageView;
+    String mCurrentPhotoPath;
 
     ParseUser current_user;
     String userID;
@@ -102,14 +119,19 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                                             int position, long id) {
                         //use POSITION to get item clicked
                         if(position==0){
-                            Toast.makeText(getActivity(), "Capture photo",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "Capture photo",Toast.LENGTH_SHORT).show();
+                            TakePicture();
+                            dialog_image.onBackPressed();
                         }
                         if(position ==1){
-                            Toast.makeText(getActivity(), "Pick photo form gallery",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "Pick photo form gallery",Toast.LENGTH_SHORT).show();
+                            openGallery();
+                            dialog_image.onBackPressed();
                         }
 
                     }
                 });
+
 
                 //dialog_image.
 
@@ -164,4 +186,93 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+    //methods for capturing a photo by camera
+    private void TakePicture() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+    //end methods for capturing a photo by camera
+    // methods for picking image from gallery
+    private void openGallery() {
+        Intent gallery =
+                new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        imageView = (ImageView)getActivity().findViewById(R.id.Order_imageView);
+
+        if (resultCode == getActivity().RESULT_OK && requestCode == PICK_IMAGE) {
+            Uri selectedImageUri = data.getData();
+            String[] projection = { MediaStore.MediaColumns.DATA };
+            Cursor cursor = getActivity().managedQuery(selectedImageUri, projection, null, null,
+                    null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            cursor.moveToFirst();
+            String selectedImagePath = cursor.getString(column_index);
+            Bitmap bm;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(selectedImagePath, options);
+            final int REQUIRED_SIZE = 200;
+            int scale = 1;
+            while (options.outWidth / scale / 2 >= REQUIRED_SIZE
+                    && options.outHeight / scale / 2 >= REQUIRED_SIZE)
+                scale *= 2;
+            options.inSampleSize = scale;
+            options.inJustDecodeBounds = false;
+            bm = BitmapFactory.decodeFile(selectedImagePath, options);
+            imageView.setImageBitmap(bm);
+
+
+
+        }
+        if (requestCode == REQUEST_CAMERA && resultCode == getActivity().RESULT_OK) {
+
+
+//            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+//            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+//            File destination = new File(Environment.getExternalStorageDirectory(),
+//                    System.currentTimeMillis() + ".jpg");
+//            FileOutputStream fo;
+//            try {
+//                destination.createNewFile();
+//                fo = new FileOutputStream(destination);
+//                fo.write(bytes.toByteArray());
+//                fo.close();
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            imageView.setImageBitmap(thumbnail);
+            openGallery();
+
+        }
+    }
+
+    //end method for picking image from gallery
+
 }
