@@ -3,6 +3,7 @@ package com.example.trongnghia.shipwizard_v11.SlideMenu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -193,8 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         if (view.getId() == R.id.navigation_drawer_account_view)
         {
-            mDrawerLayout.closeDrawer(Gravity.RIGHT);
-
+            mDrawerLayout.closeDrawer(GravityCompat.START);
             // If the user is signed in, go to the profile, otherwise show sign up / sign in
         }
         else
@@ -202,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (!view.isSelected())
             {
                 onRowPressed((FrameLayout) view);
-
                 switch (view.getId())
                 {
                     case R.id.navigation_drawer_items_list_linearLayout_home:
@@ -211,7 +210,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         {
                             getSupportActionBar().setTitle(getString(R.string.toolbar_title_home));
                         }
-
 
                         view.setSelected(true);
 
@@ -228,9 +226,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     case R.id.navigation_drawer_items_list_linearLayout_explore:
                     {
+                        mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+                       // mActionBarDrawerToggle.set
                         if (getSupportActionBar() != null)
                         {
                             getSupportActionBar().setTitle(getString(R.string.toolbar_title_explore));
+                            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                         }
 
                         view.setSelected(true);
@@ -262,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else
             {
-                mDrawerLayout.closeDrawer(Gravity.LEFT);
+                mDrawerLayout.closeDrawer(Gravity.START);
             }
         }
     }
@@ -296,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-        mDrawerLayout.closeDrawer(Gravity.RIGHT);
+        mDrawerLayout.closeDrawer(Gravity.START);
     }
 
     private void display_info(){

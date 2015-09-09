@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/navigation_drawer_account_section_default_height"
             android:clickable="true"
-            android:foreground="?selectableItemBackground"
             tools:layout_height="@dimen/navigation_drawer_account_section_default_height">
+            <!--android:foreground="?selectableItemBackground"-->
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                     <TextView
                         android:id="@+id/navigation_drawer_items_textView_home"
                         style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_item_home"
+                        android:text="View Transactions"
                         tools:fontFamily="sans-serif-medium"
                         tools:textColor="@color/nav_drawer_item_text_selected"/>
 
@@ -126,7 +126,7 @@
                     <TextView
                         android:id="@+id/navigation_drawer_items_textView_explore"
                         style="@style/NavDrawerRowItemText"
-                        android:text="@string/nav_drawer_item_explore"
+                        android:text="Post a Transaction"
                         tools:fontFamily="sans-serif-medium"/>
 
                 </FrameLayout>

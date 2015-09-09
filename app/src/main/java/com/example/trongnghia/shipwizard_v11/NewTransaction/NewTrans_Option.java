@@ -34,7 +34,7 @@ public class NewTrans_Option extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bPost:
-                Intent intent = new Intent(NewTrans_Option.this, MainActivity.class);
+                Intent intent = new Intent(NewTrans_Option.this, Post_Transaction.class);
                 startActivity(intent);
                 break;
             case R.id.bView:

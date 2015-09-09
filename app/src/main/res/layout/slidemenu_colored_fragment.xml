@@ -8,4 +8,8 @@
     android:clickable="true"
     android:foreground="?android:selectableItemBackground"
     tools:background="@color/green_500">
+
+    <include
+        layout="@layout/slidemenu_toolbar"/>
+
 </FrameLayout>
