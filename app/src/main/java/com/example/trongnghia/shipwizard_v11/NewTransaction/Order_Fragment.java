@@ -191,22 +191,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-        return image;
-    }
     //end methods for capturing a photo by camera
     // methods for picking image from gallery
     private void openGallery() {
@@ -249,27 +234,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
         }
         if (requestCode == REQUEST_CAMERA && resultCode == getActivity().RESULT_OK) {
-
-
-//            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-//            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-//            File destination = new File(Environment.getExternalStorageDirectory(),
-//                    System.currentTimeMillis() + ".jpg");
-//            FileOutputStream fo;
-//            try {
-//                destination.createNewFile();
-//                fo = new FileOutputStream(destination);
-//                fo.write(bytes.toByteArray());
-//                fo.close();
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            imageView.setImageBitmap(thumbnail);
             openGallery();
-
         }
     }
 
