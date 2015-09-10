@@ -1,15 +1,22 @@
 package com.example.trongnghia.shipwizard_v11.NewTransaction;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +34,12 @@ import com.example.trongnghia.shipwizard_v11.R;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,9 +63,13 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
     ListView Capture_or_pick;
     private static final int PICK_IMAGE = 100;
     private static final int REQUEST_CAMERA = 1;
+    private static final int RESULT_OK = -1;
+    public String photoFileName = "for ShipWizard.jpg";
+
     Uri imageUri;
     ImageView imageView;
-    String mCurrentPhotoPath;
+
+    String selectedImagePath;
 
     ParseUser current_user;
     String userID;
@@ -112,7 +127,10 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                         if(position ==1){
                             //Toast.makeText(getActivity(), "Pick photo form gallery",Toast.LENGTH_SHORT).show();
                             openGallery();
+//                            imageView = (ImageView) getView().findViewById(R.id.Ship_imageView);
+//                            imageView.setImageResource(R.drawable.android);
                             dialog_image.onBackPressed();
+
                         }
 
                     }
@@ -170,44 +188,39 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
     private void openGallery() {
         Intent gallery =
                 new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         gallery.setType("image/*");
-        startActivityForResult(gallery, PICK_IMAGE);
+        startActivityForResult(Intent.createChooser(gallery,"Pick Image"), PICK_IMAGE);
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         imageView = (ImageView)getActivity().findViewById(R.id.Ship_imageView);
 
-        if (resultCode == getActivity().RESULT_OK && requestCode == PICK_IMAGE) {
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+
             Uri selectedImageUri = data.getData();
-            String[] projection = { MediaStore.MediaColumns.DATA };
-            Cursor cursor = getActivity().managedQuery(selectedImageUri, projection, null, null,
-                    null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-            cursor.moveToFirst();
-            String selectedImagePath = cursor.getString(column_index);
-            Bitmap bm;
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(selectedImagePath, options);
-            final int REQUIRED_SIZE = 200;
-            int scale = 1;
-            while (options.outWidth / scale / 2 >= REQUIRED_SIZE
-                    && options.outHeight / scale / 2 >= REQUIRED_SIZE)
-                scale *= 2;
-            options.inSampleSize = scale;
-            options.inJustDecodeBounds = false;
-            bm = BitmapFactory.decodeFile(selectedImagePath, options);
-            imageView.setImageBitmap(bm);
+            try {
+                Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
+                Bitmap bm1 = ThumbnailUtils.extractThumbnail(bm,500,500);
+                imageView.setImageBitmap(bm1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
+            // imageView.setImageBitmap(BitmapFactory.decodeFile(path));
+            Toast.makeText(getActivity(),"testing", Toast.LENGTH_SHORT).show();
 
         }
-        if (requestCode == REQUEST_CAMERA && resultCode == getActivity().RESULT_OK) {
+        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
             openGallery();
+
         }
     }
+
+
 }
