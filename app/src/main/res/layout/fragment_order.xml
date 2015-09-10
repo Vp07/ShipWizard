@@ -2,100 +2,99 @@
  <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
      android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    android:weightSum="1">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/current_place" />
-
-    <EditText
-        android:id="@+id/etCurrent_place"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/order_place"/>
-
-    <EditText
-        android:id="@+id/etOrder_place"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/order_item"/>
-
-    <EditText
-        android:id="@+id/etOrder_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/order_price"/>
-
-    <EditText
-        android:id="@+id/etOrder_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
-
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="118dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
         android:weightSum="1">
 
-        <Button
-            android:id="@+id/bUpload_Image"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload Image"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="0.15" />
+            android:text="@string/current_place" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/Order_imageView"
-            android:layout_weight="0.04" />
+        <EditText
+            android:id="@+id/etCurrent_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_place"/>
+
+        <EditText
+            android:id="@+id/etOrder_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_item"/>
+
+        <EditText
+            android:id="@+id/etOrder_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_price"/>
+
+        <EditText
+            android:id="@+id/etOrder_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="118dp"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/bUpload_Image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload Image"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="0.15" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/Order_imageView"
+                android:layout_weight="0.04" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="0.15">
+
+            <Button
+                android:id="@+id/bPreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preview" />
+
+            <Button
+                android:id="@+id/bPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Post" />
+        </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_weight="0.15">
-
-        <Button
-            android:id="@+id/bPreview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Preview" />
-
-        <Button
-            android:id="@+id/bPost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Post" />
-    </LinearLayout>
-
-
-</LinearLayout>
  </ScrollView>

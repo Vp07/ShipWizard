@@ -93,9 +93,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Home -->
                 <FrameLayout
                     android:id="@+id/navigation_drawer_items_list_linearLayout_home"
-                    style="@style/NavDrawerRowLayout.Main">
+                    style="@style/NavDrawerRowLayout.Main"
+                    android:layout_marginBottom="10dp">
 
                     <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
                         android:id="@+id/navigation_drawer_items_list_icon_home"
@@ -107,33 +109,191 @@
                     <TextView
                         android:id="@+id/navigation_drawer_items_textView_home"
                         style="@style/NavDrawerRowItemText"
-                        android:text="View Transactions"
+                        android:text="Home"
                         tools:fontFamily="sans-serif-medium"
                         tools:textColor="@color/nav_drawer_item_text_selected"/>
-
                 </FrameLayout>
 
+                <TextView
+                    android:id="@+id/tvAd_mes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/ads_mess"/>
+                <!--Divider line -->
+                <include
+                    layout="@layout/slidemenu_navigation_drawer_divider"/>
+
+                <!--Post Ads -->
                 <FrameLayout
-                    android:id="@+id/navigation_drawer_items_list_linearLayout_explore"
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_PostAds"
                     style="@style/NavDrawerRowLayout.Main" >
 
                     <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
-                        android:id="@+id/navigation_drawer_items_list_icon_explore"
+                        android:id="@+id/navigation_drawer_items_list_icon_PostAds"
                         style="@style/NavDrawerRowItemIcon"
-                        android:src="@drawable/ic_explore_white_24dp"
+                        android:src="@drawable/ic_note_add_white_24dp"
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/navigation_drawer_items_textView_explore"
+                        android:id="@+id/navigation_drawer_items_textView_PostAds"
                         style="@style/NavDrawerRowItemText"
-                        android:text="Post a Transaction"
+                        android:text="Post Ads"
                         tools:fontFamily="sans-serif-medium"/>
 
                 </FrameLayout>
 
+                <!--Ads history -->
+                <FrameLayout
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_AdsHistory"
+                    style="@style/NavDrawerRowLayout.Main" >
+
+                    <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_AdsHistory"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_history_white_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_AdsHistory"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="Ads History"
+                        tools:fontFamily="sans-serif-medium"/>
+
+                </FrameLayout>
+
+                <!--Favorite Ads -->
+                <FrameLayout
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_AdsFavorite"
+                    style="@style/NavDrawerRowLayout.Main" >
+
+                    <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_AdsFavorite"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_favorite_white_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_AdsFavorite"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="Favorite Ads"
+                        tools:fontFamily="sans-serif-medium"/>
+                </FrameLayout>
+
+                <!--Ads Messages -->
+                <FrameLayout
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_AdsMessage"
+                    style="@style/NavDrawerRowLayout.Main"
+                    android:layout_marginBottom="10dp">
+
+                    <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_AdsMessage"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_chat_black_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_AdsMessage"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="Messages"
+                        tools:fontFamily="sans-serif-medium"/>
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvAd_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/divide_search"/>
+
                 <include
                     layout="@layout/slidemenu_navigation_drawer_divider"/>
 
+                <!--Search -->
+                <FrameLayout
+                android:id="@+id/navigation_drawer_items_list_linearLayout_Search"
+                style="@style/NavDrawerRowLayout.Main" >
+
+                    <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_Search"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_search_white_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_Search"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="Search"
+                        tools:fontFamily="sans-serif-medium"/>
+                </FrameLayout>
+
+                <!--Recent Searches -->
+                <FrameLayout
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_Recent_Search"
+                    style="@style/NavDrawerRowLayout.Main" >
+
+                    <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_Recent_Search"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_youtube_searched_for_white_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_Recent_Search"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="Recent Searches"
+                        tools:fontFamily="sans-serif-medium"/>
+                </FrameLayout>
+
+                <!--Saved Searches -->
+                <FrameLayout
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_Save_Search"
+                    style="@style/NavDrawerRowLayout.Main"
+                    android:layout_marginBottom="10dp">
+
+                    <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_Save_Search"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_bookmark_white_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_Save_Search"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="Saved Searches"
+                        tools:fontFamily="sans-serif-medium"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvAd_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/divide_setting"/>
+                <include
+                    layout="@layout/slidemenu_navigation_drawer_divider"/>
+
+                <!-- Setting -->
+                <FrameLayout
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_setting"
+                    style="@style/NavDrawerRowLayout.Secondary">
+
+                    <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_setting"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_settings_white_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_setting"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="Settings"
+                        tools:fontFamily="sans-serif-medium" />
+
+                </FrameLayout>
+
+                <!-- Help and Feedback -->
                 <FrameLayout
                     android:id="@+id/navigation_drawer_items_list_linearLayout_help_and_feedback"
                     style="@style/NavDrawerRowLayout.Secondary">
@@ -152,6 +312,7 @@
 
                 </FrameLayout>
 
+                <!-- About -->
                 <FrameLayout
                     android:id="@+id/navigation_drawer_items_list_linearLayout_about"
                     style="@style/NavDrawerRowLayout.Secondary">
@@ -166,6 +327,25 @@
                         android:id="@+id/navigation_drawer_items_textView_about"
                         style="@style/NavDrawerRowItemText"
                         android:text="@string/nav_drawer_about"
+                        tools:fontFamily="sans-serif-medium" />
+
+                </FrameLayout>
+
+                <!-- Log out -->
+                <FrameLayout
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_logout"
+                    style="@style/NavDrawerRowLayout.Secondary">
+
+                    <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
+                        android:id="@+id/navigation_drawer_items_list_icon_logout"
+                        style="@style/NavDrawerRowItemIcon"
+                        android:src="@drawable/ic_power_settings_new_white_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/navigation_drawer_items_textView_logout"
+                        style="@style/NavDrawerRowItemText"
+                        android:text="Log Out"
                         tools:fontFamily="sans-serif-medium" />
 
                 </FrameLayout>

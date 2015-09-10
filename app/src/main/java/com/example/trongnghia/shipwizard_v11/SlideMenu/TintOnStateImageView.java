@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import com.example.trongnghia.shipwizard_v11.R;
-
 /**
  * ImageView that changes it's image color depending on the state (pressed, selected...)
  *

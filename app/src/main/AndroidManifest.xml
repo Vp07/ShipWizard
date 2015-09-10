@@ -40,10 +40,6 @@
         <activity android:name=".LogIn.Forget_password" />
         <activity android:name=".SlideMenu.MainActivity" />
         <activity
-            android:name=".NewTransaction.Post_Transaction"
-            android:label="@string/title_activity_post__transaction" >
-        </activity>
-        <activity
             android:name=".SlideMenu.OtherActivity"
             android:label="Custom Activity"
             android:parentActivityName=".NewTransaction.Post_Transaction" >
@@ -51,12 +47,16 @@
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value=".NewTransaction.Post_Transaction" />
+            android:value=".NewTransaction.View_Transaction" />
 
-        <activity android:name=".NewTransaction.NewTrans_Option" />
         <activity
             android:name=".NewTransaction.View_Transaction"
             android:label="@string/title_activity_view__transaction" >
+        </activity>
+        <activity
+            android:name=".NewTransaction.Post_Transaction"
+            android:label="@string/title_activity_post__transaction"
+            android:parentActivityName=".NewTransaction.View_Transaction">
         </activity>
     </application>
 

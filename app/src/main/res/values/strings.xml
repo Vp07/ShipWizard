@@ -116,12 +116,13 @@
     <string name="navigation_drawer_closed">The navigation drawer is closed</string>
     <string name="tag_nav_drawer_main_entry">nav_drawer_main_entry</string>
     <string name="tag_nav_drawer_special_entry">nav_drawer_special_entry</string>
-    <string name="tools_text_account_information_username">Sotti</string>
-    <string name="tools_text_account_information_email">sotti@sottocorp.com</string>
+    <string name="ads_mess"> ADS MANAGER </string>
+    <string name="divide_search"> ADS SEARCH </string>
+    <string name="divide_setting"> APPS SETTING </string>
 
     <!-- Typeface names -->
     <string name="typeface_roboto_regular">Roboto-Regular</string>
     <string name="typeface_roboto_medium">Roboto-Medium</string>
-    <string name="title_activity_view__transaction">Transactions</string>
+    <string name="title_activity_view__transaction">Home</string>
 
 </resources>

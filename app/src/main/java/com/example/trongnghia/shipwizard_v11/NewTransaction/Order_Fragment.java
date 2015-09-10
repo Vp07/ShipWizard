@@ -118,7 +118,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 Order_post.put("Price", price.getText().toString());
                 Order_post.saveInBackground();
                 Toast.makeText(getActivity(),post_message,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), NewTrans_Option.class);
+                Intent intent = new Intent(getActivity(), View_Transaction.class);
                 startActivity(intent);
                 break;
         }

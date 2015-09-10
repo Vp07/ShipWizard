@@ -80,10 +80,8 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
 
         current_user = ParseUser.getCurrentUser();
         userID = current_user.getObjectId();
-
         return shipView;
     }
-
 
     @Override
     public void onClick(View v) {
@@ -94,7 +92,6 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                 List<String> items = new ArrayList<String>();
                 items.add("Capture a photo!");
                 items.add("Pick photo from galery!");
-
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items );
                 Capture_or_pick = (ListView) dialog_image.findViewById(R.id.capture_or_pick);
@@ -114,13 +111,10 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                             openGallery();
                             dialog_image.onBackPressed();
                         }
-
                     }
                 });
 
-
                 //dialog_image.
-
                 dialog_image.show();
                 break;
 
@@ -154,7 +148,7 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                 Ship_post.put("Ship_Price", ship_price.getText().toString());
                 Ship_post.saveInBackground();
                 Toast.makeText(getActivity(), post_message, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), NewTrans_Option.class);
+                Intent intent = new Intent(getActivity(), View_Transaction.class);
                 startActivity(intent);
                 break;
         }
@@ -202,9 +196,6 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
             options.inJustDecodeBounds = false;
             bm = BitmapFactory.decodeFile(selectedImagePath, options);
             imageView.setImageBitmap(bm);
-
-
-
         }
         if (requestCode == REQUEST_CAMERA && resultCode == getActivity().RESULT_OK) {
             openGallery();

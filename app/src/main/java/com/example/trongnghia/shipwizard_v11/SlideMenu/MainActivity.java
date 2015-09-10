@@ -15,7 +15,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.trongnghia.shipwizard_v11.NewTransaction.Order_Fragment;
 import com.example.trongnghia.shipwizard_v11.NewTransaction.PagerAdapter;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.example.trongnghia.shipwizard_v11.R;
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNavDrawerEntriesRootView = (LinearLayout)findViewById(R.id.navigation_drawer_linearLayout_entries_root_view);
 
         mFrameLayout_Home = (FrameLayout) findViewById(R.id.navigation_drawer_items_list_linearLayout_home);
-        mFrameLayout_Explore = (FrameLayout) findViewById(R.id.navigation_drawer_items_list_linearLayout_explore);
+        mFrameLayout_Explore = (FrameLayout) findViewById(R.id.navigation_drawer_items_list_linearLayout_PostAds);
         mFrameLayout_HelpAndFeedback = (FrameLayout) findViewById(R.id.navigation_drawer_items_list_linearLayout_help_and_feedback);
         mFrameLayout_About = (FrameLayout) findViewById(R.id.navigation_drawer_items_list_linearLayout_about);
 
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTextView_AccountEmail.setText(UserInfo.email);
 
         mTextView_Home = (TextView) findViewById(R.id.navigation_drawer_items_textView_home);
-        mTextView_Explore = (TextView) findViewById(R.id.navigation_drawer_items_textView_explore);
+        mTextView_Explore = (TextView) findViewById(R.id.navigation_drawer_items_textView_PostAds);
         mTextView_HelpAndFeedback = (TextView) findViewById(R.id.navigation_drawer_items_textView_help_and_feedback);
         mTextView_About = (TextView) findViewById(R.id.navigation_drawer_items_textView_about);
 
@@ -224,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     }
 
-                    case R.id.navigation_drawer_items_list_linearLayout_explore:
+                    case R.id.navigation_drawer_items_list_linearLayout_PostAds:
                     {
                         mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
                        // mActionBarDrawerToggle.set
@@ -263,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else
             {
-                mDrawerLayout.closeDrawer(Gravity.START);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
             }
         }
     }
@@ -297,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-        mDrawerLayout.closeDrawer(Gravity.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void display_info(){
