@@ -154,7 +154,7 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                 Ship_post.put("Ship_Price", ship_price.getText().toString());
                 Ship_post.saveInBackground();
                 Toast.makeText(getActivity(), post_message, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), NewTrans_Option.class);
+                Intent intent = new Intent(getActivity(), View_Transaction.class);
                 startActivity(intent);
                 break;
         }
