@@ -3,15 +3,22 @@ package com.example.trongnghia.shipwizard_v11.NewTransaction;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
@@ -22,6 +29,10 @@ import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +54,16 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     TextView Pre_carrier_place;
     TextView Pre_item;
     TextView Pre_price;
+
+    ImageView pre_order_image;
+    Bitmap bm;
+
+    ListView Capture_or_pick;
+    private static final int PICK_IMAGE = 100;
+    private static final int REQUEST_CAMERA = 1;
+    Uri imageUri;
+    ImageView imageView;
+    String mCurrentPhotoPath;
 
 
     String post_message = "Your message has been successfully posted on the DashBoard";
@@ -73,6 +94,39 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.bUpload_Image:
                 //Toast.makeText(getActivity(), UserInfo.username,Toast.LENGTH_SHORT).show();
+                final Dialog dialog_image = new Dialog(getActivity());
+                dialog_image.setContentView(R.layout.fragment_transaction_image_list);
+                List<String> items = new ArrayList<String>();
+                items.add("Capture a photo!");
+                items.add("Pick photo from galery!");
+
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items );
+                Capture_or_pick = (ListView) dialog_image.findViewById(R.id.capture_or_pick);
+                Capture_or_pick.setAdapter(adapter);
+                Capture_or_pick.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        //use POSITION to get item clicked
+                        if (position == 0) {
+                            //Toast.makeText(getActivity(), "Capture photo",Toast.LENGTH_SHORT).show();
+                            TakePicture();
+                            dialog_image.onBackPressed();
+                        }
+                        if (position == 1) {
+                            //Toast.makeText(getActivity(), "Pick photo form gallery",Toast.LENGTH_SHORT).show();
+                            openGallery();
+                            dialog_image.onBackPressed();
+                        }
+
+                    }
+                });
+
+
+                //dialog_image.
+
+                dialog_image.show();
                 break;
 
             // Preview a post
@@ -96,6 +150,9 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 Pre_carrier_place.setText(carrier_place.getText().toString());
                 Pre_item.setText(item.getText().toString());
                 Pre_price.setText(price.getText().toString());
+
+                pre_order_image = (ImageView) dialog.findViewById(R.id.pre_order_image);
+                pre_order_image.setImageBitmap(bm);
 
                 //set up button
                 Button button = (Button) dialog.findViewById(R.id.Button01);
@@ -121,6 +178,43 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), View_Transaction.class);
                 startActivity(intent);
                 break;
+        }
+    }
+    private void TakePicture() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
+    private void openGallery() {
+        Intent gallery =
+                new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        gallery.setType("image/*");
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        imageView = (ImageView)getActivity().findViewById(R.id.Order_imageView);
+
+        if (resultCode == getActivity().RESULT_OK && requestCode == PICK_IMAGE) {
+            Uri selectedImageUri = data.getData();
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImageUri);
+                Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bm, 500, 500);
+                imageView.setImageBitmap(bm_for_show);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // imageView.setImageBitmap(bm);
+
+
+
+        }
+        if (requestCode == REQUEST_CAMERA && resultCode == getActivity().RESULT_OK) {
+            openGallery();
         }
     }
 }

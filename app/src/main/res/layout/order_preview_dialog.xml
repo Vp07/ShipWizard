@@ -1,132 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:text="You Order Information"
+        android:textAlignment="gravity"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp" />
 
     <ScrollView
         android:id="@+id/ScrollView01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_weight="8.05"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="53dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/Button01">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:textAlignment="center"
-            android:weightSum="1">
+            android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="326dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="You Order Information"
-                android:layout_weight="0.58"
-                android:textAlignment="gravity"
-                android:gravity="center_vertical|center_horizontal" />
-        </LinearLayout>
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/current_place_info"
+                android:id="@+id/textView2"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/etPre_current_place"
+                android:layout_below="@+id/textView2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/order_place_info"
+                android:id="@+id/textView4"
+                android:layout_below="@+id/etPre_current_place"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/etPre_order_place"
+                android:layout_below="@+id/textView4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/order_item_info"
+                android:id="@+id/textView6"
+                android:layout_below="@+id/etPre_order_place"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/etPre_order_item"
+                android:layout_below="@+id/textView6"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/order_price_info"
+                android:id="@+id/textView8"
+                android:layout_below="@+id/etPre_order_item"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/etPre_order_price"
+                android:layout_below="@+id/textView8"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff" />
+
+            <ImageView
+                android:layout_width="500dp"
+                android:layout_height="200dp"
+                android:id="@+id/pre_order_image"
+
+                android:layout_below="@+id/etPre_order_price"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
-        <Button
-            android:id="@+id/Button01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:text="Close" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/current_place_info"
-            android:id="@+id/textView2"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/etPre_current_place"
-            android:layout_below="@+id/textView2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#0000ff" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/order_place_info"
-            android:id="@+id/textView4"
-            android:layout_below="@+id/etPre_current_place"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/etPre_order_place"
-            android:layout_below="@+id/textView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#0000ff" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/order_item_info"
-            android:id="@+id/textView6"
-            android:layout_below="@+id/etPre_order_place"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/etPre_order_item"
-            android:layout_below="@+id/textView6"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#0000ff" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/order_price_info"
-            android:id="@+id/textView8"
-            android:layout_below="@+id/etPre_order_item"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/etPre_order_price"
-            android:layout_below="@+id/textView8"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#0000ff" />
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

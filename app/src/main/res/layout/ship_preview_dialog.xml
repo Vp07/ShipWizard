@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -132,22 +132,25 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
+        <Button
+            android:id="@+id/Button01"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Close"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/textView14"
+            android:layout_alignEnd="@+id/textView14" />
+
+        <ImageView
+            android:layout_width="346dp"
+            android:layout_height="match_parent"
+            android:id="@+id/pre_ship_image"
+            android:layout_below="@+id/etPre_ship_text5"
+            android:layout_above="@+id/Button01"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
-
-    <ImageView
-        android:layout_width="346dp"
-        android:layout_height="match_parent"
-        android:id="@+id/pre_ship_image"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Close"
-        android:layout_below="@+id/pre_ship_image"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
