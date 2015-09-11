@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -183,8 +184,14 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
 
         if (resultCode == getActivity().RESULT_OK && requestCode == PICK_IMAGE) {
             Uri selectedImageUri = data.getData();
-
-           // imageView.setImageBitmap(bm);
+            try {
+                Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImageUri);
+                Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bm,500,500);
+                imageView.setImageBitmap(bm_for_show);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // imageView.setImageBitmap(bm);
 
 
 
