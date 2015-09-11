@@ -212,8 +212,8 @@
 
                 <!--Search -->
                 <FrameLayout
-                android:id="@+id/navigation_drawer_items_list_linearLayout_Search"
-                style="@style/NavDrawerRowLayout.Main" >
+                    android:id="@+id/navigation_drawer_items_list_linearLayout_Search"
+                    style="@style/NavDrawerRowLayout.Main" >
 
                     <com.example.trongnghia.shipwizard_v11.SlideMenu.TintOnStateImageView
                         android:id="@+id/navigation_drawer_items_list_icon_Search"

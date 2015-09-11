@@ -33,16 +33,6 @@ import com.parse.ParseUser;
 public class Post_Transaction extends AppCompatActivity implements View.OnClickListener{
     private final static double sNAVIGATION_DRAWER_ACCOUNT_SECTION_ASPECT_RATIO = 9d/16d;
 
-    private DrawerLayout mDrawerLayout;
-    private FrameLayout mFrameLayout_AccountView;
-    private LinearLayout mNavDrawerEntriesRootView;
-    private ActionBarDrawerToggle mActionBarDrawerToggle;
-    private ScrimInsetsFrameLayout mScrimInsetsFrameLayout;
-    private FrameLayout mFrameLayout_Home, mFrameLayout_Explore, mFrameLayout_HelpAndFeedback,
-            mFrameLayout_About;
-    private TextView mTextView_AccountDisplayName, mTextView_AccountEmail;
-    private TextView mTextView_Home, mTextView_Explore, mTextView_HelpAndFeedback, mTextView_About;
-
     // Get user name and email of current user from Parse
 
     @Override

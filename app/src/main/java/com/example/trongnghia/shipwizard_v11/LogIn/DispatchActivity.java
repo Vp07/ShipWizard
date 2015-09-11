@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.trongnghia.shipwizard_v11.NewTransaction.View_Transaction;
+import com.example.trongnghia.shipwizard_v11.SlideMenu.MainActivity;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.ParseUser;
 

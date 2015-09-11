@@ -72,17 +72,17 @@
             android:layout_height="118dp"
             android:layout_weight="0.10">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Ship_imageView" />
+
             <Button
                 android:id="@+id/bShip_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Upload Image"
                 android:layout_marginBottom="10dp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Ship_imageView" />
 
         </LinearLayout>
 
@@ -106,4 +106,4 @@
         </LinearLayout>
 
     </LinearLayout>
-    </ScrollView>
+</ScrollView>

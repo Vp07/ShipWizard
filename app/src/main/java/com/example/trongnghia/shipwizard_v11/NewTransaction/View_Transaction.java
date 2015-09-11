@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +18,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.trongnghia.shipwizard_v11.R;
+import com.example.trongnghia.shipwizard_v11.SlideMenu.ColorFragment;
+import com.example.trongnghia.shipwizard_v11.SlideMenu.Fragment_order_tabs;
+import com.example.trongnghia.shipwizard_v11.SlideMenu.MainActivity;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.ManagerTypeface;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.OtherActivity;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.ScrimInsetsFrameLayout;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.UtilsDevice;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.UtilsMiscellaneous;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Search;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Test_fragment;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 
 public class View_Transaction extends AppCompatActivity implements View.OnClickListener {
@@ -55,12 +61,10 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view__transaction_activity);
+        //setContentView(R.layout.test_fragment);
 
         // Set up for navigation window
         initialise();
-
-        // Set up for transaction tabs
-        tab_initialise();
     }
 
     /**
@@ -199,43 +203,12 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setTitle("Home");
 
         // Create the first fragment to be shown
-//        Bundle bundle = new Bundle();
-//        bundle.putInt(ColorFragment.sARGUMENT_COLOR, R.color.blue_500);
-//
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.main_activity_content_frame, ColorFragment.newInstance(bundle))
-//                .commit();
+       getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_activity_content_frame, Test_fragment.newInstance())
+                .commit();
     }
 
-    // Set up for transaction tabs
-    private void tab_initialise() {
-        // Order and Ship tabs setting
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Order"));
-        tabLayout.addTab(tabLayout.newTab().setText("Ship"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        //final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        final PageAdapter_View adapter = new PageAdapter_View(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-    }
 
     @Override
     public void onClick(View view)
@@ -269,10 +242,25 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                         break;
                     }
 
-                    // Slide Menu - Ads History
+                    // Slide Menu - Ads History -> Fragment
                     case R.id.navigation_drawer_items_list_linearLayout_AdsHistory:
                     {
+                        if (getSupportActionBar() != null)
+                        {
+                            getSupportActionBar().setTitle("Ads History");
 
+                        }
+
+                        view.setSelected(true);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(ColorFragment.sARGUMENT_COLOR, R.color.amber_500);
+
+                        // Insert the fragment by replacing any existing fragment
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main_activity_content_frame, ColorFragment.newInstance(bundle))
+                                .commit();
+                        break;
                     }
 
                     // Slide Menu - Favorite Ads
@@ -287,13 +275,24 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
 
                     }
 
-                    // Slide Menu - Search
+                    // Slide Menu - Search -> Fragment
                     case R.id.navigation_drawer_items_list_linearLayout_Search:
                     {
+                        // Set Fragment title
+                        if (getSupportActionBar() != null)
+                        {
+                            getSupportActionBar().setTitle("Search");
+                        }
+                        view.setSelected(true);
 
+                        // Insert the fragment by replacing any existing fragment
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main_activity_content_frame, Slidemenu_Search.newInstance())
+                                .commit();
                     }
 
-                    // Slide Menu - Recent Search
+                    // Slide Menu - Recent Search -> Fragment
                     case R.id.navigation_drawer_items_list_linearLayout_Recent_Search:
                     {
 
@@ -313,14 +312,12 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
 
                     // Slide menu - Help and Feedback
                     case R.id.navigation_drawer_items_list_linearLayout_help_and_feedback:
-                        // Start intent to send an email
-                        startActivity(new Intent(view.getContext(), OtherActivity.class));
+
                         break;
 
                     // Slide Menu - About
                     case R.id.navigation_drawer_items_list_linearLayout_about:
-                        // Show about activity
-                        startActivity(new Intent(view.getContext(), OtherActivity.class));
+
                         break;
 
                     // Slide Menu - Log out
