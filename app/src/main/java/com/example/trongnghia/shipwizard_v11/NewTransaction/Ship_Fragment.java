@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trongnghia.shipwizard_v11.R;
@@ -44,6 +46,15 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
     EditText ship_item;
     EditText ship_price;
     EditText ship_time;
+
+    TextView Pre_shipper_place;
+    TextView Pre_destination_place;
+    TextView Pre_item;
+    TextView Pre_price;
+    TextView Pre_time;
+
+    ImageView pre_ship_image;
+    Bitmap bm;
 
     Button ship_upload_image;
     Button ship_preview;
@@ -69,6 +80,7 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
         carrier_place = (EditText)shipView.findViewById(R.id.etShip_place);
         ship_item = (EditText)shipView.findViewById(R.id.etShip_item);
         ship_price = (EditText)shipView.findViewById(R.id.etShip_price);
+        ship_time = (EditText) shipView.findViewById(R.id.etShip_time);
 
         ship_upload_image = (Button)shipView.findViewById(R.id.bShip_upload);
         ship_preview = (Button)shipView.findViewById(R.id.bShip_preview);
@@ -133,6 +145,22 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                 dialog.setTitle("Preview this Message");
                 dialog.setCancelable(true);
                 dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                //set up preview
+                Pre_shipper_place = (TextView) dialog.findViewById(R.id.etPre_ship_text1);
+                Pre_destination_place = (TextView) dialog.findViewById(R.id.etPre_ship_text2);
+                Pre_item = (TextView) dialog.findViewById(R.id.etPre_ship_text3);
+                Pre_price =(TextView) dialog.findViewById(R.id.etPre_ship_text4);
+                Pre_time = (TextView) dialog.findViewById(R.id.etPre_ship_text5);
+                pre_ship_image = (ImageView) dialog.findViewById(R.id.pre_ship_image);
+
+
+                Pre_shipper_place.setText(order_place.getText().toString());
+                Pre_destination_place.setText(carrier_place.getText().toString());
+                Pre_item.setText(ship_item.getText().toString());
+                Pre_price.setText(ship_price.getText().toString());
+                Pre_time.setText(ship_time.getText().toString());
+                pre_ship_image.setImageBitmap(bm);
+                //end set up preview
                 //set up button
                 Button button = (Button)dialog.findViewById(R.id.Button01);
                 button.setOnClickListener(new View.OnClickListener(){
@@ -183,25 +211,14 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
 
         if (resultCode == getActivity().RESULT_OK && requestCode == PICK_IMAGE) {
             Uri selectedImageUri = data.getData();
-            String[] projection = { MediaStore.MediaColumns.DATA };
-            Cursor cursor = getActivity().managedQuery(selectedImageUri, projection, null, null,
-                    null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-            cursor.moveToFirst();
-            String selectedImagePath = cursor.getString(column_index);
-            Bitmap bm;
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(selectedImagePath, options);
-            final int REQUIRED_SIZE = 200;
-            int scale = 1;
-            while (options.outWidth / scale / 2 >= REQUIRED_SIZE
-                    && options.outHeight / scale / 2 >= REQUIRED_SIZE)
-                scale *= 2;
-            options.inSampleSize = scale;
-            options.inJustDecodeBounds = false;
-            bm = BitmapFactory.decodeFile(selectedImagePath, options);
-            imageView.setImageBitmap(bm);
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImageUri);
+                Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bm,500,500);
+                imageView.setImageBitmap(bm_for_show);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // imageView.setImageBitmap(bm);
 
 
 
