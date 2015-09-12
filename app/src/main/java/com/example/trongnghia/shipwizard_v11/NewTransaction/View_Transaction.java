@@ -1,11 +1,13 @@
 package com.example.trongnghia.shipwizard_v11.NewTransaction;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +18,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.ColorFragment;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.Fragment_order_tabs;
@@ -26,9 +30,18 @@ import com.example.trongnghia.shipwizard_v11.SlideMenu.OtherActivity;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.ScrimInsetsFrameLayout;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.UtilsDevice;
 import com.example.trongnghia.shipwizard_v11.SlideMenu.UtilsMiscellaneous;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_About;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Favorite_Ads;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Feedback;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Message;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Recent_Search;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Saved_Search;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Search;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Setting;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Test_fragment;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
+import com.parse.ParseUser;
 
 public class View_Transaction extends AppCompatActivity implements View.OnClickListener {
 
@@ -205,10 +218,9 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
         // Create the first fragment to be shown
        getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_activity_content_frame, Test_fragment.newInstance())
+                .add(R.id.main_activity_content_frame, Post_Tabs_Fragment.newInstance())
                 .commit();
     }
-
 
     @Override
     public void onClick(View view)
@@ -236,8 +248,6 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                     // Slide Menu - Post an Ads
                     case R.id.navigation_drawer_items_list_linearLayout_PostAds:
                     {
-                        //mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                        mFrameLayout_Post.setSelected(false);
                         startActivity(new Intent(this, Post_Transaction.class));
                         break;
                     }
@@ -250,15 +260,11 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                             getSupportActionBar().setTitle("Ads History");
 
                         }
-
                         view.setSelected(true);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt(ColorFragment.sARGUMENT_COLOR, R.color.amber_500);
-
                         // Insert the fragment by replacing any existing fragment
                         getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.main_activity_content_frame, ColorFragment.newInstance(bundle))
+                                .replace(R.id.main_activity_content_frame, Slidemenu_Ads_History.newInstance())
                                 .commit();
                         break;
                     }
@@ -266,13 +272,35 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                     // Slide Menu - Favorite Ads
                     case R.id.navigation_drawer_items_list_linearLayout_AdsFavorite:
                     {
+                        if (getSupportActionBar() != null)
+                        {
+                            getSupportActionBar().setTitle("Favorite Ads");
 
+                        }
+                        view.setSelected(true);
+                        // Insert the fragment by replacing any existing fragment
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main_activity_content_frame, Slidemenu_Favorite_Ads.newInstance())
+                                .commit();
+                        break;
                     }
 
                     // Slide Menu - History Messages
                     case R.id.navigation_drawer_items_list_linearLayout_AdsMessage:
                     {
+                        if (getSupportActionBar() != null)
+                        {
+                            getSupportActionBar().setTitle("Message");
 
+                        }
+                        view.setSelected(true);
+                        // Insert the fragment by replacing any existing fragment
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main_activity_content_frame, Slidemenu_Message.newInstance())
+                                .commit();
+                        break;
                     }
 
                     // Slide Menu - Search -> Fragment
@@ -290,39 +318,82 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                                 .beginTransaction()
                                 .replace(R.id.main_activity_content_frame, Slidemenu_Search.newInstance())
                                 .commit();
+                        break;
                     }
 
                     // Slide Menu - Recent Search -> Fragment
                     case R.id.navigation_drawer_items_list_linearLayout_Recent_Search:
                     {
+                        // Set Fragment title
+                        if (getSupportActionBar() != null)
+                        {
+                            getSupportActionBar().setTitle("Recent Search");
+                        }
+                        view.setSelected(true);
 
+                        // Insert the fragment by replacing any existing fragment
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main_activity_content_frame, Slidemenu_Recent_Search.newInstance())
+                                .commit();
+                        break;
                     }
 
                     // Slide Menu - Saved Search
                     case R.id.navigation_drawer_items_list_linearLayout_Save_Search:
                     {
-
+                        // Set Fragment title
+                        if (getSupportActionBar() != null)
+                        {
+                            getSupportActionBar().setTitle("Saved Search");
+                        }
+                        view.setSelected(true);
+                        // Insert the fragment by replacing any existing fragment
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main_activity_content_frame, Slidemenu_Saved_Search.newInstance())
+                                .commit();
+                        break;
                     }
 
                     // Slide Menu - Settings
                     case R.id.navigation_drawer_items_list_linearLayout_setting:
                     {
-
+                        startActivity(new Intent(this, Slidemenu_Setting.class));
+                        break;
                     }
 
                     // Slide menu - Help and Feedback
                     case R.id.navigation_drawer_items_list_linearLayout_help_and_feedback:
-
+                    {
+                        startActivity(new Intent(this, Slidemenu_Feedback.class));
                         break;
+                    }
 
                     // Slide Menu - About
                     case R.id.navigation_drawer_items_list_linearLayout_about:
-
+                    {
+                        startActivity(new Intent(this, Slidemenu_About.class));
                         break;
+                    }
 
                     // Slide Menu - Log out
                     case R.id.navigation_drawer_items_list_linearLayout_logout:
+                    {
+                        new AlertDialog.Builder(this)
+                                .setTitle("Log Out")
+                                .setMessage("Log Out now?")
+                                .setCancelable(false)
+                                .setPositiveButton("LOG OUT", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        ParseUser.getCurrentUser().logOut();
+                                        startActivity(new Intent(View_Transaction.this, DispatchActivity.class));
+                                    }
+                                })
+                                .setNegativeButton("CANCEL", null)
+                                .show();
                         break;
+                    }
 
                     default:
                         break;
@@ -334,7 +405,6 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
             }
         }
     }
-
     /**
      * Set up the rows when any is pressed
      *
@@ -364,9 +434,5 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
             }
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
-    }
-
-    private void display_info(){
-
     }
 }

@@ -10,11 +10,12 @@ import android.view.ViewGroup;
 
 import com.example.trongnghia.shipwizard_v11.R;
 
-public class Slidemenu_Search extends Fragment {
+
+public class Slidemenu_Favorite_Ads extends Fragment {
 
     // TODO: Rename and change types and number of parameters
-    public static Slidemenu_Search newInstance() {
-        Slidemenu_Search fragment = new Slidemenu_Search();
+    public static Slidemenu_Favorite_Ads newInstance() {
+        Slidemenu_Favorite_Ads fragment = new Slidemenu_Favorite_Ads();
         return fragment;
     }
 
@@ -22,7 +23,7 @@ public class Slidemenu_Search extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.slidemenu_search_fragment, container, false);
+        View view = inflater.inflate(R.layout.slidemenu_favorite_ads_fragment, container, false);
         return view;
     }
 }

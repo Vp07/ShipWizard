@@ -5,8 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -47,7 +48,7 @@
         <activity
             android:name=".SlideMenu.OtherActivity"
             android:label="Custom Activity"
-            android:parentActivityName=".NewTransaction.Post_Transaction" >
+            android:parentActivityName=".NewTransaction.View_Transaction" >
         </activity>
 
         <meta-data
@@ -61,7 +62,22 @@
         <activity
             android:name=".NewTransaction.Post_Transaction"
             android:label="@string/title_activity_post__transaction"
+            android:parentActivityName=".NewTransaction.View_Transaction" >
+        </activity>
+        <activity
+            android:name=".Slidemenu_Items.Slidemenu_About"
+            android:label="@string/title_activity_slidemenu__about"
+            android:parentActivityName=".NewTransaction.View_Transaction" >
+        </activity>
+        <activity
+            android:name=".Slidemenu_Items.Slidemenu_Setting"
+            android:label="@string/title_activity_slidemenu__setting"
             android:parentActivityName=".NewTransaction.View_Transaction">
+        </activity>
+        <activity
+            android:name=".Slidemenu_Items.Slidemenu_Feedback"
+            android:label="@string/title_activity_slidemenu__feedback"
+            android:parentActivityName=".NewTransaction.View_Transaction" >
         </activity>
     </application>
 
