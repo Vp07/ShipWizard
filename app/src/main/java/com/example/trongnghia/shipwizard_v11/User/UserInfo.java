@@ -19,4 +19,6 @@ public class UserInfo {
         this.username = user.getUsername();
         this.email = user.getEmail();
     }
+
+
 }
