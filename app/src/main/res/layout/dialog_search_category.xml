@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/text_black_divider_12"
+        android:layout_marginTop="5dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <RadioButton
+            android:id="@+id/rbAll"
+            android:foreground="?android:selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:layout_marginBottom="10dp" />
+
+        <RadioButton
+            android:id="@+id/rbFashion"
+            android:foreground="?android:selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fashion"
+            android:layout_marginBottom="10dp" />
+
+        <RadioButton
+            android:id="@+id/rbPhone"
+            android:foreground="?android:selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:layout_marginBottom="10dp"/>
+
+        <RadioButton
+            android:id="@+id/rbOther"
+            android:foreground="?android:selectableItemBackground"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Other" />
+    </RadioGroup>
+</LinearLayout>
