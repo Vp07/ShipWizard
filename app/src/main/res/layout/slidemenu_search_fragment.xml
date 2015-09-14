@@ -4,15 +4,333 @@
     android:layout_height="match_parent"
     tools:context="com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Search">
 
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:paddingLeft="20dp"
+        android:paddingRight="3dp"
+        android:paddingTop="20dp">
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Order or Ship"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Order or Ship -->
+            <FrameLayout
+                android:id="@+id/flAds_Type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:layout_marginBottom="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ads Type"
+                        android:textSize="@dimen/search_small_text"/>
+                    <TextView
+                        android:id="@+id/tvAds_Type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Order"
+                        android:textSize="@dimen/search_big_text"
+                        android:textColor="@color/text_black_text_87"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Buyer Location -->
+            <FrameLayout
+                android:id="@+id/flBuyer_Location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingTop="13dp"
+                android:layout_marginBottom="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Buyer Location"
+                        android:textSize="@dimen/search_small_text"/>
+                    <TextView
+                        android:id="@+id/tvBuyer_Location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ho Chi Minh"
+                        android:textSize="@dimen/search_big_text"
+                        android:textColor="@color/text_black_text_87"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Carrier Location -->
+            <FrameLayout
+                android:id="@+id/flCarrier_Location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingTop="13dp"
+                android:layout_marginBottom="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Carrier Location"
+                        android:textSize="@dimen/search_small_text"/>
+                    <TextView
+                        android:id="@+id/tvCarrier_Location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Seoul"
+                        android:textSize="@dimen/search_big_text"
+                        android:textColor="@color/text_black_text_87"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Category -->
+            <FrameLayout
+                android:id="@+id/flCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingTop="13dp"
+                android:layout_marginBottom="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        android:textSize="@dimen/search_small_text"/>
+                    <TextView
+                        android:id="@+id/tvCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fashion / Shoes"
+                        android:textSize="@dimen/search_big_text"
+                        android:textColor="@color/text_black_text_87"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Advanced Options"
+                android:textSize="@dimen/search_big_big_text"
+                android:textColor="@color/text_black_text_87"
+                android:layout_marginBottom="2dp"/>
+
+            <!-- Price Type -->
+            <FrameLayout
+                android:id="@+id/flPrice_Type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingTop="13dp"
+                android:layout_marginBottom="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Price Type"
+                        android:textSize="@dimen/search_small_text"/>
+                    <TextView
+                        android:id="@+id/tvPrice_Type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Any"
+                        android:textSize="@dimen/search_big_text"
+                        android:textColor="@color/text_black_text_87"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Price Range -->
+            <FrameLayout
+                android:id="@+id/flPrice_Range"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingTop="13dp"
+                android:layout_marginBottom="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Price Range"
+                        android:textSize="@dimen/search_small_text"/>
+                    <TextView
+                        android:id="@+id/tvPrice_Range"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Any"
+                        android:textSize="@dimen/search_big_text"
+                        android:textColor="@color/text_black_text_87"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Sort by -->
+            <FrameLayout
+                android:id="@+id/flSort_By"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingTop="13dp"
+                android:layout_marginBottom="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sort By"
+                        android:textSize="@dimen/search_small_text"/>
+                    <TextView
+                        android:id="@+id/tvSort_By"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Most Recent"
+                        android:textSize="@dimen/search_big_text"
+                        android:textColor="@color/text_black_text_87"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Condition -->
+            <FrameLayout
+                android:id="@+id/flCondition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingTop="13dp"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Condition"
+                        android:textSize="@dimen/search_small_text"/>
+                    <TextView
+                        android:id="@+id/tvCondition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New"
+                        android:textSize="@dimen/search_big_text"
+                        android:textColor="@color/text_black_text_87"
+                        android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12"
+                        android:layout_marginRight="20dp"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_weight="0.15">
+
+                <Button
+                    android:id="@+id/bReSet_Search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset"
+                    android:background="@android:color/transparent"
+                    android:textSize="@dimen/search_big_big_text"
+                    android:layout_marginRight="30dp"/>
+
+                <Button
+                    android:id="@+id/bSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Search"
+                    android:background="@android:color/transparent"
+                    android:textSize="@dimen/search_big_big_text"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
+
+
