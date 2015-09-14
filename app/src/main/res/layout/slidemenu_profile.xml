@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#405eff">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="141dp"
+                    android:layout_height="146dp"
+                    android:id="@+id/slidemenu_profile_image"
+                    android:src="@drawable/ic_account_circle_white_64dp"
+                    android:layout_gravity="center" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/framelayout_change_avatar"
+                    android:clickable="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Change your avatar"
+                        android:id="@+id/slidemenu_profile_changeAvatar"
+                        android:gravity="center_vertical|center_horizontal" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="171dp"
+                    android:layout_height="53dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Text"
+                    android:id="@+id/slidemenu_profile_name"
+                    android:gravity="center_vertical|left" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/framelayout_change_name"
+                    android:clickable="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Change your name"
+                        android:id="@+id/slidemenu_profile_changeName"
+                        android:gravity="center_vertical|left" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:layout_width="169dp"
+                    android:layout_height="53dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Text"
+                    android:id="@+id/slidemenu_profile_password"
+                    android:gravity="center_vertical|left" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/framelayout_change_password"
+                    android:clickable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Chang your password"
+                        android:id="@+id/slidemenu_profile_changePassword"
+                        android:gravity="center_vertical|left" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:layout_width="167dp"
+                    android:layout_height="53dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Text"
+                    android:id="@+id/slidemenu_profile_email"
+                    android:gravity="center_vertical|left" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/framelayout_change_email"
+                    android:clickable="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Change your email"
+                        android:id="@+id/slidemenu_profile_changeEmail"
+                        android:gravity="center_vertical|left" />
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>
