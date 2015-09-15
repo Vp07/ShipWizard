@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +18,8 @@ import com.example.trongnghia.shipwizard_v11.R;
 /**
  * Created by HIEP on 9/15/2015.
  */
-public class Slidemenu_Profile extends Fragment {
-    private de.hdodenhof.circleimageview.CircleImageView profile_image_view;
+public class Slidemenu_Profile extends Fragment implements View.OnClickListener{
+    public de.hdodenhof.circleimageview.CircleImageView profile_image_view;
     private TextView change_image_view;
     private TextView name_view;
     private TextView change_name_view;
@@ -29,7 +30,7 @@ public class Slidemenu_Profile extends Fragment {
 
     private FrameLayout FL_change_image;
     private FrameLayout FL_change_name;
-    private  FrameLayout FL_change_password;
+    private FrameLayout FL_change_password;
     private FrameLayout FL_change_email;
 
     // TODO: Rename and change types and number of parameters
@@ -44,25 +45,49 @@ public class Slidemenu_Profile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.slidemenu_profile, container, false);
         profile_image_view = (de.hdodenhof.circleimageview.CircleImageView) getActivity().findViewById(R.id.slidemenu_profile_image);
-        change_image_view = (TextView)getActivity().findViewById(R.id.slidemenu_profile_changeAvatar);
-        name_view = (TextView) getActivity().findViewById(R.id.slidemenu_profile_name);
-        change_name_view = (TextView) getActivity().findViewById(R.id.slidemenu_profile_changeName);
-        password_view = (TextView) getActivity().findViewById(R.id.slidemenu_profile_password);
-        change_password_view = (TextView)getActivity().findViewById(R.id.slidemenu_profile_changePassword);
-        email_view = (TextView) getActivity().findViewById(R.id.slidemenu_profile_email);
-        change_email_view = (TextView) getActivity().findViewById(R.id.slidemenu_profile_changeEmail);
 
-        FL_change_image = (FrameLayout) getActivity().findViewById(R.id.framelayout_change_avatar);
-        FL_change_name = (FrameLayout) getActivity().findViewById(R.id.framelayout_change_name);
-        FL_change_password = (FrameLayout) getActivity().findViewById(R.id.framelayout_change_password);
-        FL_change_email = (FrameLayout)getActivity(). findViewById(R.id.framelayout_change_email);
+        name_view = (TextView) view.findViewById(R.id.slidemenu_profile_name);
 
-        FL_change_image.setOnClickListener((View.OnClickListener) this);
-        FL_change_name.setOnClickListener((View.OnClickListener)this);
-        FL_change_password.setOnClickListener((View.OnClickListener)this);
-        FL_change_email.setOnClickListener((View.OnClickListener)this);
+        password_view = (TextView) view.findViewById(R.id.slidemenu_profile_password);
+
+        email_view = (TextView) view.findViewById(R.id.slidemenu_profile_email);
+
+
+
+
+        FL_change_image = (FrameLayout) view.findViewById(R.id.framelayout_change_avatar);
+        FL_change_name = (FrameLayout) view.findViewById(R.id.framelayout_change_name);
+        FL_change_password = (FrameLayout) view.findViewById(R.id.framelayout_change_password);
+        FL_change_email = (FrameLayout)view. findViewById(R.id.framelayout_change_email);
+
+        FL_change_image.setOnClickListener(this);
+        FL_change_name.setOnClickListener(this);
+        FL_change_password.setOnClickListener(this);
+        FL_change_email.setOnClickListener(this);
+
+
+
 
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+            switch(v.getId()){
+                case R.id.framelayout_change_avatar:
+                    Toast.makeText(getActivity(), "Change avatar", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.framelayout_change_name:
+                    Toast.makeText(getActivity(), "Change name", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.framelayout_change_password:
+                    Toast.makeText(getActivity(), "Change password", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.framelayout_change_email:
+                    Toast.makeText(getActivity(), "Change email", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
     }
 //    public void onClick(View view){
 //        switch (view.getId()) {
@@ -80,4 +105,5 @@ public class Slidemenu_Profile extends Fragment {
 //                break;
 //        }
 //    }
-}
+
+

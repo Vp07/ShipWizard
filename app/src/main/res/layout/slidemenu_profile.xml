@@ -15,28 +15,30 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#405eff">
+                android:background="#405eff"
+                android:weightSum="1">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="141dp"
                     android:layout_height="146dp"
                     android:id="@+id/slidemenu_profile_image"
                     android:src="@drawable/ic_account_circle_white_64dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:layout_weight="0.19" />
 
                 <FrameLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="203dp"
                     android:layout_height="match_parent"
                     android:id="@+id/framelayout_change_avatar"
                     android:clickable="true">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="Change your avatar"
-                        android:id="@+id/slidemenu_profile_changeAvatar"
-                        android:gravity="center_vertical|center_horizontal" />
+
+                        android:layout_gravity="center" />
                 </FrameLayout>
 
             </LinearLayout>
@@ -47,7 +49,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:layout_width="171dp"
+                    android:layout_width="200dp"
                     android:layout_height="53dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Text"
@@ -57,17 +59,17 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/framelayout_change_name"
-                    android:clickable="true">
+                    android:id="@+id/framelayout_change_name">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Change your name"
-                        android:id="@+id/slidemenu_profile_changeName"
-                        android:gravity="center_vertical|left" />
+                        android:text="Chang your name"
+                        android:id="@+id/textView5"
+                        android:layout_gravity="center" />
                 </FrameLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -76,7 +78,7 @@
                 android:layout_height="match_parent" >
 
                 <TextView
-                    android:layout_width="169dp"
+                    android:layout_width="200dp"
                     android:layout_height="53dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Text"
@@ -86,17 +88,17 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/framelayout_change_password"
-                    android:clickable="true">
+                    android:id="@+id/framelayout_change_password">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Chang your password"
-                        android:id="@+id/slidemenu_profile_changePassword"
-                        android:gravity="center_vertical|left" />
+                        android:text="Change your password"
+
+                        android:layout_gravity="center" />
                 </FrameLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -105,7 +107,7 @@
                 android:layout_height="match_parent" >
 
                 <TextView
-                    android:layout_width="167dp"
+                    android:layout_width="200dp"
                     android:layout_height="53dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Text"
@@ -115,18 +117,25 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/framelayout_change_email"
-                    android:clickable="true">
+                    android:id="@+id/framelayout_change_email">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="Change your email"
-                        android:id="@+id/slidemenu_profile_changeEmail"
-                        android:gravity="center_vertical|left" />
+
+                        android:layout_gravity="center" />
                 </FrameLayout>
+
             </LinearLayout>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/test_button" />
 
         </LinearLayout>
     </FrameLayout>
