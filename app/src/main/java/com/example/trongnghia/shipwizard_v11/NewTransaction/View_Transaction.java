@@ -2,6 +2,9 @@ package com.example.trongnghia.shipwizard_v11.NewTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -35,12 +38,16 @@ import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_Histo
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Favorite_Ads;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Feedback;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Message;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Profile;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Recent_Search;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Saved_Search;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Search;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Setting;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Test_fragment;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 public class View_Transaction extends AppCompatActivity implements View.OnClickListener {
@@ -65,6 +72,8 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
             mTextView_Setting, mTextView_HelpAndFeedback, mTextView_About, mTextView_Logout;
 
     private TextView divide_ads, divide_ads_search, divide_app_setting;
+
+    private de.hdodenhof.circleimageview.CircleImageView mCircleImageView_Avatar;
 ;
 
     // Get user name and email of current user from Parse
@@ -116,6 +125,29 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
         mTextView_AccountDisplayName.setText(UserInfo.username);
         mTextView_AccountEmail = (TextView) findViewById(R.id.navigation_drawer_account_information_email);
         mTextView_AccountEmail.setText(UserInfo.email);
+        mCircleImageView_Avatar = (de.hdodenhof.circleimageview.CircleImageView ) findViewById(R.id.navigation_drawer_user_account_picture_profile);
+
+        ParseFile avatar = DispatchActivity.current_user.getAvatar();
+
+        avatar.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+                if (e == null) {
+
+                    Bitmap bmp = BitmapFactory
+                            .decodeByteArray(data, 0, data.length);
+                    Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bmp, 500, 500);
+                    mCircleImageView_Avatar.setImageBitmap(bm_for_show);
+                }
+            }
+        });
+
+       // String tesst = UserInfo.avatar.getName();
+        //Toast.makeText(this," ParseFile = " + UserInfo.email, Toast.LENGTH_SHORT).show();
+
+
+
+
 
         mTextView_Home = (TextView) findViewById(R.id.navigation_drawer_items_textView_home);
         mTextView_Post = (TextView) findViewById(R.id.navigation_drawer_items_textView_PostAds);
@@ -209,6 +241,7 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
         mFrameLayout_About.setOnClickListener(this);
         mFrameLayout_Logout.setOnClickListener(this);
 
+
         // Set the first item as selected for the first time
 
         //getSupportActionBar().setTitle(R.string.toolbar_title_home);
@@ -229,6 +262,18 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
         {
             mDrawerLayout.closeDrawer(GravityCompat.START);
             // If the user is signed in, go to the profile, otherwise show sign up / sign in
+            if (getSupportActionBar() != null)
+            {
+                getSupportActionBar().setTitle("Profile");
+
+            }
+            view.setSelected(false);
+            // Insert the fragment by replacing any existing fragment
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_activity_content_frame, Slidemenu_Profile.newInstance())
+                    .commit();
+
         }
         else
         {
