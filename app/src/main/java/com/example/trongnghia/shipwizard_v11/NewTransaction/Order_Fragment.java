@@ -210,8 +210,6 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
             }
             // imageView.setImageBitmap(bm);
 
-
-
         }
         if (requestCode == REQUEST_CAMERA && resultCode == getActivity().RESULT_OK) {
             openGallery();

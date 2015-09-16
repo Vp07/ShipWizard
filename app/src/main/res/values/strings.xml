@@ -89,18 +89,14 @@
     <string name="drawer_open">Drawer Opened</string>
     <string name="drawer_close">Drawer Closed</string>
 
-    <string-array name="drawer_list">
-        <item>Item 1</item>
-        <item>Item 2</item>
-        <item>Item 3</item>
-        <item>Item 4</item>
-        <item>Item 5</item>
-        <item>Item 6</item>
-        <item>Item 7</item>
-        <item>Item 8</item>
-        <item>Item 9</item>
+    <string-array name="currency">
+        <item>VND</item>
+        <item>WON</item>
+        <item>USD</item>
+        <item>AUD</item>
+        <item>EURO</item>
+        <item>YEN</item>
     </string-array>
-
 
     <!-- Toolbar titles -->
     <string name="toolbar_title_home">Home</string>
@@ -127,5 +123,6 @@
     <string name="title_activity_slidemenu__about">About</string>
     <string name="title_activity_slidemenu__setting">Setting</string>
     <string name="title_activity_slidemenu__feedback">Feedback</string>
+    <string name="title_activity_slidemenu_search_result">Search Results</string>
 
 </resources>

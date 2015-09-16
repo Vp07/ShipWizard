@@ -309,14 +309,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_weight="0.15">
+                android:layout_weight="0.15"
+                android:layout_marginBottom="5dp">
 
                 <Button
-                    android:id="@+id/bReSet_Search"
+                    android:id="@+id/bSearch_Reset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reset"
-                    android:background="@android:color/transparent"
+                    android:text="RESET"
+                    style="?android:attr/borderlessButtonStyle"
                     android:textSize="@dimen/search_big_big_text"
                     android:layout_marginRight="30dp"/>
 
@@ -324,8 +325,8 @@
                     android:id="@+id/bSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Search"
-                    android:background="@android:color/transparent"
+                    android:text="SEARCH"
+                    style="?android:attr/borderlessButtonStyle"
                     android:textSize="@dimen/search_big_big_text"/>
             </LinearLayout>
         </LinearLayout>
