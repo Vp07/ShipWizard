@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.primaryDark));
         mScrimInsetsFrameLayout = (ScrimInsetsFrameLayout) findViewById(R.id.main_activity_navigation_drawer_rootLayout);
 
+
+
         mActionBarDrawerToggle = new ActionBarDrawerToggle
                 (
                         this,
