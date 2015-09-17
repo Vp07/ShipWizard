@@ -100,19 +100,24 @@ public class Slidemenu_Profile extends Fragment implements View.OnClickListener{
 
 
             ParseFile avatar = DispatchActivity.current_user.getAvatar();
+            if(avatar!=null) {
+                avatar.getDataInBackground(new GetDataCallback() {
+                    @Override
+                    public void done(byte[] data, ParseException e) {
+                        if (e == null) {
 
-            avatar.getDataInBackground(new GetDataCallback() {
-                @Override
-                public void done(byte[] data, ParseException e) {
-                    if (e == null) {
-
-                        Bitmap bmp = BitmapFactory
-                                .decodeByteArray(data, 0, data.length);
-                        Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bmp, 500, 500);
-                        profile_image_view.setImageBitmap(bm_for_show);
+                            Bitmap bmp = BitmapFactory
+                                    .decodeByteArray(data, 0, data.length);
+                            Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bmp, 500, 500);
+                            profile_image_view.setImageBitmap(bm_for_show);
+                        }
                     }
-                }
-            });
+                });
+            }
+        else{
+                //Toast.makeText(getActivity(),"No avatar", Toast.LENGTH_SHORT).show();
+                profile_image_view.setImageResource(R.drawable.ic_account_circle_white_64dp);
+            }
 
            // profile_image_view.setImageURI(DispatchActivity.current_user.getAvatar().getData());
 
@@ -172,8 +177,10 @@ public class Slidemenu_Profile extends Fragment implements View.OnClickListener{
                 break;
             case R.id.button_save_profile:
                 Toast.makeText(getActivity(), "save", Toast.LENGTH_SHORT).show();
-                DispatchActivity.current_user.PrepareForUpload("img", avatar_for_upload);
-                DispatchActivity.current_user.UploadtoParse();
+                if (avatar_for_upload!=null) {
+                    DispatchActivity.current_user.PrepareForUpload("img", avatar_for_upload);
+                    DispatchActivity.current_user.UploadtoParse();
+                }
                 startActivity(new Intent(getContext(), View_Transaction.class));
                 break;
         }

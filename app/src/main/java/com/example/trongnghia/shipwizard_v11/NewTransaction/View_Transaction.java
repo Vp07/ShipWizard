@@ -127,20 +127,42 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
         mTextView_AccountEmail.setText(UserInfo.email);
         mCircleImageView_Avatar = (de.hdodenhof.circleimageview.CircleImageView ) findViewById(R.id.navigation_drawer_user_account_picture_profile);
 
-        ParseFile avatar = DispatchActivity.current_user.getAvatar();
-
-        avatar.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
-                if (e == null) {
-
+       ParseFile avatar = DispatchActivity.current_user.getAvatar();
+        if (avatar!=null) {
+            avatar.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] data, ParseException e) {
                     Bitmap bmp = BitmapFactory
                             .decodeByteArray(data, 0, data.length);
                     Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bmp, 500, 500);
                     mCircleImageView_Avatar.setImageBitmap(bm_for_show);
                 }
-            }
-        });
+            });
+                    Toast.makeText(this,"Avatar available", Toast.LENGTH_SHORT).show();
+                       // mCircleImageView_Avatar.setImageBitmap(avatar);
+                    }
+                    else {
+                        mCircleImageView_Avatar.setBackgroundResource(R.drawable.ic_account_circle_white_64dp);
+                         Toast.makeText(this,"No avatar", Toast.LENGTH_SHORT).show();
+                    }
+
+//        avatar.getDataInBackground() ;
+//            @Override
+//            public void done(byte[] data, ParseException e) {
+//                if (e == null) {
+
+//                    Bitmap bmp = BitmapFactory
+//                            .decodeByteArray(data, 0, data.length);
+//                    Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bmp, 500, 500);
+//                    if (bm_for_show!=null) {
+//                        mCircleImageView_Avatar.setImageBitmap(bm_for_show);
+//                    }
+//                    else {
+//                        mCircleImageView_Avatar.setBackgroundResource(R.drawable.ic_account_circle_white_64dp);
+//                    }
+//                }
+//            }
+//        });
 
        // String tesst = UserInfo.avatar.getName();
         //Toast.makeText(this," ParseFile = " + UserInfo.email, Toast.LENGTH_SHORT).show();

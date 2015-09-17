@@ -1,5 +1,6 @@
 package com.example.trongnghia.shipwizard_v11.User;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 
