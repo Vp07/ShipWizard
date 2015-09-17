@@ -27,9 +27,11 @@ import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.Parse;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,8 +101,6 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 List<String> items = new ArrayList<String>();
                 items.add("Capture a photo!");
                 items.add("Pick photo from galery!");
-
-
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items );
                 Capture_or_pick = (ListView) dialog_image.findViewById(R.id.capture_or_pick);
                 Capture_or_pick.setAdapter(adapter);
@@ -173,6 +173,13 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 Order_post.put("Carrier_place", carrier_place.getText().toString());
                 Order_post.put("Item", item.getText().toString());
                 Order_post.put("Price", price.getText().toString());
+                // upload image
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                ParseFile image_of_item = new ParseFile(byteArray);
+                Order_post.put("img",image_of_item);
+                //post to Parse
                 Order_post.saveInBackground();
                 Toast.makeText(getActivity(),post_message,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), View_Transaction.class);

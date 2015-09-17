@@ -26,9 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trongnghia.shipwizard_v11.R;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -180,6 +182,15 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                 Ship_post.put("Carrier_place", carrier_place.getText().toString());
                 Ship_post.put("Ship_Item", ship_item.getText().toString());
                 Ship_post.put("Ship_Price", ship_price.getText().toString());
+
+                //prepare image for upload
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                ParseFile image_of_item = new ParseFile(byteArray);
+                Ship_post.put("img",image_of_item);
+
+                // post to parse
                 Ship_post.saveInBackground();
                 Toast.makeText(getActivity(), post_message, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), View_Transaction.class);
