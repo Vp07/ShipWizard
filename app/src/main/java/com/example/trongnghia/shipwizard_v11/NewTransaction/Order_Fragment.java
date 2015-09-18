@@ -33,7 +33,9 @@ import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -47,6 +49,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     EditText carrier_place;
     EditText item;
     EditText price;
+    EditText title;
 
     Button uploadImage;
     Button preView;
@@ -79,6 +82,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         carrier_place = (EditText)orderView.findViewById(R.id.etOrder_place);
         item = (EditText)orderView.findViewById(R.id.etOrder_item);
         price = (EditText)orderView.findViewById(R.id.etOrder_price);
+        title = (EditText)orderView.findViewById(R.id.etTitle);
 
         uploadImage = (Button)orderView.findViewById(R.id.bUpload_Image);
         preView = (Button)orderView.findViewById(R.id.bPreview);
@@ -168,11 +172,18 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
             // Post this order transaction to the Dashboard
             case R.id.bPost:
+                Calendar time = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = df.format(time.getTime());
                 Order_post.put("UserID", UserInfo.userID);
+                Order_post.put("Title", title.getText().toString());
                 Order_post.put("Buyer_place", buyer_place.getText().toString());
                 Order_post.put("Carrier_place", carrier_place.getText().toString());
                 Order_post.put("Item", item.getText().toString());
                 Order_post.put("Price", price.getText().toString());
+                Order_post.put("Time", formattedDate);
+                Order_post.put("Ads_Type", "Order");
+
                 // upload image
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.PNG, 100, stream);

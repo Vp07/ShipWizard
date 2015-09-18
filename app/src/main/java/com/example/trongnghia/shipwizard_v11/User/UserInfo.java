@@ -14,7 +14,8 @@ import com.parse.SaveCallback;
 /**
  * Created by Trong Nghia on 9/9/2015.
  */
-public class UserInfo {
+public class
+        UserInfo {
 
     public UserInfo user;
     public static String userID;
