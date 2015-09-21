@@ -49,7 +49,7 @@ public class Slidemenu_Ads_History extends Fragment{
     public static ArrayList<Slidemenu_Ads_History_Items> items;
     public ArrayList<Slidemenu_Ads_History_Items> array;
     public ArrayList<String> recent_search_string;
-    public String postObject = "OrderPost";
+    public String postObject = "UserPost";
     public String UserIDCol = "UserID";
 
     public Slidemenu_Ads_History_Items temp;
@@ -88,7 +88,7 @@ public class Slidemenu_Ads_History extends Fragment{
     }
 
     public void listview_init(){
-        query = ParseQuery.getQuery("OrderPost");
+        query = ParseQuery.getQuery("UserPost");
         query.whereEqualTo("UserID", UserInfo.userID);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objectList, ParseException e) {

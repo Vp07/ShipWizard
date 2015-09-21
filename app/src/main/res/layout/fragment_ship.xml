@@ -10,6 +10,13 @@
         android:padding="10dp"
         android:weightSum="1">
 
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="8-15 character title"
+            android:layout_marginBottom="10dp"/>
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -65,6 +72,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"/>
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:singleLine="false"/>
 
         <LinearLayout
             android:orientation="horizontal"

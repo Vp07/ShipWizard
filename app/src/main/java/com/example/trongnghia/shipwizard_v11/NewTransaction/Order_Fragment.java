@@ -72,7 +72,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     String mCurrentPhotoPath;
 
     String post_message = "Your message has been successfully posted on the DashBoard";
-    public ParseObject Order_post = new ParseObject("OrderPost");
+    public ParseObject user_post = new ParseObject("UserPost");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -176,24 +176,24 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 Calendar time = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = df.format(time.getTime());
-                Order_post.put("UserID", UserInfo.userID);
-                Order_post.put("Title", title.getText().toString());
-                Order_post.put("Buyer_place", buyer_place.getText().toString());
-                Order_post.put("Carrier_place", carrier_place.getText().toString());
-                Order_post.put("Item", item.getText().toString());
-                Order_post.put("Price", price.getText().toString());
-                Order_post.put("Time", formattedDate);
-                Order_post.put("Ads_Type", "Order");
-                Order_post.put("Description", description.getText().toString());
+                user_post.put("UserID", UserInfo.userID);
+                user_post.put("Ads_Type", "Order");
+                user_post.put("Title", title.getText().toString());
+                user_post.put("Buyer_place", buyer_place.getText().toString());
+                user_post.put("Carrier_place", carrier_place.getText().toString());
+                user_post.put("Item", item.getText().toString());
+                user_post.put("Price", price.getText().toString());
+                user_post.put("Time", formattedDate);
+                user_post.put("Description", description.getText().toString());
 
                 // upload image
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
                 ParseFile image_of_item = new ParseFile(byteArray);
-                Order_post.put("img",image_of_item);
+                user_post.put("img",image_of_item);
                 //post to Parse
-                Order_post.saveInBackground();
+                user_post.saveInBackground();
                 Toast.makeText(getActivity(),post_message,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), View_Transaction.class);
                 startActivity(intent);

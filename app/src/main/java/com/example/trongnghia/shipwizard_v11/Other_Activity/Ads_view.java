@@ -1,22 +1,18 @@
 package com.example.trongnghia.shipwizard_v11.Other_Activity;
 
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
-import com.example.trongnghia.shipwizard_v11.NewTransaction.Post_Tabs_Fragment;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.DeleteCallback;
@@ -32,7 +28,10 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
 
     public TextView Title, Ads_type_price, Time, Location, Category, Condition, Description;
 
-    public Button bPromote, bEdit, bPause, bDelete;
+    public Button bPromote, bEdit, bPause, bDelete, bUnpause, bDelete1;
+
+    public LinearLayout layout1;
+    public LinearLayout layout2;
 
     public static ParseQuery<ParseObject> query;
     public UserInfo user;
@@ -54,11 +53,18 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
         bEdit = (Button)findViewById(R.id.btEdit);
         bPause = (Button)findViewById(R.id.btPause);
         bDelete = (Button)findViewById(R.id.btDelete);
+        bUnpause = (Button)findViewById(R.id.btUn_Pause);
+        bDelete1 = (Button)findViewById(R.id.btDelete1);
+
+        layout1 = (LinearLayout)findViewById(R.id.layout1);
+        layout2 = (LinearLayout)findViewById(R.id.layout2);
 
         bPromote.setOnClickListener(this);
         bEdit.setOnClickListener(this);
         bPause.setOnClickListener(this);
         bDelete.setOnClickListener(this);
+        bUnpause.setOnClickListener(this);
+        bDelete1.setOnClickListener(this);
 
         initialise();
     }
@@ -118,9 +124,12 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
                         }
                     }
                 });
+                layout1.setVisibility(View.GONE);
+                layout2.setVisibility(View.VISIBLE);
+
                 break;
 
-            case R.id.btDelete:
+            case R.id.btDelete|R.id.btDelete1:
                 new AlertDialog.Builder(this)
                         .setTitle("Delete an Ads")
                         .setMessage("Delete this Ads?")
@@ -148,6 +157,19 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
                         .setNegativeButton("CANCEL", null)
                         .show();
                 break;
+
+            case R.id.btUn_Pause:
+                query.getInBackground(objectID, new GetCallback<ParseObject>() {
+                    public void done(ParseObject post, ParseException e) {
+                        if (e == null) {
+                            post.put("Status", "Active");
+                            post.saveInBackground();
+                        }
+                    }
+                });
+                layout1.setVisibility(View.VISIBLE);
+                layout2.setVisibility(View.GONE);
+                break;
         }
     }
 
@@ -167,13 +189,7 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
 //                    //Log.i("MainActivity", "nothing on backstack, calling super");
 //                    super.onBackPressed();
 //                }
-//                Intent intent = new Intent();
-//
-//                // put the message in Intent
-//                intent.putExtra("MESSAGE","DONE");
-//                // Set The Result in Intent
-//                setResult(1,intent);
-//                // finish The activity
+
                 finish();
                 return true;
             default:

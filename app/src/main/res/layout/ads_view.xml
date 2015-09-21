@@ -13,59 +13,104 @@
             android:layout_height="match_parent">
 
             <!-- Control buttons-->
-            <LinearLayout
-                android:id="@+id/buttons"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:id="@+id/buttons"
                 android:gravity="center"
                 android:layout_alignParentBottom="true">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:background="@color/text_black_divider_12" />
-
                 <LinearLayout
+                    android:id="@+id/layout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_alignParentBottom="true">
+                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/btPromote"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="PROMOTE"
-                        style="?android:attr/borderlessButtonStyle"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12" />
 
-                    <Button
-                        android:id="@+id/btEdit"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="EDIT"
-                        style="?android:attr/borderlessButtonStyle"/>
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_alignParentBottom="true">
 
-                    <Button
-                        android:id="@+id/btPause"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="PAUSE"
-                        style="?android:attr/borderlessButtonStyle"/>
+                        <Button
+                            android:id="@+id/btPromote"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="PROMOTE"
+                            style="?android:attr/borderlessButtonStyle"/>
 
-                    <Button
-                        android:id="@+id/btDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="DELETE"
-                        style="?android:attr/borderlessButtonStyle"/>
+                        <Button
+                            android:id="@+id/btEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="EDIT"
+                            style="?android:attr/borderlessButtonStyle"/>
+
+                        <Button
+                            android:id="@+id/btPause"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="PAUSE"
+                            style="?android:attr/borderlessButtonStyle"/>
+
+                        <Button
+                            android:id="@+id/btDelete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="DELETE"
+                            style="?android:attr/borderlessButtonStyle"/>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="@color/text_black_divider_12" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_alignParentBottom="true">
+
+                        <Button
+                            android:id="@+id/btUn_Pause"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="UNPAUSE"
+                            style="?android:attr/borderlessButtonStyle"/>
+
+                        <Button
+                            android:id="@+id/btDelete1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="DELETE"
+                            style="?android:attr/borderlessButtonStyle"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
 
             <!-- Main contents -->
             <ScrollView

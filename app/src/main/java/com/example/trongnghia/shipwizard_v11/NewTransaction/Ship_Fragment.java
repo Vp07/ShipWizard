@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -43,11 +44,13 @@ import java.util.List;
  */
 public class Ship_Fragment extends Fragment implements View.OnClickListener {
 
+    EditText title;
     EditText order_place;
     EditText carrier_place;
     EditText ship_item;
     EditText ship_price;
     EditText ship_time;
+    EditText description;
 
     TextView Pre_shipper_place;
     TextView Pre_destination_place;
@@ -72,17 +75,19 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
     ParseUser current_user;
     String userID;
     String post_message = "Your message has been successfully posted on the DashBoard";
-    public ParseObject Ship_post = new ParseObject("ShipPost");
+    public ParseObject user_post = new ParseObject("UserPost");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View shipView = inflater.inflate(R.layout.fragment_ship, container, false);
 
+        title = (EditText)shipView.findViewById(R.id.etTitle);
         order_place = (EditText)shipView.findViewById(R.id.etCurrent_place);
         carrier_place = (EditText)shipView.findViewById(R.id.etShip_place);
         ship_item = (EditText)shipView.findViewById(R.id.etShip_item);
         ship_price = (EditText)shipView.findViewById(R.id.etShip_price);
         ship_time = (EditText) shipView.findViewById(R.id.etShip_time);
+        description = (EditText)shipView.findViewById(R.id.etDescription);
 
         ship_upload_image = (Button)shipView.findViewById(R.id.bShip_upload);
         ship_preview = (Button)shipView.findViewById(R.id.bShip_preview);
@@ -177,21 +182,29 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
 
             // Post this order transaction to the Dashboard
             case R.id.bShip_post:
-                Ship_post.put("UserID", userID);
-                Ship_post.put("Order_place", order_place.getText().toString());
-                Ship_post.put("Carrier_place", carrier_place.getText().toString());
-                Ship_post.put("Ship_Item", ship_item.getText().toString());
-                Ship_post.put("Ship_Price", ship_price.getText().toString());
+                Calendar time = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = df.format(time.getTime());
+                user_post.put("UserID", userID);
+                user_post.put("Title", title.getText().toString());
+                user_post.put("Ads_Type", "Ship");
+                user_post.put("Buyer_place", order_place.getText().toString());
+                user_post.put("Carrier_place", carrier_place.getText().toString());
+                user_post.put("Item", ship_item.getText().toString());
+                user_post.put("Price", ship_price.getText().toString());
+                user_post.put("Time", formattedDate);
+                user_post.put("Ship_time", ship_time.getText().toString());
+                user_post.put("Description", description.getText().toString());
 
                 //prepare image for upload
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
                 ParseFile image_of_item = new ParseFile(byteArray);
-                Ship_post.put("img",image_of_item);
+                user_post.put("img",image_of_item);
 
                 // post to parse
-                Ship_post.saveInBackground();
+                user_post.saveInBackground();
                 Toast.makeText(getActivity(), post_message, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), View_Transaction.class);
                 startActivity(intent);
