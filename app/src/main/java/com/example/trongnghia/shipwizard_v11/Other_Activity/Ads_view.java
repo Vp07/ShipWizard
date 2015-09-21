@@ -1,10 +1,14 @@
 package com.example.trongnghia.shipwizard_v11.Other_Activity;
 
+import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
+import com.example.trongnghia.shipwizard_v11.NewTransaction.Post_Tabs_Fragment;
 import com.example.trongnghia.shipwizard_v11.R;
+import com.example.trongnghia.shipwizard_v11.User.UserInfo;
+import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -27,7 +34,8 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
 
     public Button bPromote, bEdit, bPause, bDelete;
 
-    ParseQuery<ParseObject> query;
+    public static ParseQuery<ParseObject> query;
+    public UserInfo user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,9 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
         bDelete = (Button)findViewById(R.id.btDelete);
 
         bPromote.setOnClickListener(this);
+        bEdit.setOnClickListener(this);
+        bPause.setOnClickListener(this);
+        bDelete.setOnClickListener(this);
 
         initialise();
     }
@@ -68,18 +79,13 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
            // Condition.setText(extras.getString("Item"));
             Description.setText(extras.getString("Description"));
             objectID = extras.getString("ObjectID");
+            objectClass = extras.getString("ObjectClass");
+            ParseObject saved_post = new ParseObject(extras.getString("ObjectClass"));
+            saved_post.put("objectID", objectID);
+            saved_post.pinInBackground();
+            UserInfo user = new UserInfo();
+            user.getObjectID(objectID);
             query = ParseQuery.getQuery(extras.getString("ObjectClass"));
-
-            query.getInBackground(objectID, new GetCallback<ParseObject>() {
-                public void done(ParseObject post, ParseException e) {
-                    if (e == null) {
-                        // Now let's update it with some new data. In this case, only cheatMode and score
-                        // will get sent to the Parse Cloud. playerName hasn't changed.
-                        post.put("Item", "Change");
-                        post.saveInBackground();
-                    }
-                }
-            });
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -96,18 +102,18 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btPromote:
+                Toast.makeText(Ads_view.this,UserInfo.objectID,Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.btEdit:
                 break;
 
             case R.id.btPause:
+                //Toast.makeText(Ads_view.this,UserInfo.objectID,Toast.LENGTH_SHORT).show();
                 query.getInBackground(objectID, new GetCallback<ParseObject>() {
                     public void done(ParseObject post, ParseException e) {
                         if (e == null) {
-                            // Now let's update it with some new data. In this case, only cheatMode and score
-                            // will get sent to the Parse Cloud. playerName hasn't changed.
-                            post.put("Item", "Change");
+                            post.put("Status", "Pause");
                             post.saveInBackground();
                         }
                     }
@@ -115,6 +121,32 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
                 break;
 
             case R.id.btDelete:
+                new AlertDialog.Builder(this)
+                        .setTitle("Delete an Ads")
+                        .setMessage("Delete this Ads?")
+                        .setCancelable(false)
+                        .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                ParseObject.createWithoutData(objectClass,objectID).deleteEventually(new DeleteCallback() {
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Intent intent = new Intent();
+
+                                            // put the message in Intent
+                                            intent.putExtra("MESSAGE", "DONE");
+                                            // Set The Result in Intent
+                                            setResult(1, intent);
+                                            // finish The activity
+                                            finish();
+                                        } else {
+                                            //myObjectDeleteDidNotSucceed();
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("CANCEL", null)
+                        .show();
                 break;
         }
     }
@@ -126,7 +158,23 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
         {
             // Return to Post activity
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+               // NavUtils.navigateUpFromSameTask(this);
+//                FragmentManager fm = getFragmentManager();
+//                if (fm.getBackStackEntryCount() > 0) {
+//                    //Log.i("MainActivity", "popping backstack");
+//                    fm.popBackStack();
+//                } else {
+//                    //Log.i("MainActivity", "nothing on backstack, calling super");
+//                    super.onBackPressed();
+//                }
+//                Intent intent = new Intent();
+//
+//                // put the message in Intent
+//                intent.putExtra("MESSAGE","DONE");
+//                // Set The Result in Intent
+//                setResult(1,intent);
+//                // finish The activity
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

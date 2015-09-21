@@ -332,6 +332,7 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.main_activity_content_frame, Slidemenu_Ads_History.newInstance())
+                                //.addToBackStack("AdsHistoryList")
                                 .commit();
                         break;
                     }

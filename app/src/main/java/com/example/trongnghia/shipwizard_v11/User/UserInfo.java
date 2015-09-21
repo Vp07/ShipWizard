@@ -22,6 +22,7 @@ public class
     public static String username;
     public static String email;
     public static ParseFile avatar;
+    public static String objectID;
     //current_user = ParseUser.getCurrentUser();
 
     public UserInfo(){
@@ -53,12 +54,15 @@ public class
                 if (e == null) {
                     Log.d("check", "save success");
                 } else {
-                    Log.d("check","save fail");
+                    Log.d("check", "save fail");
                 }
             }
         });
     }
 
-
+    public String getObjectID(String objectID){
+        this.objectID = objectID;
+        return this.objectID;
+    }
 
 }

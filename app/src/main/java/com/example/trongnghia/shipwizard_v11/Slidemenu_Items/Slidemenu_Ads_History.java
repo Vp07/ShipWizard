@@ -9,6 +9,7 @@ import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +60,14 @@ public class Slidemenu_Ads_History extends Fragment{
 
     public Bitmap bitmap;
 
-    public int test = 0;
     public View view;
+
+    static final int PICK_CONTACT_REQUEST = 1;  // The request code
+    public UserInfo user;
+
+    public Slidemenu_Ads_History_Adapter adapter;
+    public ListView listView;
+    public static ParseQuery<ParseObject> query;
 
     public static Slidemenu_Ads_History newInstance(){
         Slidemenu_Ads_History fragment = new Slidemenu_Ads_History();
@@ -72,26 +79,25 @@ public class Slidemenu_Ads_History extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.slidemenu_ads_history, container, false);
-        //ads = (ListView)view.findViewById(R.id.lvAds_history);
-        // ads.setOnClickListener(this);
         items = new ArrayList<Slidemenu_Ads_History_Items>();
+        user = new UserInfo();
 
-//        objectList = new User_Post_Querry();
-//        objectList.getUserPost();
-//        Toast.makeText(getActivity(), Integer.toString(objectList.postList.size()), Toast.LENGTH_SHORT).show();
+        listview_init();
+        //Toast.makeText(getActivity(), Integer.toString(te), Toast.LENGTH_LONG).show();
+        return view;
+    }
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("OrderPost");
+    public void listview_init(){
+        query = ParseQuery.getQuery("OrderPost");
         query.whereEqualTo("UserID", UserInfo.userID);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objectList, ParseException e) {
                 if (e == null) {
                     setListItem(objectList);
-                    test = 100;
                 } else {
                 }
             }
         });
-        return view;
     }
 
     private ArrayList<Slidemenu_Ads_History_Items> generateData(List<ParseObject> objectList){
@@ -117,9 +123,9 @@ public class Slidemenu_Ads_History extends Fragment{
 
     public void setListItem(final List<ParseObject> objectList){
         // Pass context and data to the custom adapter
-        Slidemenu_Ads_History_Adapter adapter = new Slidemenu_Ads_History_Adapter(getActivity(), generateData(objectList));
+        adapter = new Slidemenu_Ads_History_Adapter(getActivity(), generateData(objectList));
         // Get ListView from activity_main.xml
-        ListView listView = (ListView) view.findViewById(R.id.lvAds_history);
+        listView = (ListView) view.findViewById(R.id.lvAds_history);
         // SetListAdapter
         listView.setAdapter(adapter);
 
@@ -138,8 +144,27 @@ public class Slidemenu_Ads_History extends Fragment{
                 intent.putExtra("Buyer_place", objectList.get(position).getString("Buyer_place"));
                 intent.putExtra("ObjectID", objectList.get(position).getObjectId().toString());
                 intent.putExtra("ObjectClass", objectList.get(position).getClassName().toString());
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if(requestCode==1)
+        {
+            items.clear();
+            if(null!=data)
+            {
+                adapter.clear();
+                listView.setAdapter(adapter);
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(this).attach(this).commit();
+            }
+        }
+    }
+
 }

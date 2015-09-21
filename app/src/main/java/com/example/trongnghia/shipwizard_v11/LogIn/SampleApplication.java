@@ -21,6 +21,7 @@ public class SampleApplication extends Application {
     public void onCreate(){
         super.onCreate();
         FacebookSdk.sdkInitialize(getApplicationContext());
+        Parse.enableLocalDatastore(this);
         Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_id));
         ParseFacebookUtils.initialize(this);
     }

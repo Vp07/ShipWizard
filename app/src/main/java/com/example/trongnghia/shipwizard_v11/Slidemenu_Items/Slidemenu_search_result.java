@@ -35,7 +35,7 @@ public class Slidemenu_search_result extends AppCompatActivity {
         {
             // Return to Post activity
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
