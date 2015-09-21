@@ -54,5 +54,6 @@
 
     <!-- Background color -->
     <color name="Color_2">#e2f0b6</color>
+    <color name="Color_1">#d5d3d3</color>
 
 </resources>

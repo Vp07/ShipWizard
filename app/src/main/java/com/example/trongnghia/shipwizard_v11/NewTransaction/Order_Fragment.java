@@ -50,6 +50,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     EditText item;
     EditText price;
     EditText title;
+    EditText description;
 
     Button uploadImage;
     Button preView;
@@ -70,7 +71,6 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     ImageView imageView;
     String mCurrentPhotoPath;
 
-
     String post_message = "Your message has been successfully posted on the DashBoard";
     public ParseObject Order_post = new ParseObject("OrderPost");
 
@@ -83,6 +83,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         item = (EditText)orderView.findViewById(R.id.etOrder_item);
         price = (EditText)orderView.findViewById(R.id.etOrder_price);
         title = (EditText)orderView.findViewById(R.id.etTitle);
+        description = (EditText)orderView.findViewById(R.id.etDescription);
 
         uploadImage = (Button)orderView.findViewById(R.id.bUpload_Image);
         preView = (Button)orderView.findViewById(R.id.bPreview);
@@ -183,6 +184,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 Order_post.put("Price", price.getText().toString());
                 Order_post.put("Time", formattedDate);
                 Order_post.put("Ads_Type", "Order");
+                Order_post.put("Description", description.getText().toString());
 
                 // upload image
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();

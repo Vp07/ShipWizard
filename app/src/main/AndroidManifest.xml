@@ -11,7 +11,7 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <!--android:name=".LogIn.SampleApplication"-->
+    <!-- android:name=".LogIn.SampleApplication" -->
     <application
         android:name=".LogIn.SampleApplication"
         android:allowBackup="true"
@@ -83,6 +83,11 @@
         <activity
             android:name=".Slidemenu_Items.Slidemenu_search_result"
             android:label="@string/title_activity_slidemenu_search_result"
+            android:parentActivityName=".NewTransaction.View_Transaction" >
+        </activity>
+        <activity
+            android:name=".Other_Activity.Ads_view"
+            android:label="@string/title_activity_ads_view"
             android:parentActivityName=".NewTransaction.View_Transaction">
         </activity>
     </application>
