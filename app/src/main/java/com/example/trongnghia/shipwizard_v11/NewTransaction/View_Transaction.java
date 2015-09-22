@@ -168,9 +168,6 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
         //Toast.makeText(this," ParseFile = " + UserInfo.email, Toast.LENGTH_SHORT).show();
 
 
-
-
-
         mTextView_Home = (TextView) findViewById(R.id.navigation_drawer_items_textView_home);
         mTextView_Post = (TextView) findViewById(R.id.navigation_drawer_items_textView_PostAds);
         mTextView_AdsHistory = (TextView) findViewById(R.id.navigation_drawer_items_textView_AdsHistory);
