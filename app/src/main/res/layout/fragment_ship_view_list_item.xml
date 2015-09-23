@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="2">
+            android:layout_weight="4">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -32,60 +32,46 @@
                 android:textSize="@dimen/search_small_text"
                 android:textColor="@color/text_black_text_87"
                 android:text="Title"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/search_small_text"
+                android:textColor="@color/text_black_text_87"
+                android:text="Location"
+                android:layout_alignParentLeft="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="6"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/search_small_text"
+                android:textColor="@color/text_black_text_87"
+                android:text="Price"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/search_small_text"
+                android:textColor="@color/text_black_text_87"
+                android:text="Time"
                 android:layout_alignParentLeft="true"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tvOrder_Ship"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Order or Post"/>
-
-                <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/search_small_text"
-                    android:textColor="@color/text_black_text_87"
-                    android:text="Price"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Time"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tvLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/search_small_text"
-                    android:textColor="@color/text_black_text_87"
-                    android:text="Location"
-                    android:layout_alignParentLeft="true"/>
-
-                <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/search_small_text"
-                    android:textColor="@color/text_black_text_87"
-                    android:text="Status"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

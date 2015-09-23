@@ -54,7 +54,6 @@ public class Slidemenu_Ads_History extends Fragment{
 
     public Slidemenu_Ads_History_Items temp;
 
-    public User_Post_Querry objectList;
     public List<ParseObject> postList;
     public ParseObject temp_object;
 
@@ -104,15 +103,20 @@ public class Slidemenu_Ads_History extends Fragment{
         //Toast.makeText(getActivity(), Integer.toString(postList.size()), Toast.LENGTH_SHORT).show();
         for (int i=0; i<objectList.size(); i++){
             temp_object = objectList.get(i);
+
+            // Get image file from Parse object
             ParseFile img_file = temp_object.getParseFile("img");
+            // Hiep -> Do something to get bitmap data from img_file
+
+
 
             items.add(new Slidemenu_Ads_History_Items(bitmap,
                                                       temp_object.getString("Title"),
                                                       temp_object.getString("Price"),
-                                                      "Order",
+                                                      temp_object.getString("Ads_Type"),
                                                       temp_object.getString("Time"),
                                                       temp_object.getString("Buyer_place"),
-                                                      "status"));
+                                                      temp_object.getString("Status")));
         }
         return items;
     }

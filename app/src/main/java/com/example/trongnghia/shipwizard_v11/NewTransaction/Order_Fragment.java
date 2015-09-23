@@ -206,6 +206,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = df.format(time.getTime());
                 user_post.put("UserID", UserInfo.userID);
+                user_post.put("UserName", UserInfo.username);
                 user_post.put("Ads_Type", "Order");
                 user_post.put("Title", title.getText().toString());
                 user_post.put("Buyer_place", buyer_place.getText().toString());

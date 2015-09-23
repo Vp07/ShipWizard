@@ -125,6 +125,11 @@
     <string name="title_activity_slidemenu__feedback">Feedback</string>
     <string name="title_activity_slidemenu_search_result">Search Results</string>
     <string name="title_activity_ads_view">Ads_view</string>
-    <string name="title_activity_gridview_image_select">Gridview_image_select</string>
+    <string name="title_activity_public__ads_view">Public_Ads_view</string>
+    <string name="title_activity_send__message">Send_Message</string>
+
+    <!-- Strings for chat -->
+    <string name="profile_me">My Profile Pic</string>
+    <string name="profile_other">Other profile pic</string>
 
 </resources>

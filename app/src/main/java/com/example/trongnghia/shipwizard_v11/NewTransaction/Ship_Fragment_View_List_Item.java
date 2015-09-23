@@ -1,12 +1,11 @@
-package com.example.trongnghia.shipwizard_v11.Slidemenu_Items;
+package com.example.trongnghia.shipwizard_v11.NewTransaction;
 
 import android.graphics.Bitmap;
-import android.widget.ImageView;
 
 /**
- * Created by Trong Nghia on 9/18/2015.
+ * Created by Trong Nghia on 9/22/2015.
  */
-public class Slidemenu_Ads_History_Items {
+public class Ship_Fragment_View_List_Item {
     private Bitmap ads_img;
     private String ads_type;
     private String price;
@@ -15,16 +14,20 @@ public class Slidemenu_Ads_History_Items {
     private String location;
     private String status;
 
-    public Slidemenu_Ads_History_Items(Bitmap ads_img, String title, String price,
-                                        String ads_type, String time, String location, String status) {
+//    public Order_Fragment_View_List_Items(Bitmap ads_img, String title, String price,
+//                                       String ads_type, String time, String location, String status) {
+
+    public Ship_Fragment_View_List_Item(Bitmap ads_img, String title, String price,
+                                          String time, String location) {
+
         super();
         this.ads_img = ads_img;
-        this.ads_type = ads_type;
+        //this.ads_type = ads_type;
         this.price = price;
         this.title = title;
         this.time = time;
         this.location = location;
-        this.status = status;
+        //this.status = status;
     }
 
     public Bitmap getAds_img(){ return ads_img; }

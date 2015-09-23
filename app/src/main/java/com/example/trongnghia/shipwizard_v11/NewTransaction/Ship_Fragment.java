@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trongnghia.shipwizard_v11.R;
+import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -186,6 +187,7 @@ public class Ship_Fragment extends Fragment implements View.OnClickListener {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = df.format(time.getTime());
                 user_post.put("UserID", userID);
+                user_post.put("UserName", UserInfo.username);
                 user_post.put("Title", title.getText().toString());
                 user_post.put("Ads_Type", "Ship");
                 user_post.put("Buyer_place", order_place.getText().toString());
