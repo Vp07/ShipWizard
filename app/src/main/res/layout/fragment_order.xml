@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:weightSum="1">
-
+        android:divider="#0000ec">
+d
         <EditText
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
@@ -73,34 +72,23 @@
             android:layout_marginBottom="10dp"
             android:singleLine="false"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="118dp"
-            android:weightSum="1">
-
-            <Button
-                android:id="@+id/bUpload_Image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Upload Image"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="0.15" />
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/Order_imageView"
-                android:layout_weight="0.04" />
-
-        </LinearLayout>
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/bUpload_Image"
+            android:src="@drawable/ic_photo_camera_white_24dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:background="#7e7e7e"
+            android:clickable="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_weight="0.15">
+            android:layout_gravity="bottom"
+            android:layout_weight="0.81">
 
             <Button
                 android:id="@+id/bPreview"

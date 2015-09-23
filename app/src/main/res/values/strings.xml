@@ -125,5 +125,6 @@
     <string name="title_activity_slidemenu__feedback">Feedback</string>
     <string name="title_activity_slidemenu_search_result">Search Results</string>
     <string name="title_activity_ads_view">Ads_view</string>
+    <string name="title_activity_gridview_image_select">Gridview_image_select</string>
 
 </resources>
