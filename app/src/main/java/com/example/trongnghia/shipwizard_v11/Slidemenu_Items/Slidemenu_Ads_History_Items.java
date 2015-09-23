@@ -67,7 +67,7 @@ public class Slidemenu_Ads_History_Items {
         return status;
     }
 
-    public void setStatus(String location){
+    public void setStatus(String status){
         this.status = status;
     }
 }

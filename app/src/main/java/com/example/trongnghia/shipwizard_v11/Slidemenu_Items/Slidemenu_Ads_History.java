@@ -54,7 +54,6 @@ public class Slidemenu_Ads_History extends Fragment{
 
     public Slidemenu_Ads_History_Items temp;
 
-    public User_Post_Querry objectList;
     public List<ParseObject> postList;
     public ParseObject temp_object;
 

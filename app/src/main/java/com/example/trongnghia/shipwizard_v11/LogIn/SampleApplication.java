@@ -2,11 +2,13 @@ package com.example.trongnghia.shipwizard_v11.LogIn;
 
 import android.app.Application;
 
+import com.example.trongnghia.shipwizard_v11.Other_Activity.Message;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Recent_Search_Item;
 import com.facebook.FacebookSdk;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,8 @@ public class SampleApplication extends Application {
         super.onCreate();
         FacebookSdk.sdkInitialize(getApplicationContext());
         Parse.enableLocalDatastore(this);
+        // Register Message class to Parse
+        ParseObject.registerSubclass(Message.class);
         Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_id));
         ParseFacebookUtils.initialize(this);
     }

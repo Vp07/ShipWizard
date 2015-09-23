@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.trongnghia.shipwizard_v11.NewTransaction.View_Transaction;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.DeleteCallback;
@@ -24,7 +25,7 @@ import com.parse.ParseQuery;
 
 public class Public_Ads_view extends AppCompatActivity implements View.OnClickListener {
 
-    public static String title, objectID, objectClass, username;
+    public static String title, objectID, objectClass, username, toUserID;
 
     public TextView Title, Ads_type_price, Time, Location, Category, Condition, Description;
 
@@ -76,6 +77,7 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
             Description.setText(extras.getString("Description"));
             objectID = extras.getString("ObjectID");
             objectClass = extras.getString("ObjectClass");
+            toUserID = extras.getString("UserID");
             username = extras.getString("UserName");
             ParseObject saved_post = new ParseObject(extras.getString("ObjectClass"));
             UserInfo user = new UserInfo();
@@ -97,7 +99,10 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btInbox:
-                
+                Intent intent = new Intent(Public_Ads_view.this, ChatActivity.class);
+                intent.putExtra("UserID", toUserID );
+                intent.putExtra("UserName", username);
+                startActivity(intent);
                 break;
 
             case R.id.btCall:

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.Other_Activity.Ads_view;
+import com.example.trongnghia.shipwizard_v11.Other_Activity.Public_Ads_view;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Adapter;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Items;
@@ -139,7 +140,7 @@ public class Order_Fragment_View extends Fragment{
             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                     long id) {
                 // We know the View is a TextView so we can cast it
-                Intent intent = new Intent(getActivity(), Ads_view.class);
+                Intent intent = new Intent(getActivity(), Public_Ads_view.class);
                 intent.putExtra("Title", objectList.get(position).getString("Title"));
                 intent.putExtra("Price", objectList.get(position).getString("Price"));
                 intent.putExtra("Time", objectList.get(position).getString("Time"));
@@ -148,6 +149,7 @@ public class Order_Fragment_View extends Fragment{
                 intent.putExtra("Ads_Type", objectList.get(position).getString("Ads_Type"));
                 intent.putExtra("Buyer_place", objectList.get(position).getString("Buyer_place"));
                 intent.putExtra("UserName", objectList.get(position).getString("UserName"));
+                intent.putExtra("UserID", objectList.get(position).getString("UserID").toString());
                 intent.putExtra("ObjectID", objectList.get(position).getObjectId().toString());
                 intent.putExtra("ObjectClass", objectList.get(position).getClassName().toString());
                 startActivityForResult(intent, 1);

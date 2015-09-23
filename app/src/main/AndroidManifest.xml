@@ -95,9 +95,8 @@
             android:label="@string/title_activity_public__ads_view" >
         </activity>
         <activity
-            android:name=".Other_Activity.Send_Message"
-            android:label="@string/title_activity_send__message" >
+            android:name=".Other_Activity.ChatActivity"
+            android:windowSoftInputMode="stateVisible">
         </activity>
     </application>
-
 </manifest>
