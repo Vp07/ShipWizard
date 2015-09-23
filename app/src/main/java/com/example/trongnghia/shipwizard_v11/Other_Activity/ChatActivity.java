@@ -17,10 +17,7 @@ import android.widget.Toast;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.FindCallback;
-import com.parse.LogInCallback;
-import com.parse.ParseAnonymousUtils;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -95,22 +92,12 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String data = etMessage.getText().toString();
-//                ParseObject message = ParseObject.create("UserChat");
-//                //message.put(USER_ID_KEY, sUserId);
-//                message.put(FROM_USER_ID_KEY, From_UserID);
-//                message.put(TO_USER_ID_KEY, To_UserID);
-//                message.put("FromUserName", UserInfo.username);
-//                message.put("ToUserName", To_User_name);
-//                message.put("Content", data);
-//                message.saveInBackground(new SaveCallback() {
-//                    @Override
-//                    public void done(ParseException e) {
-//                        Toast.makeText(ChatActivity.this, "Successfully created message on Parse",
-//                                Toast.LENGTH_SHORT).show();
-//                    }
-//                });
                 Message message = new Message();
                 message.setFromUserID(From_UserID);
+                message.setFromUsername(UserInfo.username);
+                message.setToUserID(To_UserID);
+                message.setToUserName(To_User_name);
+                message.setConnectionString(From_UserID + To_UserID);
                 message.setContent(data);
                 message.saveInBackground(new SaveCallback() {
                     @Override
@@ -118,24 +105,37 @@ public class ChatActivity extends AppCompatActivity {
                         receiveMessage();
                     }
                 });
-
-
                 etMessage.setText("");
             }
         });
     }
 
-
     // Query messages from Parse so we can load them into the chat adapter
     private void receiveMessage() {
-        // Construct query to execute
+        // Make a list of query
+        List<ParseQuery<Message>> queries = new ArrayList<ParseQuery<Message>>();
+
+        // First query
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
-        // Configure limit and sort order
-        query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-        query.orderByAscending("createdAt");
+        query.whereEqualTo("Connection", From_UserID+To_UserID);
+        //query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
+        //query.orderByAscending("createdAt");
+
+        // Second query
+        ParseQuery<Message> query1 = ParseQuery.getQuery(Message.class);
+        query1.whereEqualTo("Connection", To_UserID+From_UserID);
+        //query1.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
+        //query1.orderByAscending("createdAt");
         // Execute query to fetch all messages from Parse asynchronously
         // This is equivalent to a SELECT query with SQL
-        query.findInBackground(new FindCallback<Message>() {
+        queries.add(query);
+        queries.add(query1);
+
+        ParseQuery<Message> mainQuery = ParseQuery.or(queries);
+        mainQuery.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
+        mainQuery.orderByAscending("createdAt");
+
+        mainQuery.findInBackground(new FindCallback<Message>() {
             public void done(List<Message> messages, ParseException e) {
                 if (e == null) {
                     mMessages.clear();

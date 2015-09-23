@@ -21,7 +21,7 @@ public class Message extends ParseObject {
         return getString("ToUserID");
     }
 
-    public void setToUserId(String ToUserID) {
+    public void setToUserID(String ToUserID) {
         put("ToUserID", ToUserID);
     }
 
@@ -47,5 +47,9 @@ public class Message extends ParseObject {
 
     public void setContent(String Content) {
         put("Content", Content);
+    }
+
+    public void setConnectionString(String ConnectString) {
+        put("Connection", ConnectString);
     }
 }
