@@ -20,6 +20,7 @@ public class ImageAdapter extends BaseAdapter
 {
     public int Item_height;
     public int Item_width;
+    ImageView imageView;
     public Bitmap bm[] = {null,null,null,null,null,null,null,null,null,};
     Integer empty_slot[]={
             R.drawable.ic_photo_camera_white_24dp,
@@ -56,7 +57,7 @@ public class ImageAdapter extends BaseAdapter
     public View getView(int position, View convertView,ViewGroup parent)
     {
 
-        ImageView imageView;
+
         Item_height = parent.getWidth() / 3 - 4;
         Item_width = parent.getWidth() / 3 - 4;
 
@@ -82,4 +83,5 @@ public class ImageAdapter extends BaseAdapter
 
         return imageView;
     }
+
 }

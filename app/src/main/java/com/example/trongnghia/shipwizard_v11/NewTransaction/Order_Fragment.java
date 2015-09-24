@@ -4,11 +4,20 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,15 +74,14 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
     ImageView pre_order_image;
     Bitmap bm;
-
-    GridView gridview_pre_oder_item;
+    Bitmap bm_for_upload[] = {null,null,null,null,null,null,null,null,null};
+    ImageView Cancel_button;
+    ImageView Done_button;
 
     ListView Capture_or_pick;
     private static final int PICK_IMAGE = 100;
     private static final int REQUEST_CAMERA = 1;
-    Uri imageUri;
-    ImageView imageView;
-    String mCurrentPhotoPath;
+
     int global_position;
     ImageAdapter bm_adapter;
     GridView gridView;
@@ -95,6 +103,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         uploadImage = (ImageView)orderView.findViewById(R.id.bUpload_Image);
         preView = (Button)orderView.findViewById(R.id.bPreview);
         post = (Button)orderView.findViewById(R.id.bPost);
+
 
 
         preView.setOnClickListener(this);
@@ -122,41 +131,102 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
                 gridView = (GridView) dialog.findViewById(R.id.gridView_image);
+                Cancel_button = (ImageView) dialog.findViewById(R.id.check_cancel);
+                Done_button = (ImageView) dialog.findViewById(R.id.check_done);
+
+
+
                 bm_adapter = new ImageAdapter(dialog.getContext());
                 gridView.setAdapter(bm_adapter);
+                Cancel_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                Done_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        for(int i = 0; i<10;i++){
+                            if(bm_adapter.bm[i]!=null){
+                                uploadImage.setImageBitmap(bm_adapter.bm[i]);
+                                break;
+                            }
+
+                        }
+                        dialog.onBackPressed();
+
+                    }
+                });
 //                ImageAdapter adapter = new ImageAdapter(dialog.getContext());
 //                gridView.setAdapter(adapter);
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                        Toast.makeText(getActivity(), "pic" + (position + 1) + "selected", Toast.LENGTH_SHORT).show();
-                        global_position = position;
-                        final Dialog dialog_select_image = new Dialog(getActivity());
-                        dialog_select_image.setContentView(R.layout.fragment_transaction_image_list);
-                        List<String> items = new ArrayList<String>();
-                        items.add("Capture a photo!");
-                        items.add("Pick photo from galery!");
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog_select_image.getContext(), android.R.layout.simple_list_item_1, items );
-                        Capture_or_pick = (ListView) dialog_select_image.findViewById(R.id.capture_or_pick);
-                        Capture_or_pick.setAdapter(adapter);
-                        Capture_or_pick.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        //Toast.makeText(getActivity(), "pic" + (position + 1) + "selected", Toast.LENGTH_SHORT).show();
+                        if(bm_adapter.bm[position]==null) {
+                            global_position = position;
+                            final Dialog dialog_select_image = new Dialog(getActivity());
+                            dialog_select_image.setContentView(R.layout.fragment_transaction_image_list);
+                            List<String> items = new ArrayList<String>();
+                            items.add("Capture a photo!");
+                            items.add("Pick photo from galery!");
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog_select_image.getContext(), android.R.layout.simple_list_item_1, items);
+                            Capture_or_pick = (ListView) dialog_select_image.findViewById(R.id.capture_or_pick);
+                            Capture_or_pick.setAdapter(adapter);
+                            Capture_or_pick.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    int position, long id) {
-                                //use POSITION to get item clicked
-                                if (position == 0) {
-                                    //Toast.makeText(getActivity(), "Capture photo",Toast.LENGTH_SHORT).show();
-                                    TakePicture();
-                                    dialog_select_image.onBackPressed();
-                                }
-                                if (position == 1) {
-                                    //Toast.makeText(getActivity(), "Pick photo form gallery",Toast.LENGTH_SHORT).show();
-                                    openGallery();
-                                    dialog_select_image.onBackPressed();
-                                }
+                                public void onItemClick(AdapterView<?> parent, View view,
+                                                        int position_1, long id) {
+                                    //use POSITION to get item clicked
+                                    if (position_1 == 0) {
+                                        //Toast.makeText(getActivity(), "Capture photo",Toast.LENGTH_SHORT).show();
+                                        TakePicture();
+                                        dialog_select_image.onBackPressed();
+                                    }
+                                    if (position_1 == 1) {
+                                        //Toast.makeText(getActivity(), "Pick photo form gallery",Toast.LENGTH_SHORT).show();
+                                        openGallery();
+                                        dialog_select_image.onBackPressed();
+                                    }
 
-                            }
-                        });
-                        dialog_select_image.show();
+                                }
+                            });
+                            dialog_select_image.show();
+                        }
+                        else{
+                            global_position = position;
+                            Toast.makeText(getActivity(), "Image available!", Toast.LENGTH_SHORT).show();
+                            final Dialog dialog_select_image = new Dialog(getActivity());
+                            dialog_select_image.setContentView(R.layout.fragment_transaction_image_list);
+                            List<String> items = new ArrayList<String>();
+                            items.add("Choose another photo");
+                            items.add("Remove this one");
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog_select_image.getContext(), android.R.layout.simple_list_item_1, items);
+                            Capture_or_pick = (ListView) dialog_select_image.findViewById(R.id.capture_or_pick);
+                            Capture_or_pick.setAdapter(adapter);
+                            Capture_or_pick.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                public void onItemClick(AdapterView<?> parent, View view,
+                                                        int position_1, long id) {
+                                    //use POSITION to get item clicked
+                                    if (position_1 == 0) {
+                                        //Toast.makeText(getActivity(), "Capture photo",Toast.LENGTH_SHORT).show();
+                                        openGallery();
+                                        dialog_select_image.onBackPressed();
+                                    }
+                                    if (position_1 == 1) {
+                                        //Toast.makeText(getActivity(), "Pick photo form gallery",Toast.LENGTH_SHORT).show();
+                                        bm_adapter.bm[global_position] = null;
+                                        bm_adapter.notifyDataSetChanged();
+                                        gridView.invalidateViews();
+                                        dialog_select_image.onBackPressed();
+                                    }
+
+                                }
+                            });
+                            dialog_select_image.show();
+
+                        }
                     }
 
                 });
@@ -234,6 +304,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                     startActivity(intent);
 
                 break;
+
         }
     }
     private void TakePicture() {
@@ -247,6 +318,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         gallery.setType("image/*");
         startActivityForResult(gallery, PICK_IMAGE);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -258,6 +330,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
             try {
                 Toast.makeText(getActivity(), ""+global_position, Toast.LENGTH_SHORT).show();
                 bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImageUri);
+                bm_for_upload[global_position] = bm;
                 Bitmap bm_for_show = ThumbnailUtils.extractThumbnail(bm, bm_adapter.Item_width, bm_adapter.Item_height);
                // imageView.setImageBitmap(bm_for_show);
                 bm_adapter.bm[global_position] = bm_for_show;
