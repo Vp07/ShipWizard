@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.R;
@@ -72,11 +73,10 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     TextView Pre_item;
     TextView Pre_price;
 
-    ImageView pre_order_image;
+
     Bitmap bm;
     Bitmap bm_for_upload[] = {null,null,null,null,null,null,null,null,null};
-    ImageView Cancel_button;
-    ImageView Done_button;
+    GridView gridView;
 
     ListView Capture_or_pick;
     private static final int PICK_IMAGE = 100;
@@ -84,7 +84,9 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
     int global_position;
     ImageAdapter bm_adapter;
-    GridView gridView;
+    int current_position;
+    Bitmap AdjustedBitmapArray[];
+
 
     String post_message = "Your message has been successfully posted on the DashBoard";
     public ParseObject user_post = new ParseObject("UserPost");
@@ -110,20 +112,20 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         post.setOnClickListener(this);
         uploadImage.setOnClickListener(this);
 
-
+        bm_adapter= new ImageAdapter(getActivity());
 
         return orderView;
     }
 
     @Override
     public void onClick(View v) {
-        final Dialog dialog = new Dialog(getActivity());
+
 
         switch (v.getId()) {
             case R.id.bUpload_Image:
                 //Toast.makeText(getActivity(), "Upload Image ",Toast.LENGTH_SHORT).show();
 
-
+                final Dialog dialog = new Dialog(getActivity());
                 dialog.setContentView(R.layout.gridview_image_select);
 
                 dialog.setTitle("Select image of your item");
@@ -131,17 +133,18 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
                 gridView = (GridView) dialog.findViewById(R.id.gridView_image);
-                Cancel_button = (ImageView) dialog.findViewById(R.id.check_cancel);
-                Done_button = (ImageView) dialog.findViewById(R.id.check_done);
+                ImageView Cancel_button = (ImageView) dialog.findViewById(R.id.check_cancel);
+                ImageView Done_button = (ImageView) dialog.findViewById(R.id.check_done);
 
 
 
-                bm_adapter = new ImageAdapter(dialog.getContext());
+                bm_adapter.setContext(dialog.getContext());
+                bm_adapter.setNumColumn(3);
                 gridView.setAdapter(bm_adapter);
                 Cancel_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        dialog.onBackPressed();
                     }
                 });
                 Done_button.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +155,8 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                                 uploadImage.setImageBitmap(bm_adapter.bm[i]);
                                 break;
                             }
+
+
 
                         }
                         dialog.onBackPressed();
@@ -236,38 +241,65 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
             // Preview a post
             case R.id.bPreview:
                 //set up dialog
-                //final Dialog dialog = new Dialog(getActivity(),R.style.PreviewDialog);
+                final Dialog dialog_2 = new Dialog(getActivity());
+                dialog_2.setContentView(R.layout.ads_view);
 
-                dialog.setContentView(R.layout.order_preview_dialog);
+                dialog_2.setTitle("Preview this Message");
+                dialog_2.setCancelable(true);
 
-                dialog.setTitle("Preview this Message");
-                dialog.setCancelable(true);
-                dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+//                EditText preTitle = (EditText) getActivity().findViewById(R.id.etTitle);
+//                EditText preCurrentPlace = (EditText) getActivity().findViewById(R.id.etCurrent_place);
+//                EditText preOrderPlace = (EditText) getActivity().findViewById(R.id.etOrder_place);
+//                EditText preOrderPrice = (EditText) getActivity().findViewById(R.id.etOrder_price);
+//                EditText preOrderItem = (EditText) getActivity().findViewById(R.id.etOrder_item);
+//                EditText preDescription = (EditText) getActivity().findViewById(R.id.etDescription);
+//
+//                TextView tvPreTitle = (TextView) dialog_2.findViewById(R.id.tvTitle);
+//                TextView tvCurrentPlace = (TextView) dialog_2.findViewById(R.id.tvLocation);
+//                TextView tvPreTitle = (TextView) dialog_2.findViewById(R.id.tvTitle);
+//                TextView tvPreTitle = (TextView) dialog_2.findViewById(R.id.tvTitle);
+//                TextView tvPreTitle = (TextView) dialog_2.findViewById(R.id.tvTitle);
+//                TextView tvPreTitle = (TextView) dialog_2.findViewById(R.id.tvTitle);
+//                TextView tvPreTitle = (TextView) dialog_2.findViewById(R.id.tvTitle);
+                bm_adapter.setContext(dialog_2.getContext());
 
-                //set up text content for preview
-                Pre_buyer_place = (TextView) dialog.findViewById(R.id.etPre_current_place);
-                Pre_carrier_place = (TextView) dialog.findViewById(R.id.etPre_order_place);
-                Pre_item = (TextView) dialog.findViewById(R.id.etPre_order_item);
-                Pre_price =(TextView) dialog.findViewById(R.id.etPre_order_price);
 
-                Pre_buyer_place.setText(buyer_place.getText().toString());
-                Pre_carrier_place.setText(carrier_place.getText().toString());
-                Pre_item.setText(item.getText().toString());
-                Pre_price.setText(price.getText().toString());
+                final ViewFlipper vfAds_img = (ViewFlipper) dialog_2.findViewById(R.id.viewFlipper_Ads_Img);
+                ImageView Next = (ImageView) dialog_2.findViewById(R.id.vf_next);
+                ImageView Previous = (ImageView) dialog_2.findViewById(R.id.vf_previous);
+                current_position = 1;
 
-                pre_order_image = (ImageView) dialog.findViewById(R.id.pre_order_image);
-                pre_order_image.setImageBitmap(bm);
-
-                //set up button
-                Button button = (Button) dialog.findViewById(R.id.Button01);
-                button.setOnClickListener(new View.OnClickListener() {
+                Next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        vfAds_img.showNext();
+                       // current_position++;
                     }
                 });
-                //now that the dialog is set up, it's time to show it
-                dialog.show();
+                Previous.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        vfAds_img.showPrevious();
+                    }
+                });
+                for(int i=0;i<9;i++){
+                    if(bm_adapter.bm[i]!=null){
+                        ImageView iv = new ImageView(dialog_2.getContext());
+                        iv.setImageBitmap(bm_adapter.bm[i]);
+                        vfAds_img.addView(iv);
+                    }
+                }
+
+//                for (int i=0;i<10;i++){
+//                    int j=0;
+//                    if(bm_adapter.bm[i]!=null){
+//                        AdjustedBitmapArray[j]=bm_adapter.bm[i];
+//                        j++;
+//                    }
+//                }
+
+
+                dialog_2.show();
                 break;
 
             // Post this order transaction to the Dashboard
@@ -345,6 +377,9 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
         if (requestCode == REQUEST_CAMERA && resultCode == getActivity().RESULT_OK) {
             openGallery();
         }
+    }
+    public int getCurrentDisplayPosition(){
+        return current_position;
     }
 
 }

@@ -20,6 +20,7 @@ public class ImageAdapter extends BaseAdapter
 {
     public int Item_height;
     public int Item_width;
+    private int columnNo = 1;
     ImageView imageView;
     public Bitmap bm[] = {null,null,null,null,null,null,null,null,null,};
     Integer empty_slot[]={
@@ -58,19 +59,20 @@ public class ImageAdapter extends BaseAdapter
     {
 
 
-        Item_height = parent.getWidth() / 3 - 4;
-        Item_width = parent.getWidth() / 3 - 4;
+        Item_height = parent.getWidth() / columnNo - 4;
+        Item_width = parent.getWidth() / columnNo - 4;
 
             if (convertView == null) {
                 imageView = new ImageView(context);
-                imageView.setLayoutParams(new GridView.LayoutParams(parent.getWidth() / 3 - 4, parent.getWidth() / 3 - 4));
+                imageView.setLayoutParams(new GridView.LayoutParams(parent.getWidth() / columnNo - 4, parent.getWidth() / columnNo - 4));
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imageView.setBackgroundColor(Color.BLUE);
                 imageView.setPadding(5, 5, 5, 5);
 
+
             } else {
                 imageView = (ImageView) convertView;
-                imageView.setLayoutParams(new GridView.LayoutParams(parent.getWidth() / 3 - 4, parent.getWidth() / 3 - 4));
+                imageView.setLayoutParams(new GridView.LayoutParams(parent.getWidth() / columnNo - 4, parent.getWidth() / columnNo - 4));
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imageView.setBackgroundColor(Color.BLUE);
                 imageView.setPadding(5, 5, 5, 5);
@@ -83,5 +85,10 @@ public class ImageAdapter extends BaseAdapter
 
         return imageView;
     }
-
+    public void setNumColumn(int no){
+        columnNo = no;
+    }
+    public void setContext(Context c){
+        context = c;
+    }
 }
