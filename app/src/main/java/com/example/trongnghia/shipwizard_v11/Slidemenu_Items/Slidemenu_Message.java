@@ -34,6 +34,7 @@ public class Slidemenu_Message extends Fragment {
 
     ListView ads;
 
+    
     public static ArrayList<Message_History_List_Item> items;
     public ArrayList<Message_History_List_Item> array;
     public ArrayList<String> recent_search_string;
