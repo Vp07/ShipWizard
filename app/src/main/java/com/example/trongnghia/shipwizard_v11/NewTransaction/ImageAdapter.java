@@ -22,7 +22,7 @@ public class ImageAdapter extends BaseAdapter
     public int Item_width;
     private int columnNo = 1;
     ImageView imageView;
-    public Bitmap bm[] = {null,null,null,null,null,null,null,null,null,};
+    public Bitmap[] bm = {null,null,null,null,null,null,null,null,null,};
     Integer empty_slot[]={
             R.drawable.ic_photo_camera_white_24dp,
             R.drawable.ic_photo_camera_white_24dp,

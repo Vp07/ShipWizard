@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,9 +40,11 @@ import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Favorite_Ads;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -75,7 +78,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
 
     Bitmap bm;
-    Bitmap bm_for_upload[] = {null,null,null,null,null,null,null,null,null};
+    Bitmap[] bm_for_upload = new Bitmap[10];
     GridView gridView;
 
     ListView Capture_or_pick;
@@ -267,21 +270,8 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 final ViewFlipper vfAds_img = (ViewFlipper) dialog_2.findViewById(R.id.viewFlipper_Ads_Img);
                 ImageView Next = (ImageView) dialog_2.findViewById(R.id.vf_next);
                 ImageView Previous = (ImageView) dialog_2.findViewById(R.id.vf_previous);
-                current_position = 1;
+                final TextView tv = (TextView) dialog_2.findViewById(R.id.ItemNo);
 
-                Next.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        vfAds_img.showNext();
-                       // current_position++;
-                    }
-                });
-                Previous.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        vfAds_img.showPrevious();
-                    }
-                });
                 for(int i=0;i<9;i++){
                     if(bm_adapter.bm[i]!=null){
                         ImageView iv = new ImageView(dialog_2.getContext());
@@ -289,6 +279,24 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                         vfAds_img.addView(iv);
                     }
                 }
+                final int vf_position1 = vfAds_img.getDisplayedChild()+ 1;
+                tv.setText("Image "+ vf_position1 + " / "+vfAds_img.getChildCount());
+                Next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        vfAds_img.showNext();
+                        int vf_position = vfAds_img.getDisplayedChild() +1;
+                        tv.setText("Image "+ vf_position +" / "+vfAds_img.getChildCount());
+                    }
+                });
+                Previous.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        vfAds_img.showPrevious();
+                        int vf_position = vfAds_img.getDisplayedChild() +1;
+                        tv.setText("Image " + vf_position + " / " + vfAds_img.getChildCount());
+                    }
+                });
 
 //                for (int i=0;i<10;i++){
 //                    int j=0;
@@ -297,8 +305,6 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 //                        j++;
 //                    }
 //                }
-
-
                 dialog_2.show();
                 break;
 
@@ -319,21 +325,39 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 user_post.put("Description", description.getText().toString());
 
 
-                // upload image
-                if(bm!=null) {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] byteArray = stream.toByteArray();
-                    ParseFile image_of_item = new ParseFile(byteArray);
-                    user_post.put("img", image_of_item);
-                    //post to Parse
 
+                ArrayList<ParseFile> ImagesToUpload = new ArrayList<ParseFile>();
+                final int test_count = 0;
+                for(int i = 0;i<9;i++) {
+                    if (bm_for_upload[i] != null) {
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bm_for_upload[i].compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        byte[] byteArray = stream.toByteArray();
+                        final ParseFile newPFile = new ParseFile(byteArray);
+                        newPFile.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                user_post.addUnique("Images",newPFile);
+                                Log.d("check","image uploaded");
+                            }
+                        });
+
+                        //post to Parse
+                    }
                 }
 
-                user_post.saveInBackground();
-                    Toast.makeText(getActivity(), post_message, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), View_Transaction.class);
-                    startActivity(intent);
+
+
+                user_post.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Toast.makeText(getActivity(), post_message, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), View_Transaction.class);
+                        startActivity(intent);
+                    }
+                });
+
 
                 break;
 
