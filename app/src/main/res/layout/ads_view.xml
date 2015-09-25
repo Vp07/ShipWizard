@@ -212,15 +212,53 @@
                     </LinearLayout>
 
                     <!--Image View -->
-                    <ImageView
-                        android:id="@+id/ivAds_Img"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:src="@drawable/android"
-                        android:layout_weight="5"
-                        android:layout_marginRight="5dp"
-                        android:background="@color/Color_1"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_height="wrap_content"
+                        android:background="#a0a0a0">
+
+                        <ViewFlipper
+                            android:layout_width="match_parent"
+                            android:layout_height="320dp"
+                            android:id="@+id/viewFlipper_Ads_Img"
+                            android:layout_gravity="center" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_horizontal">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"
+                                android:id="@+id/vf_previous"
+                                android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
+
+                            <FrameLayout
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="image no."
+                                    android:id="@+id/ItemNo"
+                                    android:layout_gravity="center" />
+                            </FrameLayout>
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"
+                                android:id="@+id/vf_next"
+                                android:src="@drawable/ic_keyboard_arrow_right_white_24dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -362,11 +400,10 @@
 
                     <!-- Description -->
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp"
-                        android:layout_marginBottom="10dp">
+                        android:padding="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"

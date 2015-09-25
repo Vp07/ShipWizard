@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridView_image"
+        android:background="#a0a0a0"
+        android:horizontalSpacing="1px"
+        android:verticalSpacing="1px"
+        android:clickable="true"
+        android:numColumns="3" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"></FrameLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#a0a0a0">
+
+        <ImageView
+            android:layout_width= "150dp"
+            android:layout_height="match_parent"
+            android:id="@+id/check_cancel"
+            android:src="@drawable/ic_cancel_white_24dp" />
+
+        <FrameLayout
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="#ffffff"></FrameLayout>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:id="@+id/check_done"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_check_circle_white_24dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
