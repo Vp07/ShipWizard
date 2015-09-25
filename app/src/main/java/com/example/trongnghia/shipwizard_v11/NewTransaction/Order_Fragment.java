@@ -276,8 +276,8 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 // upload image
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 for(int i =0;i<9;i++) {
-                    if(bm_for_upload[i]!=null){
-                        bm_for_upload[i].compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    if(bm_adapter.bm[i]!=null){
+                        bm_adapter.bm[i].compress(Bitmap.CompressFormat.PNG, 100, stream);
                         byte[] byteArray = stream.toByteArray();
                         final ParseFile image_of_item = new ParseFile(byteArray);
                         image_of_item.saveInBackground(new SaveCallback() {
@@ -320,7 +320,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
             Uri selectedImageUri = data.getData();
             try {
                 bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
-                bm_for_upload[global_position] = bm;
+                //bm_for_upload[global_position] = bm;
                 bm_adapter.bm[global_position] = ThumbnailUtils.extractThumbnail(bm, 500, 500);
                 bm_adapter.notifyDataSetChanged();
                 gv.invalidateViews();
