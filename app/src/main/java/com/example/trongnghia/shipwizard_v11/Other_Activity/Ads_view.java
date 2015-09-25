@@ -1,5 +1,6 @@
 package com.example.trongnghia.shipwizard_v11.Other_Activity;
 
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.parse.ParseUser;
 public class Ads_view extends AppCompatActivity implements View.OnClickListener{
 
     public String title, objectID, objectClass;
+
+    public static String Ads_status;
 
     public TextView Title, Ads_type_price, Time, Location, Category, Condition, Description;
 
@@ -88,7 +91,7 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
             objectClass = extras.getString("ObjectClass");
             ParseObject saved_post = new ParseObject(extras.getString("ObjectClass"));
             saved_post.put("objectID", objectID);
-            saved_post.pinInBackground();
+           // saved_post.pinInBackground();
             UserInfo user = new UserInfo();
             user.getObjectID(objectID);
             query = ParseQuery.getQuery(extras.getString("ObjectClass"));
@@ -112,6 +115,7 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
                 break;
 
             case R.id.btEdit:
+                Toast.makeText(Ads_view.this, "abcde", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.btPause:
@@ -129,7 +133,8 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
 
                 break;
 
-            case R.id.btDelete|R.id.btDelete1:
+            case R.id.btDelete:
+                //Toast.makeText(Ads_view.this, "abcde", Toast.LENGTH_SHORT).show();
                 new AlertDialog.Builder(this)
                         .setTitle("Delete an Ads")
                         .setMessage("Delete this Ads?")
@@ -140,7 +145,6 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
                                     public void done(ParseException e) {
                                         if (e == null) {
                                             Intent intent = new Intent();
-
                                             // put the message in Intent
                                             intent.putExtra("MESSAGE", "DONE");
                                             // Set The Result in Intent
@@ -156,6 +160,8 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
                         })
                         .setNegativeButton("CANCEL", null)
                         .show();
+
+
                 break;
 
             case R.id.btUn_Pause:
@@ -181,19 +187,30 @@ public class Ads_view extends AppCompatActivity implements View.OnClickListener{
             // Return to Post activity
             case android.R.id.home:
                // NavUtils.navigateUpFromSameTask(this);
-//                FragmentManager fm = getFragmentManager();
-//                if (fm.getBackStackEntryCount() > 0) {
-//                    //Log.i("MainActivity", "popping backstack");
-//                    fm.popBackStack();
-//                } else {
-//                    //Log.i("MainActivity", "nothing on backstack, calling super");
-//                    super.onBackPressed();
-//                }
+                FragmentManager fm = getFragmentManager();
+                if (fm.getBackStackEntryCount() > 0) {
+                    //Log.i("MainActivity", "popping backstack");
+                    fm.popBackStack();
+                } else {
+                    //Log.i("MainActivity", "nothing on backstack, calling super");
+                    super.onBackPressed();
+                }
 
                 finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+            super.onBackPressed();
+        }
+        else
+            super.onBackPressed();
     }
 }

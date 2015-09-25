@@ -31,7 +31,7 @@ import java.util.List;
 public class ChatActivity extends AppCompatActivity {
     private static final String TAG = ChatActivity.class.getName();
     private static final int MAX_CHAT_MESSAGES_TO_SHOW = 50;
-    private static String From_UserID, To_UserID, To_User_name;
+    private static String From_UserID, To_UserID, To_User_name, AdsID;
     private static String sUserId;
 
     public static final String FROM_USER_ID_KEY = "FromUserID";
@@ -64,6 +64,7 @@ public class ChatActivity extends AppCompatActivity {
         if (extras != null) {
             To_UserID = extras.getString("UserID");
             To_User_name = extras.getString("UserName");
+            AdsID = extras.getString("AdsID");
         }
         toolbar_setup();
         // Run the runnable object defined every 100ms
@@ -99,6 +100,8 @@ public class ChatActivity extends AppCompatActivity {
                 message.setToUserName(To_User_name);
                 message.setConnectionString(From_UserID + To_UserID);
                 message.setContent(data);
+                // AdsID is ObjectID of current post ads
+                message.setAdsID(AdsID);
                 message.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -124,10 +127,7 @@ public class ChatActivity extends AppCompatActivity {
         // Second query
         ParseQuery<Message> query1 = ParseQuery.getQuery(Message.class);
         query1.whereEqualTo("Connection", To_UserID+From_UserID);
-        //query1.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-        //query1.orderByAscending("createdAt");
-        // Execute query to fetch all messages from Parse asynchronously
-        // This is equivalent to a SELECT query with SQL
+
         queries.add(query);
         queries.add(query1);
 
@@ -158,7 +158,7 @@ public class ChatActivity extends AppCompatActivity {
         @Override
         public void run() {
             refreshMessages();
-            handler.postDelayed(this, 100);
+            handler.postDelayed(this, 1000);
         }
     };
 

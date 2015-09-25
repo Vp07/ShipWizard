@@ -148,7 +148,8 @@ public class Slidemenu_Ads_History extends Fragment{
                 intent.putExtra("Buyer_place", objectList.get(position).getString("Buyer_place"));
                 intent.putExtra("ObjectID", objectList.get(position).getObjectId().toString());
                 intent.putExtra("ObjectClass", objectList.get(position).getClassName().toString());
-                startActivityForResult(intent, 1);
+                getActivity().startActivityForResult(intent, 1);
+                //startActivityForResult(intent, 1);
             }
         });
     }
@@ -158,11 +159,13 @@ public class Slidemenu_Ads_History extends Fragment{
     {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
+        Toast.makeText(getActivity(), "abcde", Toast.LENGTH_SHORT).show();
         if(requestCode==1)
         {
             items.clear();
             if(null!=data)
             {
+                Toast.makeText(getActivity(), "abcde", Toast.LENGTH_SHORT).show();
                 adapter.clear();
                 listView.setAdapter(adapter);
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();

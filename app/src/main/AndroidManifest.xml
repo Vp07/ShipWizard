@@ -92,7 +92,8 @@
         </activity>
         <activity
             android:name=".Other_Activity.Public_Ads_view"
-            android:label="@string/title_activity_public__ads_view" >
+            android:label="@string/title_activity_public__ads_view"
+            android:parentActivityName=".NewTransaction.View_Transaction">
         </activity>
         <activity
             android:name=".Other_Activity.ChatActivity"

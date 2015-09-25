@@ -52,4 +52,8 @@ public class Message extends ParseObject {
     public void setConnectionString(String ConnectString) {
         put("Connection", ConnectString);
     }
+
+    public void setAdsID(String AdsID) {
+        put("AdsID", AdsID);
+    }
 }

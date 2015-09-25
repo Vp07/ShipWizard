@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -329,7 +330,7 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.main_activity_content_frame, Slidemenu_Ads_History.newInstance())
-                                //.addToBackStack("AdsHistoryList")
+                                .addToBackStack("AdsHistoryList")
                                 .commit();
                         break;
                     }
@@ -499,5 +500,26 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
             }
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        Toast.makeText(View_Transaction.this, "abcde", Toast.LENGTH_SHORT).show();
+        if(requestCode==1) {
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle("Ads History");
+
+            }
+            //view.setSelected(true);
+            // Insert the fragment by replacing any existing fragment
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_activity_content_frame, Slidemenu_Ads_History.newInstance())
+                    .addToBackStack("AdsHistoryList")
+                    .commit();
+        }
     }
 }

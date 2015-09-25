@@ -27,9 +27,11 @@ import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -186,6 +188,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 user_post.put("Price", price.getText().toString());
                 user_post.put("Time", formattedDate);
                 user_post.put("Description", description.getText().toString());
+                user_post.put("Status", "Active");
 
                 // upload image
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -194,10 +197,17 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 ParseFile image_of_item = new ParseFile(byteArray);
                 user_post.put("img",image_of_item);
                 //post to Parse
-                user_post.saveInBackground();
-                Toast.makeText(getActivity(),post_message,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), View_Transaction.class);
-                startActivity(intent);
+                user_post.saveInBackground(new SaveCallback() {
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Toast.makeText(getActivity(), post_message, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(), View_Transaction.class);
+                            startActivity(intent);
+                        } else {
+                            //myObjectSaveDidNotSucceed();
+                        }
+                    }
+                });
                 break;
         }
     }

@@ -2,6 +2,7 @@ package com.example.trongnghia.shipwizard_v11.Other_Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -102,6 +103,7 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
                 Intent intent = new Intent(Public_Ads_view.this, ChatActivity.class);
                 intent.putExtra("UserID", toUserID );
                 intent.putExtra("UserName", username);
+                intent.putExtra("AdsID",objectID);
                 startActivity(intent);
                 break;
 
@@ -120,7 +122,8 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
         {
             // Return to Post activity
             case android.R.id.home:
-                finish();
+                //finish();
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
