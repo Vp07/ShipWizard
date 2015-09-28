@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +16,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.trongnghia.shipwizard_v11.Library.TinyDB;
 import com.example.trongnghia.shipwizard_v11.NewTransaction.View_Transaction;
 import com.example.trongnghia.shipwizard_v11.R;
+import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Recent_Search_Item;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import java.util.ArrayList;
 
 public class Public_Ads_view extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,12 +40,20 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
     public static ParseQuery<ParseObject> query;
     public UserInfo user;
 
+    // Save favorite Ads
+    public static TinyDB tinydb;
+    public ArrayList<String> favorite_ads_list;
+    public boolean bookmark_flag = false;
+
     public ParseObject user_message = new ParseObject("UserMessage");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ads_view_public);
+
+        tinydb = new TinyDB(this);
+        favorite_ads_list = new ArrayList<String>();
 
         Title = (TextView)findViewById(R.id.tvTitle);
         Ads_type_price = (TextView)findViewById(R.id.tvPrice);
@@ -81,7 +94,7 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
             toUserID = extras.getString("UserID");
             username = extras.getString("UserName");
             ParseObject saved_post = new ParseObject(extras.getString("ObjectClass"));
-            UserInfo user = new UserInfo();
+            user = new UserInfo();
             user.getObjectID(objectID);
             query = ParseQuery.getQuery(extras.getString("ObjectClass"));
         }
@@ -116,6 +129,14 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_public__ads_view, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         switch (item.getItemId())
@@ -125,6 +146,26 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
                 //finish();
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+
+            case R.id.action_bookmark:
+                bookmark_flag = tinydb.getBoolean(objectID, false);
+                favorite_ads_list = tinydb.getListString("FavoriteAds");
+                // This is already checked as bookmark, now uncheck it
+                if (bookmark_flag == true){
+                    favorite_ads_list.remove(objectID);
+                    tinydb.putBoolean(objectID, false);
+                    //Toast.makeText(Public_Ads_view.this, "true", Toast.LENGTH_SHORT).show();
+
+                }else { // If this Ads is unchecked, now check it as favorite
+                    favorite_ads_list.add(objectID);
+                    tinydb.putBoolean(objectID, true);
+                    //Toast.makeText(Public_Ads_view.this, "false", Toast.LENGTH_SHORT).show();
+
+                }
+                tinydb.putListString("FavoriteAds", favorite_ads_list);
+                Toast.makeText(Public_Ads_view.this, Integer.toString(favorite_ads_list.size()), Toast.LENGTH_SHORT).show();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

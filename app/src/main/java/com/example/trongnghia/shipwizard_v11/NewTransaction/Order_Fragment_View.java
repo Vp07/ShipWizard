@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,7 +30,6 @@ import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Adapter;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Items;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
-import com.example.trongnghia.shipwizard_v11.User.User_Post_Querry;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -57,7 +59,6 @@ public class Order_Fragment_View extends Fragment{
 
     public Order_Fragment_View_List_Items temp;
 
-    public User_Post_Querry objectList;
     public List<ParseObject> postList;
     public ParseObject temp_object;
 
@@ -111,8 +112,6 @@ public class Order_Fragment_View extends Fragment{
             // Get image file from Parse object
             ParseFile img_file = temp_object.getParseFile("img");
             // Hiep -> Do something to get bitmap data from img_file
-
-
 
             items.add(new Order_Fragment_View_List_Items(bitmap,
                     temp_object.getString("Title"),
@@ -174,4 +173,5 @@ public class Order_Fragment_View extends Fragment{
             }
         }
     }
+
 }

@@ -28,7 +28,6 @@ import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Adapter;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Items;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
-import com.example.trongnghia.shipwizard_v11.User.User_Post_Querry;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -59,7 +58,6 @@ public class Ship_Fragment_View extends Fragment {
 
     public Ship_Fragment_View_List_Item temp;
 
-    public User_Post_Querry objectList;
     public List<ParseObject> postList;
     public ParseObject temp_object;
 

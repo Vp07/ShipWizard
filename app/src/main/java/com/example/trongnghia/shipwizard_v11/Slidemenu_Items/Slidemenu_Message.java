@@ -20,7 +20,6 @@ import com.example.trongnghia.shipwizard_v11.Other_Activity.Message_History_List
 import com.example.trongnghia.shipwizard_v11.Other_Activity.Public_Ads_view;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
-import com.example.trongnghia.shipwizard_v11.User.User_Post_Querry;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -34,7 +33,6 @@ public class Slidemenu_Message extends Fragment {
 
     ListView ads;
 
-    
     public static ArrayList<Message_History_List_Item> items;
     public ArrayList<Message_History_List_Item> array;
     public ArrayList<String> recent_search_string;
@@ -43,7 +41,6 @@ public class Slidemenu_Message extends Fragment {
 
     public Message_History_List_Item temp;
 
-    public User_Post_Querry objectList;
     public List<ParseObject> postList;
     public List<String> display_msg = new ArrayList<String>();;
     public List<String> temp_list;

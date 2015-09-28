@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -521,5 +522,29 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                     .addToBackStack("AdsHistoryList")
                     .commit();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_view__transaction, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_search:
+                // do stuff, like showing settings fragment
+                return true;
+
+            case R.id.action_settings:
+                // do stuff, like showing settings fragment
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item); // important line
     }
 }

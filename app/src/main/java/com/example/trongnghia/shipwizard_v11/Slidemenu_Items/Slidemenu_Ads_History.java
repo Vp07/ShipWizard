@@ -24,7 +24,6 @@ import com.example.trongnghia.shipwizard_v11.NewTransaction.View_Transaction;
 import com.example.trongnghia.shipwizard_v11.Other_Activity.Ads_view;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
-import com.example.trongnghia.shipwizard_v11.User.User_Post_Querry;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.parse.FindCallback;

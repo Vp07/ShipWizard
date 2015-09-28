@@ -1,7 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.trongnghia.shipwizard_v11.Other_Activity.Public_Ads_view">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:ShipWizard_v1.1="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_bookmark"
+        android:icon="@drawable/ic_grade_white_24dp"
+        android:title="@string/action_settings"
+        ShipWizard_v1.1:showAsAction="ifRoom" />
+    <!-- Settings, should always be in the overflow -->
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        ShipWizard_v1.1:showAsAction="never" />
 </menu>

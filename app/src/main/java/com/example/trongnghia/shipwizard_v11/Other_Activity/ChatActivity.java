@@ -116,26 +116,35 @@ public class ChatActivity extends AppCompatActivity {
     // Query messages from Parse so we can load them into the chat adapter
     private void receiveMessage() {
         // Make a list of query
-        List<ParseQuery<Message>> queries = new ArrayList<ParseQuery<Message>>();
+//        List<ParseQuery<Message>> queries = new ArrayList<ParseQuery<Message>>();
+//
+//        // First query
+//        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
+//        query.whereEqualTo("Connection", From_UserID+To_UserID);
+//        //query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
+//        //query.orderByAscending("createdAt");
+//
+//        // Second query
+//        ParseQuery<Message> query1 = ParseQuery.getQuery(Message.class);
+//        query1.whereEqualTo("Connection", To_UserID+From_UserID);
+//
+//        ParseQuery<Message> query2 = ParseQuery.getQuery(Message.class);
+//        query1.whereEqualTo("AdsID", AdsID);
+//
+//        queries.add(query);
+//        queries.add(query1);
+//        queries.add(query2);
 
-        // First query
+//        ParseQuery<Message> mainQuery = ParseQuery.or(queries);
+//        mainQuery.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
+//        mainQuery.orderByAscending("createdAt");
+
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
-        query.whereEqualTo("Connection", From_UserID+To_UserID);
-        //query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-        //query.orderByAscending("createdAt");
+        query.whereEqualTo("AdsID", AdsID);
+        query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
+        query.orderByAscending("createdAt");
 
-        // Second query
-        ParseQuery<Message> query1 = ParseQuery.getQuery(Message.class);
-        query1.whereEqualTo("Connection", To_UserID+From_UserID);
-
-        queries.add(query);
-        queries.add(query1);
-
-        ParseQuery<Message> mainQuery = ParseQuery.or(queries);
-        mainQuery.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-        mainQuery.orderByAscending("createdAt");
-
-        mainQuery.findInBackground(new FindCallback<Message>() {
+        query.findInBackground(new FindCallback<Message>() {
             public void done(List<Message> messages, ParseException e) {
                 if (e == null) {
                     mMessages.clear();

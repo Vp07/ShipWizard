@@ -133,7 +133,7 @@ public class Slidemenu_Search extends Fragment implements View.OnClickListener{
         gson = new Gson();
         recent_search_string = new ArrayList<String>();
         time = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         formattedDate = df.format(time.getTime());
 //        day = time.get(Calendar.DATE);
 //        month = time.get(Calendar.MONTH);
