@@ -27,12 +27,14 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
+
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -73,6 +75,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     GridView gv;
     TextView tv;
     Bitmap[] bm_for_upload = new Bitmap[10];
+    int count;
 
 
     ListView Capture_or_pick;
@@ -189,7 +192,8 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 ivCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.onBackPressed();
+
+                        dialog.dismiss();
                     }
                 });
                 ivDone.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +206,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                             }
 
                         }
-                        dialog.onBackPressed();
+                        dialog.dismiss();
                     }
                 });
                 break;
@@ -275,27 +279,32 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
                 // upload image
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                count = 1;
+
+
                 for(int i =0;i<9;i++) {
                     if(bm_adapter.bm[i]!=null){
                         bm_adapter.bm[i].compress(Bitmap.CompressFormat.PNG, 100, stream);
                         byte[] byteArray = stream.toByteArray();
                         final ParseFile image_of_item = new ParseFile(byteArray);
-                        image_of_item.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                user_post.addUnique("Images",image_of_item);
-                                Log.d("checking", "Images uploaded!");
-                            }
-                        });
+                        user_post.put("Image_"+count,image_of_item);
+                        count++;
                     }
 
                 }
-
                 //post to Parse
-                user_post.saveInBackground();
-                Toast.makeText(getActivity(),post_message,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), View_Transaction.class);
-                startActivity(intent);
+               // user_post.put("Images", Image_list);
+               // user_post.put("test_column",tesst);
+                user_post.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Toast.makeText(getActivity(), post_message, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), View_Transaction.class);
+                        startActivity(intent);
+                    }
+                });
+
+
                 break;
         }
     }
