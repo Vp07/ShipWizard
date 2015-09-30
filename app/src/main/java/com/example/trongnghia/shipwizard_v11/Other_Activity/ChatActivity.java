@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.trongnghia.shipwizard_v11.Library.TinyDB;
 import com.example.trongnghia.shipwizard_v11.R;
+import com.example.trongnghia.shipwizard_v11.User.UserAction;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -49,17 +51,36 @@ public class ChatActivity extends AppCompatActivity {
     // Get the message from other user
     private Handler handler = new Handler();
 
-
-
+    // Save ads having message
+    public UserAction AdsMessageList = new UserAction();
+    public List<String> adsList = new ArrayList<>();
+    public TinyDB temp_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send__message);
         From_UserID = UserInfo.userID;
-        //sUserId = ParseUser.getCurrentUser().getObjectId();
+        temp_save = new TinyDB(this);
+
+        // Get Ads message list from Parse
+        ParseQuery<UserAction> query = ParseQuery.getQuery(UserAction.class);
+        query.whereEqualTo("UserID", From_UserID);
+        query.findInBackground(new FindCallback<UserAction>() {
+            public void done(List<UserAction> object, ParseException e) {
+                if (e == null) {
+                    adsList = object.get(0).getList("AdsIDMessage");
+                    temp_save.putListString("AdsIDMessage", (ArrayList) adsList);
+                } else {
+                    Log.d("message", "Error: " + e.getMessage());
+                }
+            }
+        });
+        adsList = temp_save.getListString("AdsIDMessage");
+
         setupMessagePosting();
 
+        // Get information from caller activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             To_UserID = extras.getString("UserID");
@@ -76,10 +97,9 @@ public class ChatActivity extends AppCompatActivity {
     private void setupMessagePosting() {
         // Find the text field and button
         etMessage = (EditText) findViewById(R.id.etInbox);
-//        InputMethodManager imm = (InputMethodManager)ChatActivity.this.getSystemService(ChatActivity.this.INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(etMessage.getWindowToken(), 0)
         lvChat = (ListView) findViewById(R.id.lvContent);
         mMessages = new ArrayList<Message>();
+
         // Automatically scroll to the bottom when a data set change notification is received and only if the last item is already visible on screen. Don't scroll to the bottom otherwise.
         lvChat.setTranscriptMode(1);
         mFirstLoad = true;
@@ -89,7 +109,6 @@ public class ChatActivity extends AppCompatActivity {
         btSend = (Button) findViewById(R.id.btSend);
         // When send button is clicked, create message object on Parse
         btSend.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 String data = etMessage.getText().toString();
@@ -109,36 +128,29 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
                 etMessage.setText("");
+
+                // If this ads has not saved in the list, then save it
+                if(adsList.contains(AdsID)==false) {
+                    adsList.add(AdsID);
+                    ParseQuery<UserAction> query = ParseQuery.getQuery(UserAction.class);
+                    query.whereEqualTo("UserID", From_UserID);
+                    query.findInBackground(new FindCallback<UserAction>() {
+                        public void done(List<UserAction> object, ParseException e) {
+                            if (e == null) {
+                                object.get(0).setAdsMessageList(adsList);
+                                object.get(0).saveInBackground();
+                            } else {
+                                Log.d("message", "Error: " + e.getMessage());
+                            }
+                        }
+                    });
+                }
             }
         });
     }
 
     // Query messages from Parse so we can load them into the chat adapter
     private void receiveMessage() {
-        // Make a list of query
-//        List<ParseQuery<Message>> queries = new ArrayList<ParseQuery<Message>>();
-//
-//        // First query
-//        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
-//        query.whereEqualTo("Connection", From_UserID+To_UserID);
-//        //query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-//        //query.orderByAscending("createdAt");
-//
-//        // Second query
-//        ParseQuery<Message> query1 = ParseQuery.getQuery(Message.class);
-//        query1.whereEqualTo("Connection", To_UserID+From_UserID);
-//
-//        ParseQuery<Message> query2 = ParseQuery.getQuery(Message.class);
-//        query1.whereEqualTo("AdsID", AdsID);
-//
-//        queries.add(query);
-//        queries.add(query1);
-//        queries.add(query2);
-
-//        ParseQuery<Message> mainQuery = ParseQuery.or(queries);
-//        mainQuery.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
-//        mainQuery.orderByAscending("createdAt");
-
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
         query.whereEqualTo("AdsID", AdsID);
         query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);

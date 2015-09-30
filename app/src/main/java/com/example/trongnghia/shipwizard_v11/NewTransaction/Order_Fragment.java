@@ -28,11 +28,14 @@ import android.widget.ViewFlipper;
 
 import com.example.trongnghia.shipwizard_v11.LogIn.DispatchActivity;
 import com.example.trongnghia.shipwizard_v11.R;
+import com.example.trongnghia.shipwizard_v11.User.UserAction;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -84,6 +87,8 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
     String post_message = "Your message has been successfully posted on the DashBoard";
     public ParseObject user_post = new ParseObject("UserPost");
+
+    public List<String> list_temp = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -259,6 +264,8 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
             // Post this order transaction to the Dashboard
             case R.id.bPost:
+
+                // Post this Ads to Post class
                 Calendar time = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = df.format(time.getTime());
@@ -272,7 +279,6 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 user_post.put("Price", price.getText().toString());
                 user_post.put("Time", formattedDate);
                 user_post.put("Description", description.getText().toString());
-
                 // upload image
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 for(int i =0;i<9;i++) {
@@ -288,12 +294,12 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                             }
                         });
                     }
-
                 }
-
                 //post to Parse
                 user_post.saveInBackground();
                 Toast.makeText(getActivity(),post_message,Toast.LENGTH_SHORT).show();
+
+                // Come back to home
                 Intent intent = new Intent(getActivity(), View_Transaction.class);
                 startActivity(intent);
                 break;

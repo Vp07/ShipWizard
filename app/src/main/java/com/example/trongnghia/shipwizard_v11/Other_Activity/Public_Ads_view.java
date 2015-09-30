@@ -2,11 +2,16 @@ package com.example.trongnghia.shipwizard_v11.Other_Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,14 +25,17 @@ import com.example.trongnghia.shipwizard_v11.Library.TinyDB;
 import com.example.trongnghia.shipwizard_v11.NewTransaction.View_Transaction;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Recent_Search_Item;
+import com.example.trongnghia.shipwizard_v11.User.UserAction;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.DeleteCallback;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Public_Ads_view extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,10 +50,11 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
 
     // Save favorite Ads
     public static TinyDB tinydb;
-    public ArrayList<String> favorite_ads_list;
+    public List<String> favorite_ads_list = new ArrayList<String>();
     public boolean bookmark_flag = false;
-
-    public ParseObject user_message = new ParseObject("UserMessage");
+    //public UserAction user_favorite_ads = new UserAction();
+    public Drawable bookmark_icon;
+    public List<String> user_bookmarks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +62,6 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.ads_view_public);
 
         tinydb = new TinyDB(this);
-        favorite_ads_list = new ArrayList<String>();
 
         Title = (TextView)findViewById(R.id.tvTitle);
         Ads_type_price = (TextView)findViewById(R.id.tvPrice);
@@ -70,6 +78,8 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
         bInbox.setOnClickListener(this);
         bCall.setOnClickListener(this);
         bSms.setOnClickListener(this);
+
+        bookmark_icon = getResources().getDrawable(R.drawable.ic_grade_white_24dp);
 
         initialise();
     }
@@ -148,22 +158,37 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
                 return true;
 
             case R.id.action_bookmark:
-                bookmark_flag = tinydb.getBoolean(objectID, false);
-                favorite_ads_list = tinydb.getListString("FavoriteAds");
-                // This is already checked as bookmark, now uncheck it
-                if (bookmark_flag == true){
-                    favorite_ads_list.remove(objectID);
-                    tinydb.putBoolean(objectID, false);
-                    //Toast.makeText(Public_Ads_view.this, "true", Toast.LENGTH_SHORT).show();
 
-                }else { // If this Ads is unchecked, now check it as favorite
-                    favorite_ads_list.add(objectID);
-                    tinydb.putBoolean(objectID, true);
-                    //Toast.makeText(Public_Ads_view.this, "false", Toast.LENGTH_SHORT).show();
-
-                }
-                tinydb.putListString("FavoriteAds", favorite_ads_list);
-                Toast.makeText(Public_Ads_view.this, Integer.toString(favorite_ads_list.size()), Toast.LENGTH_SHORT).show();
+                ParseQuery<UserAction> query = ParseQuery.getQuery(UserAction.class);
+                 // Retrieve the object by id
+                query.whereEqualTo("UserID", UserInfo.userID);
+                query.findInBackground(new FindCallback<UserAction>() {
+                    public void done(List<UserAction> object, ParseException e) {
+                        if (e == null) {
+                            favorite_ads_list = object.get(0).getAdsID();
+                                // if this Ads is already saved as favorite, then uncheck it
+                            if(favorite_ads_list.contains(objectID)==true){
+                                Toast.makeText(Public_Ads_view.this,"check", Toast.LENGTH_SHORT).show();
+                                favorite_ads_list.remove(objectID);
+                                ColorFilter filter = new LightingColorFilter( Color.YELLOW, Color.YELLOW);
+                                //ColorFilter filter = new LightingColorFilter( Color.WHITE, Color.WHITE);
+                                bookmark_icon.setColorFilter(filter);
+                            }
+                            else { // If this ads has not saved as favorite
+                                Toast.makeText(Public_Ads_view.this,"uncheck", Toast.LENGTH_SHORT).show();
+                                favorite_ads_list.add(objectID);
+                                //ColorFilter filter = new LightingColorFilter( Color.YELLOW, Color.YELLOW);
+                                ColorFilter filter = new LightingColorFilter( Color.WHITE, Color.WHITE);
+                                bookmark_icon.setColorFilter(filter);
+                            }
+                            Toast.makeText(Public_Ads_view.this, Integer.toString(favorite_ads_list.size()), Toast.LENGTH_SHORT).show();
+                            object.get(0).setAdsID(favorite_ads_list);
+                            object.get(0).saveInBackground();
+                        } else {
+                            Log.d("message", "Error: " + e.getMessage());
+                        }
+                    }
+                });
                 return true;
 
             default:
