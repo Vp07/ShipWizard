@@ -32,25 +32,26 @@ public class DispatchActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         // Check if there is current user info
-        ParseQuery<UserAction> query = ParseQuery.getQuery(UserAction.class);
-        query.whereEqualTo("ABC", UserInfo.userID);
-        query.findInBackground(new FindCallback<UserAction>() {
-            public void done(List<UserAction> object, ParseException e) {
-                if (e == null) {
-                } else {
-                    Log.d("message", "Error: " + e.getMessage());
-                }
-            }
-        });
-
         if (ParseUser.getCurrentUser() != null) {
             // Start an intent for the logged in activity
             current_user = new UserInfo();
             bookmarks = new UserAction();
-            bookmarks.setUserID(UserInfo.userID);
-            bookmarks.setAdsID(user_bookmarks);
-            bookmarks.setAdsMessageList(user_bookmarks);
-            bookmarks.saveInBackground();
+            ParseQuery<UserAction> query = ParseQuery.getQuery(UserAction.class);
+            query.whereEqualTo("UserID", UserInfo.userID);
+            query.findInBackground(new FindCallback<UserAction>() {
+                public void done(List<UserAction> object, ParseException e) {
+                    if (e == null) {
+                        if (object.size() == 0) {
+                            bookmarks.setUserID(UserInfo.userID);
+                            bookmarks.setAdsID(user_bookmarks);
+                            bookmarks.setAdsMessageList(user_bookmarks);
+                            bookmarks.saveInBackground();
+                        }
+                    } else {
+                        Log.d("message", "Error: " + e.getMessage());
+                    }
+                }
+            });
             startActivity(new Intent(this, View_Transaction.class));
         } else {
             // Start and intent for the logged out activity

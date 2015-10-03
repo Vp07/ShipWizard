@@ -80,22 +80,24 @@ public class Slidemenu_Favorite_Ads extends Fragment {
                     favorite_ads_list = object.get(0).getAdsID();
                     // tinydb.putListString("AdsID", (ArrayList) favorite_ads_list);
                     //Toast.makeText(getActivity(), Integer.toString(favorite_ads_list.size()), Toast.LENGTH_SHORT).show();
-                    for (int i=0; i<favorite_ads_list.size(); i++){
-                        query_ads = ParseQuery.getQuery("UserPost");
-                        query_ads.whereEqualTo("objectId", favorite_ads_list.get(i));
-                        queries.add(query_ads);
-                    }
-                    ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
-                    mainQuery.findInBackground(new FindCallback<ParseObject>() {
-                        public void done(List<ParseObject> objectList, ParseException e) {
-                            if (e == null) {
-                                if (objectList.size()>0){
-                                    setListItem(objectList);
-                                }
-                            } else {
-                            }
+                    if (favorite_ads_list.size()!=0){
+                        for (int i=0; i<favorite_ads_list.size(); i++){
+                            query_ads = ParseQuery.getQuery("UserPost");
+                            query_ads.whereEqualTo("objectId", favorite_ads_list.get(i));
+                            queries.add(query_ads);
                         }
-                    });
+                        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+                        mainQuery.findInBackground(new FindCallback<ParseObject>() {
+                            public void done(List<ParseObject> objectList, ParseException e) {
+                                if (e == null) {
+                                    if (objectList.size()>0){
+                                        setListItem(objectList);
+                                    }
+                                } else {
+                                }
+                            }
+                        });
+                    }
                 } else {
                     Log.d("message", "Error: " + e.getMessage());
                 }
