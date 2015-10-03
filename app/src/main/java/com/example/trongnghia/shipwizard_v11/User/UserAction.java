@@ -12,7 +12,11 @@ import java.util.List;
 @ParseClassName("UserAction")
 public class UserAction extends ParseObject {
 
-    public static List<String> message_ads = new ArrayList<>();
+    public static List<String> message_ads;
+
+    public UserAction(){
+        message_ads = new ArrayList<>();
+    }
 
     public String getUserID() {
         return getString("UserID");

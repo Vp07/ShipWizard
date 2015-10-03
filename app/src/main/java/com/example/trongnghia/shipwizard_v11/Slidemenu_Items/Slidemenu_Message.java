@@ -1,5 +1,6 @@
 package com.example.trongnghia.shipwizard_v11.Slidemenu_Items;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Slidemenu_Message extends Fragment {
 
@@ -46,6 +48,7 @@ public class Slidemenu_Message extends Fragment {
 
     // Save ads message list
     TinyDB storage;
+    // Used to save parameter settings
     public static List<String> temp = new ArrayList<>();
     public List<String> adsList = new ArrayList<>();
     public List<String> list_temp = new ArrayList<>();
@@ -79,49 +82,46 @@ public class Slidemenu_Message extends Fragment {
                 if (e == null) {
                     list_temp = object.get(0).getList("AdsIDMessage");
                     storage.putListString("AdsIDMessage", (ArrayList) list_temp);
+
+                    query_temp = ParseQuery.getQuery("UserPost");
+                    query_temp.whereEqualTo("UserID", UserInfo.userID);
+                    query_temp.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> object, ParseException e) {
+                            if (e == null) {
+                                list_temp.clear();
+                                for (int i = 0; i < object.size(); i++) {
+                                    list_temp.add(object.get(i).getObjectId().toString());
+                                }
+
+                                adsList = storage.getListString("AdsIDMessage");
+                                List<String> newList = new ArrayList<String>(adsList);
+                                newList.addAll(list_temp);
+                                Toast.makeText(getActivity(), "Text :"+Integer.toString(newList.size()), Toast.LENGTH_SHORT).show();
+
+                                // Then retrieve all ads
+                                for (int i=0; i<newList.size(); i++){
+                                    query_temp = ParseQuery.getQuery("UserPost");
+                                    query_temp.whereEqualTo("objectId", newList.get(i));
+                                    queries.add(query_temp);
+                                }
+                                ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+                                mainQuery.findInBackground(new FindCallback<ParseObject>() {
+                                    public void done(List<ParseObject> objectList, ParseException e) {
+                                        if (e == null) {
+                                            if (objectList.size() > 0) {
+                                               setListItem(objectList);
+                                            }
+                                        } else {
+                                        }
+                                    }
+                                });
+                            } else {
+                                Log.d("message", "Error: " + e.getMessage());
+                            }
+                        }
+                    });
                 } else {
                     Log.d("message", "Error: " + e.getMessage());
-                }
-            }
-        });
-        adsList = storage.getListString("AdsIDMessage");
-
-        // Get Ads message list from UserPost class
-        query_temp = ParseQuery.getQuery("UserPost");
-        query_temp.whereEqualTo("UserID", UserInfo.userID);
-        query_temp.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> object, ParseException e) {
-                if (e == null) {
-                    //Toast.makeText(getActivity(), Integer.toString(object.size()), Toast.LENGTH_SHORT).show();
-                    for (int i = 0; i < object.size(); i++) {
-                        list_temp.add(object.get(i).getObjectId().toString());
-                    }
-                    storage.putListString("AdsIDMessageFromPost", (ArrayList) list_temp);
-                } else {
-                    Log.d("message", "Error: " + e.getMessage());
-                }
-            }
-        });
-        list_temp_1 = storage.getListString("AdsIDMessageFromPost");
-        List<String> newList = new ArrayList<String>(adsList);
-        newList.addAll(list_temp_1);
-        Toast.makeText(getActivity(), Integer.toString(newList.size()), Toast.LENGTH_SHORT).show();
-
-        // Then retrieve all ads
-        for (int i=0; i<newList.size(); i++){
-            query_temp = ParseQuery.getQuery("UserPost");
-            query_temp.whereEqualTo("objectId", newList.get(i));
-            queries.add(query_temp);
-        }
-        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
-        mainQuery.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> objectList, ParseException e) {
-                if (e == null) {
-//                    Toast.makeText(getActivity(), Integer.toString(objectList.size()), Toast.LENGTH_SHORT).show();
-                    if (objectList.size() > 0) {
-                        setListItem(objectList);
-                    }
-                } else {
                 }
             }
         });

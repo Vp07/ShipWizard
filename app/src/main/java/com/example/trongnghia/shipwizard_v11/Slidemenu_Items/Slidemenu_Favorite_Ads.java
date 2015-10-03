@@ -38,15 +38,12 @@ public class Slidemenu_Favorite_Ads extends Fragment {
 
     public static ArrayList<Order_Fragment_View_List_Items> items;
     public ArrayList<Order_Fragment_View_List_Items> array;
-    public List<ParseObject> postList;
     public ParseObject temp_object;
 
     public Bitmap bitmap;
-
     public View view;
 
     static final int PICK_CONTACT_REQUEST = 1;  // The request code
-    public UserInfo user;
 
     public Order_Fragment_View_Adapter adapter;
     public ListView listView;
@@ -74,38 +71,33 @@ public class Slidemenu_Favorite_Ads extends Fragment {
 
     public void listview_init(){
         // First, get list of favorite ads of current users
+        // tinydb.remove("AdsID");
         ParseQuery<UserAction> query = ParseQuery.getQuery(UserAction.class);
         query.whereEqualTo("UserID", UserInfo.userID);
         query.findInBackground(new FindCallback<UserAction>() {
             public void done(List<UserAction> object, ParseException e) {
                 if (e == null) {
                     favorite_ads_list = object.get(0).getAdsID();
-                    // if this Ads is already saved as favorite, then uncheck it
-                    tinydb.putListString("AdsID", (ArrayList) favorite_ads_list);
+                    // tinydb.putListString("AdsID", (ArrayList) favorite_ads_list);
                     //Toast.makeText(getActivity(), Integer.toString(favorite_ads_list.size()), Toast.LENGTH_SHORT).show();
+                    for (int i=0; i<favorite_ads_list.size(); i++){
+                        query_ads = ParseQuery.getQuery("UserPost");
+                        query_ads.whereEqualTo("objectId", favorite_ads_list.get(i));
+                        queries.add(query_ads);
+                    }
+                    ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+                    mainQuery.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> objectList, ParseException e) {
+                            if (e == null) {
+                                if (objectList.size()>0){
+                                    setListItem(objectList);
+                                }
+                            } else {
+                            }
+                        }
+                    });
                 } else {
                     Log.d("message", "Error: " + e.getMessage());
-                }
-            }
-        });
-        favorite_ads_list = tinydb.getListString("AdsID");
-        Toast.makeText(getActivity(), Integer.toString(favorite_ads_list.size()), Toast.LENGTH_SHORT).show();
-
-        // Then retrieve all ads
-        for (int i=0; i<favorite_ads_list.size(); i++){
-            query_ads = ParseQuery.getQuery("UserPost");
-            query_ads.whereEqualTo("objectId", favorite_ads_list.get(i));
-            queries.add(query_ads);
-        }
-
-        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
-        mainQuery.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> objectList, ParseException e) {
-                if (e == null) {
-                    if (objectList.size()>0){
-                        setListItem(objectList);
-                    }
-                } else {
                 }
             }
         });
