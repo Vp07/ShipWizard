@@ -35,7 +35,7 @@ public class Message_History_List_Item {
         return user;
     }
 
-    public void setUser(String price){
+    public void setUser(String user){
         this.user = user;
     }
 
