@@ -2,8 +2,8 @@ package com.example.trongnghia.shipwizard_v11.Slidemenu_Items;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -11,15 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.trongnghia.shipwizard_v11.Library.TinyDB;
 import com.example.trongnghia.shipwizard_v11.NewTransaction.Order_Fragment_View_Adapter;
-import com.example.trongnghia.shipwizard_v11.NewTransaction.Order_Fragment_View_List_Items;
 import com.example.trongnghia.shipwizard_v11.Other_Activity.Public_Ads_view;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -37,12 +36,16 @@ public class Slidemenu_Favorite_Ads extends Fragment {
     public static List<ParseQuery<ParseObject>> queries;
     public static ParseQuery<ParseObject> query;
 
-    public static ArrayList<Order_Fragment_View_List_Items> items;
-    public ArrayList<Order_Fragment_View_List_Items> array;
     public List<ParseObject> postList;
     public ParseObject temp_object;
 
-    public Bitmap bitmap;
+    private Bitmap[] bitmap = new Bitmap[100];
+    private String[] title = new String[100];
+    private String[] price = new String[100];
+    private String[] time = new String[100];
+    private String[] location = new String[100];
+
+    int position;
 
     public View view;
 
@@ -70,7 +73,6 @@ public class Slidemenu_Favorite_Ads extends Fragment {
         favorite_ads_list = tinydb.getListString("FavoriteAds");
         queries = new ArrayList<ParseQuery<ParseObject>>();
 
-        items = new ArrayList<Order_Fragment_View_List_Items>();
         listview_init();
         //Toast.makeText(getActivity(), Integer.toString(te), Toast.LENGTH_LONG).show();
         return view;
@@ -93,25 +95,9 @@ public class Slidemenu_Favorite_Ads extends Fragment {
                 }
             }
         });
+
     }
 
-    private ArrayList<Order_Fragment_View_List_Items> generateData(List<ParseObject> objectList){
-        //Toast.makeText(getActivity(), Integer.toString(postList.size()), Toast.LENGTH_SHORT).show();
-        for (int i=0; i<objectList.size(); i++){
-            temp_object = objectList.get(i);
-
-            // Get image file from Parse object
-            ParseFile img_file = temp_object.getParseFile("img");
-            // Hiep -> Do something to get bitmap data from img_file
-
-            items.add(new Order_Fragment_View_List_Items(bitmap,
-                    temp_object.getString("Title"),
-                    temp_object.getString("Price"),
-                    temp_object.getString("Time"),
-                    temp_object.getString("Buyer_place")));
-        }
-        return items;
-    }
 
     public void getAds(List<ParseObject> objectList){
         this.postList = objectList;
@@ -119,7 +105,29 @@ public class Slidemenu_Favorite_Ads extends Fragment {
 
     public void setListItem(final List<ParseObject> objectList){
         // Pass context and data to the custom adapter
-        adapter = new Order_Fragment_View_Adapter(getActivity(), generateData(objectList));
+        for (int i=0; i<objectList.size(); i++) {
+            position = i;
+            temp_object = objectList.get(i);
+            bitmap[i] = null;
+            // Get image file from Parse object
+            ParseFile img_file = temp_object.getParseFile("img");
+            // Hiep -> Do something to get bitmap data from img_file
+            if (img_file != null) {
+                img_file.getDataInBackground(new GetDataCallback() {
+                    @Override
+                    public void done(byte[] bytes, ParseException e) {
+                        bitmap[position] = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    }
+                });
+            }
+            title[position] = objectList.get(i).getString("Title");
+            price[position] = objectList.get(i).getString("Price");
+            time[position] = objectList.get(i).getString("Time");
+            location[position] = objectList.get(i).getString("Buyer_place");
+        }
+
+        adapter = new Order_Fragment_View_Adapter(getActivity(), bitmap,title,time,location,price);
+
         // Get ListView from activity_main.xml
         listView = (ListView) view.findViewById(R.id.lvOrder_view);
         // SetListAdapter
@@ -154,7 +162,6 @@ public class Slidemenu_Favorite_Ads extends Fragment {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==1)
         {
-            items.clear();
             if(null!=data)
             {
                 adapter.clear();

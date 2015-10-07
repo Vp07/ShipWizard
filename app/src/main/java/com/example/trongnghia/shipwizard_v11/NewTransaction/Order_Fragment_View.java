@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +33,7 @@ import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_Histo
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Items;
 import com.example.trongnghia.shipwizard_v11.User.UserInfo;
 import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -51,18 +54,24 @@ public class Order_Fragment_View extends Fragment{
 
     ListView ads;
 
-    public static ArrayList<Order_Fragment_View_List_Items> items;
-    public ArrayList<Order_Fragment_View_List_Items> array;
     public ArrayList<String> recent_search_string;
     public String postObject = "UserPost";
     public String UserIDCol = "UserID";
 
-    public Order_Fragment_View_List_Items temp;
+
 
     public List<ParseObject> postList;
     public ParseObject temp_object;
 
-    public Bitmap bitmap;
+    ImageView test_view;
+
+    private Bitmap[] bitmap = new Bitmap[100];
+    private String[] title = new String[100];
+    private String[] price = new String[100];
+    private String[] time = new String[100];
+    private String[] location = new String[100];
+
+    int position;
 
     public View view;
 
@@ -83,8 +92,8 @@ public class Order_Fragment_View extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment__order_view, container, false);
-        items = new ArrayList<Order_Fragment_View_List_Items>();
         user = new UserInfo();
+        //test_view = (ImageView) view.findViewById(R.id.imageView_test);
 
         listview_init();
         //Toast.makeText(getActivity(), Integer.toString(te), Toast.LENGTH_LONG).show();
@@ -104,23 +113,6 @@ public class Order_Fragment_View extends Fragment{
         });
     }
 
-    private ArrayList<Order_Fragment_View_List_Items> generateData(List<ParseObject> objectList){
-        //Toast.makeText(getActivity(), Integer.toString(postList.size()), Toast.LENGTH_SHORT).show();
-        for (int i=0; i<objectList.size(); i++){
-            temp_object = objectList.get(i);
-
-            // Get image file from Parse object
-            ParseFile img_file = temp_object.getParseFile("img");
-            // Hiep -> Do something to get bitmap data from img_file
-
-            items.add(new Order_Fragment_View_List_Items(bitmap,
-                    temp_object.getString("Title"),
-                    temp_object.getString("Price"),
-                    temp_object.getString("Time"),
-                    temp_object.getString("Buyer_place")));
-        }
-        return items;
-    }
 
     public void getAds(List<ParseObject> objectList){
         this.postList = objectList;
@@ -128,9 +120,37 @@ public class Order_Fragment_View extends Fragment{
 
     public void setListItem(final List<ParseObject> objectList){
         // Pass context and data to the custom adapter
-        adapter = new Order_Fragment_View_Adapter(getActivity(), generateData(objectList));
+        for (int i=0; i<objectList.size(); i++) {
+            Log.d("","" + objectList.get(i).getObjectId());
+            position = i;
+            temp_object = objectList.get(i);
+            bitmap[i] = null;
+            // Get image file from Parse object
+            ParseFile img_file = temp_object.getParseFile("Image_1");
+            // Hiep -> Do something to get bitmap data from img_file
+            if (img_file != null) {
+                img_file.getDataInBackground(new GetDataCallback() {
+                    @Override
+                    public void done(byte[] bytes, ParseException e) {
+                        bitmap[position] = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        //test_view.setImageBitmap(bitmap[position]);
+                    }
+                });
+            }
+            else{
+                bitmap[position] = null;
+            }
+            title[position] = objectList.get(i).getString("Title");
+            price[position] = objectList.get(i).getString("Price");
+            time[position] = objectList.get(i).getString("Time");
+            location[position] = objectList.get(i).getString("Buyer_place");
+        }
+
+
+
         // Get ListView from activity_main.xml
         listView = (ListView) view.findViewById(R.id.lvOrder_view);
+        adapter = new Order_Fragment_View_Adapter(this.getContext() , bitmap,title,time,location,price);
         // SetListAdapter
         listView.setAdapter(adapter);
 
@@ -163,7 +183,7 @@ public class Order_Fragment_View extends Fragment{
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==1)
         {
-            items.clear();
+
             if(null!=data)
             {
                 adapter.clear();

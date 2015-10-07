@@ -14,8 +14,7 @@ public class Ship_Fragment_View_List_Item {
     private String location;
     private String status;
 
-//    public Order_Fragment_View_List_Items(Bitmap ads_img, String title, String price,
-//                                       String ads_type, String time, String location, String status) {
+
 
     public Ship_Fragment_View_List_Item(Bitmap ads_img, String title, String price,
                                           String time, String location) {

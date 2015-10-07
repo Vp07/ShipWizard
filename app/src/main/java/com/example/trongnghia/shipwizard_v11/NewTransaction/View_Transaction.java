@@ -140,13 +140,10 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
                     mCircleImageView_Avatar.setImageBitmap(bm_for_show);
                 }
             });
-                    Toast.makeText(this,"Avatar available", Toast.LENGTH_SHORT).show();
-                       // mCircleImageView_Avatar.setImageBitmap(avatar);
-                    }
-                    else {
-                        mCircleImageView_Avatar.setBackgroundResource(R.drawable.ic_account_circle_white_64dp);
-                         Toast.makeText(this,"No avatar", Toast.LENGTH_SHORT).show();
-                    }
+        }
+        else {
+            mCircleImageView_Avatar.setBackgroundResource(R.drawable.ic_account_circle_white_64dp);
+        }
 
 //        avatar.getDataInBackground() ;
 //            @Override
