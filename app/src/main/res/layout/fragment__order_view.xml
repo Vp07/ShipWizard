@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.trongnghia.shipwizard_v11.NewTransaction.Order_Fragment_View">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView_test" />
+
     <ListView
         android:id="@+id/lvOrder_view"
         android:layout_width="fill_parent"

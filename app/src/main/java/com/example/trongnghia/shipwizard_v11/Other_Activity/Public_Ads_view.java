@@ -2,6 +2,8 @@ package com.example.trongnghia.shipwizard_v11.Other_Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
@@ -17,11 +19,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.example.trongnghia.shipwizard_v11.Library.TinyDB;
+import com.example.trongnghia.shipwizard_v11.NewTransaction.ImageAdapter;
 import com.example.trongnghia.shipwizard_v11.NewTransaction.View_Transaction;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Recent_Search_Item;
@@ -31,6 +36,7 @@ import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -55,14 +61,19 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
     //public UserAction user_favorite_ads = new UserAction();
     public Drawable bookmark_icon;
     public List<String> user_bookmarks = new ArrayList<>();
+    TextView tv;
+    ImageAdapter bm_adapter;
+    int i;
+    Bitmap[] bitmap;
+    ParseObject temp_object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ads_view_public);
+        setContentView(R.layout.ads_view);
 
-        tinydb = new TinyDB(this);
-
+//        tinydb = new TinyDB(this);
+//
         Title = (TextView)findViewById(R.id.tvTitle);
         Ads_type_price = (TextView)findViewById(R.id.tvPrice);
         Time = (TextView)findViewById(R.id.tvTime);
@@ -70,18 +81,85 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
         Category = (TextView)findViewById(R.id.tvCategory);
         Condition = (TextView)findViewById(R.id.tvCondition);
         Description = (TextView)findViewById(R.id.tvDescription);
-
-        bInbox = (Button)findViewById(R.id.btInbox);
-        bCall = (Button)findViewById(R.id.btCall);
-        bSms = (Button)findViewById(R.id.btSms);
-
-        bInbox.setOnClickListener(this);
-        bCall.setOnClickListener(this);
-        bSms.setOnClickListener(this);
-
-        bookmark_icon = getResources().getDrawable(R.drawable.ic_grade_white_24dp);
-
+//
+//        bInbox = (Button)findViewById(R.id.btInbox);
+//        bCall = (Button)findViewById(R.id.btCall);
+//        bSms = (Button)findViewById(R.id.btSms);
+//
+//        bInbox.setOnClickListener(this);
+//        bCall.setOnClickListener(this);
+//        bSms.setOnClickListener(this);
+//
+//        bookmark_icon = getResources().getDrawable(R.drawable.ic_grade_white_24dp);
         initialise();
+        bm_adapter = new ImageAdapter(this);
+        try {
+            temp_object = query.get(objectID);
+        }catch (Exception e){
+            Toast.makeText(this, "Object not found!", Toast.LENGTH_SHORT).show();
+        }
+        if(temp_object!=null){
+            for(int i=1;i<10;i++){
+                if(temp_object.get("Image_"+i)!=null) {
+                    ParseFile temp_file = temp_object.getParseFile("Image_" + i);
+
+                    try {
+                        byte[] data = temp_file.getData();
+                        if(data!=null){
+                            bm_adapter.bm[i-1] = BitmapFactory.decodeByteArray(data,0,data.length);
+                            //Log.d("assign possition",""+i);
+                        }
+                    }catch (Exception e){
+                        Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else{
+                    break;
+                }
+            }
+            //ImageView tesst = (ImageView) findViewById(R.id.Test);
+            //tesst.setImageBitmap(bm_adapter.bm[2]);
+        }
+
+
+
+        final ViewFlipper vfAds_Img = (ViewFlipper) findViewById(R.id.viewFlipper_Ads_Img);
+
+        for(int i=0;i<9;i++){
+            if(bm_adapter.bm[i]!=null){
+                ImageView iv = new ImageView(this);
+                iv.setImageBitmap(bm_adapter.bm[i]);;
+                vfAds_Img.addView(iv);
+
+            }
+        }
+        int DisplayPostion = vfAds_Img.getDisplayedChild()+1;
+        tv = (TextView) findViewById(R.id.ItemNo);
+        tv.setText("Image " + DisplayPostion + " / " + vfAds_Img.getChildCount());
+
+        ImageView ivNext = (ImageView) findViewById(R.id.vf_next);
+        ImageView ivPrevious = (ImageView) findViewById(R.id.vf_previous);
+
+        ivNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vfAds_Img.showNext();
+                int DisplayPostion = vfAds_Img.getDisplayedChild()+1;
+                tv.setText("Image " + DisplayPostion + " / " + vfAds_Img.getChildCount());
+            }
+        });
+
+        ivPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vfAds_Img.showPrevious();
+                int DisplayPostion = vfAds_Img.getDisplayedChild()+1;
+                tv.setText("Image " + DisplayPostion + " / " + vfAds_Img.getChildCount());
+            }
+        });
+
+
     }
 
     /**
@@ -118,6 +196,7 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
             getSupportActionBar().setTitle(title);
         }
     }
+
 
     @Override
     public void onClick(View view) {

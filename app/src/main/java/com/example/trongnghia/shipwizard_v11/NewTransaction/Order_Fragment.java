@@ -278,12 +278,13 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 user_post.put("Description", description.getText().toString());
 
                 // upload image
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
                 count = 1;
 
 
                 for(int i =0;i<9;i++) {
                     if(bm_adapter.bm[i]!=null){
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         bm_adapter.bm[i].compress(Bitmap.CompressFormat.PNG, 100, stream);
                         byte[] byteArray = stream.toByteArray();
                         final ParseFile image_of_item = new ParseFile(byteArray);

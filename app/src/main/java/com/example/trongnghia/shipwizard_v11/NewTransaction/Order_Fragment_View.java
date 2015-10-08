@@ -149,7 +149,7 @@ public class Order_Fragment_View extends Fragment{
                     byte[] data = img_file.getData();
                     if(data!=null){
                         bitmap[i] = BitmapFactory.decodeByteArray(data,0,data.length);
-                        Log.d("","position : " + i);
+
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
