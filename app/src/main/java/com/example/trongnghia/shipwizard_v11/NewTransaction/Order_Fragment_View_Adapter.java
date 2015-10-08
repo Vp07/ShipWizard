@@ -3,6 +3,7 @@ package com.example.trongnghia.shipwizard_v11.NewTransaction;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,7 @@ import java.util.ArrayList;
 public class Order_Fragment_View_Adapter extends BaseAdapter {
 
     private final Context context;
-    public Bitmap[] bm;
-    public String[] img;
+    public Bitmap[] bm = new Bitmap[]{null} ;
     public String[] price;
     public String[] title;
     public String[] time;
@@ -51,7 +51,7 @@ public class Order_Fragment_View_Adapter extends BaseAdapter {
         int setCount=0;
         for (int i= 0; i<=100;i++){
             if (title[i]==null){
-                setCount = i+1;
+                setCount = i;
                 break;
             }
         }
@@ -60,7 +60,7 @@ public class Order_Fragment_View_Adapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+       return null;
     }
 
     @Override
@@ -72,13 +72,14 @@ public class Order_Fragment_View_Adapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView = convertView;
         // 1. Create inflater
-        if(rowView ==null) {
+        if(rowView == null) {
             // 2. Get rowView from inflater
             //rowView = inflater.inflate(R.layout.fragment_order_view_list_item, parent, false);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.fragment_order_view_list_item, parent, false);
 
         }
+
 
             // 3. Get the two text view from the rowView
             ImageView img = (ImageView) rowView.findViewById(R.id.ivAds_Img);
@@ -90,10 +91,14 @@ public class Order_Fragment_View_Adapter extends BaseAdapter {
             //TextView status = (TextView) rowView.findViewById(R.id.tvStatus);
 
             // 4. Set the text for textView
-            if (bm[position] != null) {
-                img.setImageBitmap(bm[position]);
-            } else {
+            if (bm[position] == null) {
+                img.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 img.setImageResource(R.drawable.ic_photo_camera_white_24dp);
+                img.setBackgroundColor(Color.GRAY);
+
+            } else {
+                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                img.setImageBitmap(bm[position]);
                 img.setBackgroundColor(Color.GRAY);
             }
             tvPrice.setText(price[position]);
@@ -114,8 +119,8 @@ public class Order_Fragment_View_Adapter extends BaseAdapter {
     }
 
     public void clear() {
-        for (int i=0;i<bm.length;i++){
-            bm[i]=null;
+        for (int i=0;i< bm.length;i++){
+            bm[i] = null;
             title[i]=null;
             price[i]=null;
             time[i]=null;

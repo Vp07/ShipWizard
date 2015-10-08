@@ -70,8 +70,11 @@ public class Order_Fragment_View extends Fragment{
     private String[] price = new String[100];
     private String[] time = new String[100];
     private String[] location = new String[100];
+    Bitmap temp_bm;
+
 
     int position;
+    int i;
 
     public View view;
 
@@ -120,30 +123,46 @@ public class Order_Fragment_View extends Fragment{
 
     public void setListItem(final List<ParseObject> objectList){
         // Pass context and data to the custom adapter
-        for (int i=0; i<objectList.size(); i++) {
-            Log.d("","" + objectList.get(i).getObjectId());
-            position = i;
+
+        for (i = 0; i<objectList.size(); i++) {
+
+
             temp_object = objectList.get(i);
-            bitmap[i] = null;
+
+            //bitmap[position] = null;
+
             // Get image file from Parse object
             ParseFile img_file = temp_object.getParseFile("Image_1");
+
             // Hiep -> Do something to get bitmap data from img_file
             if (img_file != null) {
-                img_file.getDataInBackground(new GetDataCallback() {
-                    @Override
-                    public void done(byte[] bytes, ParseException e) {
-                        bitmap[position] = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        //test_view.setImageBitmap(bitmap[position]);
+
+//                img_file.getDataInBackground(new GetDataCallback() {
+//                    @Override
+//                    public void done(byte[] bytes, ParseException e) {
+//                        temp_bm = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+//                    }
+//                });
+//                bitmap[i] = temp_bm;
+//                Log.d("","position inside : "+ i);
+                try {
+                    byte[] data = img_file.getData();
+                    if(data!=null){
+                        bitmap[i] = BitmapFactory.decodeByteArray(data,0,data.length);
+                        Log.d("","position : " + i);
                     }
-                });
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
-            else{
-                bitmap[position] = null;
-            }
-            title[position] = objectList.get(i).getString("Title");
-            price[position] = objectList.get(i).getString("Price");
-            time[position] = objectList.get(i).getString("Time");
-            location[position] = objectList.get(i).getString("Buyer_place");
+
+
+
+            title[i] = objectList.get(i).getString("Title");
+            price[i] = objectList.get(i).getString("Price");
+            time[i] = objectList.get(i).getString("Time");
+            location[i] = objectList.get(i).getString("Buyer_place");
+
         }
 
 
@@ -175,6 +194,7 @@ public class Order_Fragment_View extends Fragment{
             }
         });
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
