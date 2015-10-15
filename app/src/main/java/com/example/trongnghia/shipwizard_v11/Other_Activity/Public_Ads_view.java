@@ -70,27 +70,27 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ads_view);
+        setContentView(R.layout.ads_view_public);
 
 //        tinydb = new TinyDB(this);
 //
-        Title = (TextView)findViewById(R.id.tvTitle);
-        Ads_type_price = (TextView)findViewById(R.id.tvPrice);
-        Time = (TextView)findViewById(R.id.tvTime);
-        Location = (TextView)findViewById(R.id.tvLocation);
-        Category = (TextView)findViewById(R.id.tvCategory);
-        Condition = (TextView)findViewById(R.id.tvCondition);
-        Description = (TextView)findViewById(R.id.tvDescription);
+        Title = (TextView)findViewById(R.id.title_public);
+        Ads_type_price = (TextView)findViewById(R.id.price_public);
+        Time = (TextView)findViewById(R.id.posted_time);
+        Location = (TextView)findViewById(R.id.location_public);
+        Category = (TextView)findViewById(R.id.category_public);
+        Condition = (TextView)findViewById(R.id.condition_public);
+        Description = (TextView)findViewById(R.id.description_public);
 //
-//        bInbox = (Button)findViewById(R.id.btInbox);
-//        bCall = (Button)findViewById(R.id.btCall);
-//        bSms = (Button)findViewById(R.id.btSms);
+        bInbox = (Button)findViewById(R.id.btInbox);
+        bCall = (Button)findViewById(R.id.btCall);
+        bSms = (Button)findViewById(R.id.btSms);
+
+        bInbox.setOnClickListener(this);
+        bCall.setOnClickListener(this);
+        bSms.setOnClickListener(this);
 //
-//        bInbox.setOnClickListener(this);
-//        bCall.setOnClickListener(this);
-//        bSms.setOnClickListener(this);
-//
-//        bookmark_icon = getResources().getDrawable(R.drawable.ic_grade_white_24dp);
+        bookmark_icon = getResources().getDrawable(R.drawable.ic_grade_white_24dp);
         initialise();
         bm_adapter = new ImageAdapter(this);
         try {
@@ -124,7 +124,7 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
 
 
 
-        final ViewFlipper vfAds_Img = (ViewFlipper) findViewById(R.id.viewFlipper_Ads_Img);
+        final ViewFlipper vfAds_Img = (ViewFlipper) findViewById(R.id.viewFlipper_Ads_Img_Public);
 
         for(int i=0;i<9;i++){
             if(bm_adapter.bm[i]!=null){
@@ -135,11 +135,11 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
             }
         }
         int DisplayPostion = vfAds_Img.getDisplayedChild()+1;
-        tv = (TextView) findViewById(R.id.ItemNo);
+        tv = (TextView) findViewById(R.id.ItemNo_Public);
         tv.setText("Image " + DisplayPostion + " / " + vfAds_Img.getChildCount());
 
-        ImageView ivNext = (ImageView) findViewById(R.id.vf_next);
-        ImageView ivPrevious = (ImageView) findViewById(R.id.vf_previous);
+        ImageView ivNext = (ImageView) findViewById(R.id.vf_next_public);
+        ImageView ivPrevious = (ImageView) findViewById(R.id.vf_previous_public);
 
         ivNext.setOnClickListener(new View.OnClickListener() {
             @Override

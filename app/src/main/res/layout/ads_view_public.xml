@@ -156,16 +156,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp" >
-
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/price_public"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/search_small_text"
-                        android:text="Title" />
+                        android:text="Order - Free" />
 
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/title_public"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_black_text_87"
@@ -191,7 +189,7 @@
                             android:text="Posted" />
 
                         <TextView
-                            android:id="@+id/textView15"
+                            android:id="@+id/posted_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -210,7 +208,7 @@
                             android:text="Location" />
 
                         <TextView
-                            android:id="@+id/textView16"
+                            android:id="@+id/location_public"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -237,7 +235,7 @@
                             android:text="Category" />
 
                         <TextView
-                            android:id="@+id/textView17"
+                            android:id="@+id/category_public"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -256,7 +254,7 @@
                             android:text="Condition" />
 
                         <TextView
-                            android:id="@+id/textView18"
+                            android:id="@+id/condition_public"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -298,7 +296,7 @@
                         android:layout_marginBottom="10dp" />
 
                     <TextView
-                        android:id="@+id/textView19"
+                        android:id="@+id/description_public"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_black_text_87"
