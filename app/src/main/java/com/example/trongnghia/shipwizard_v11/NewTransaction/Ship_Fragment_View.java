@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.trongnghia.shipwizard_v11.Other_Activity.Ads_view;
+import com.example.trongnghia.shipwizard_v11.Other_Activity.Public_Ads_view;
 import com.example.trongnghia.shipwizard_v11.R;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Adapter;
 import com.example.trongnghia.shipwizard_v11.Slidemenu_Items.Slidemenu_Ads_History_Items;
@@ -40,28 +41,25 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Ship_Fragment_View.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Ship_Fragment_View#newInstance} factory method to
- * create an instance of this fragment.
+ *
  */
 public class Ship_Fragment_View extends Fragment {
 
     ListView ads;
 
-    public static ArrayList<Ship_Fragment_View_List_Item> items;
-    public ArrayList<Ship_Fragment_View_List_Item> array;
+
     public ArrayList<String> recent_search_string;
     public String postObject = "UserPost";
     public String UserIDCol = "UserID";
 
-    public Ship_Fragment_View_List_Item temp;
-
     public List<ParseObject> postList;
     public ParseObject temp_object;
 
-    public Bitmap bitmap;
+    private Bitmap[] bitmap = new Bitmap[100];
+    private String[] title = new String[100];
+    private String[] price = new String[100];
+    private String[] time = new String[100];
+    private String[] location = new String[100];
 
     public View view;
 
@@ -81,8 +79,8 @@ public class Ship_Fragment_View extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_ship_view, container, false);
-        items = new ArrayList<Ship_Fragment_View_List_Item>();
+        view = inflater.inflate(R.layout.home_list_view, container, false);
+
         user = new UserInfo();
 
         listview_init();
@@ -103,25 +101,7 @@ public class Ship_Fragment_View extends Fragment {
         });
     }
 
-    private ArrayList<Ship_Fragment_View_List_Item> generateData(List<ParseObject> objectList){
-        //Toast.makeText(getActivity(), Integer.toString(postList.size()), Toast.LENGTH_SHORT).show();
-        for (int i=0; i<objectList.size(); i++){
-            temp_object = objectList.get(i);
 
-            // Get image file from Parse object
-            ParseFile img_file = temp_object.getParseFile("img");
-            // Hiep -> Do something to get bitmap data from img_file
-
-
-
-            items.add(new Ship_Fragment_View_List_Item(bitmap,
-                    temp_object.getString("Title"),
-                    temp_object.getString("Price"),
-                    temp_object.getString("Time"),
-                    temp_object.getString("Buyer_place")));
-        }
-        return items;
-    }
 
     public void getAds(List<ParseObject> objectList){
         this.postList = objectList;
@@ -129,9 +109,33 @@ public class Ship_Fragment_View extends Fragment {
 
     public void setListItem(final List<ParseObject> objectList){
         // Pass context and data to the custom adapter
-        adapter = new Ship_Fragment_View_Adapter(getActivity(), generateData(objectList));
+
+        for (int i=0; i<objectList.size(); i++){
+            temp_object = objectList.get(i);
+            ParseFile img_file = temp_object.getParseFile("Image_1");
+            if (img_file != null) {
+                try {
+                    byte[] data = img_file.getData();
+                    if(data!=null){
+                        bitmap[i] = BitmapFactory.decodeByteArray(data,0,data.length);
+
+                    }
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Hiep -> Do something to get bitmap data from img_file
+            title[i] = objectList.get(i).getString("Title");
+            price[i] = objectList.get(i).getString("Price");
+            time[i] = objectList.get(i).getString("Time");
+            location[i] = objectList.get(i).getString("Buyer_place");
+        }
+
         // Get ListView from activity_main.xml
-        listView = (ListView) view.findViewById(R.id.lvShip_view);
+        listView = (ListView) view.findViewById(R.id.ads_list_view);
+        adapter = new Ship_Fragment_View_Adapter(this.getContext(), bitmap,title,time,location,price);
         // SetListAdapter
         listView.setAdapter(adapter);
 
@@ -140,7 +144,7 @@ public class Ship_Fragment_View extends Fragment {
             public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
                                     long id) {
                 // We know the View is a TextView so we can cast it
-                Intent intent = new Intent(getActivity(), Ads_view.class);
+                Intent intent = new Intent(getActivity(), Public_Ads_view.class);
                 intent.putExtra("Title", objectList.get(position).getString("Title"));
                 intent.putExtra("Price", objectList.get(position).getString("Price"));
                 intent.putExtra("Time", objectList.get(position).getString("Time"));
@@ -162,7 +166,7 @@ public class Ship_Fragment_View extends Fragment {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==1)
         {
-            items.clear();
+
             if(null!=data)
             {
                 adapter.clear();
@@ -172,5 +176,6 @@ public class Ship_Fragment_View extends Fragment {
             }
         }
     }
+
 
 }

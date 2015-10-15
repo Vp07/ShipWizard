@@ -68,6 +68,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
     TextView Pre_item;
     TextView Pre_price;
 
+
     ImageView pre_order_image;
     Bitmap bm;
     ImageAdapter bm_adapter;
@@ -216,7 +217,7 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
                 //set up dialog
                 //final Dialog dialog = new Dialog(getActivity(),R.style.PreviewDialog);
                 final Dialog dialog_preview = new Dialog(getActivity());
-                dialog_preview.setContentView(R.layout.ads_view);
+                dialog_preview.setContentView(R.layout.ads_view_public);
 
                 dialog_preview.setTitle("Preview this Message");
                 dialog_preview.setCancelable(true);
@@ -294,8 +295,8 @@ public class Order_Fragment extends Fragment implements View.OnClickListener {
 
                 }
                 //post to Parse
-               // user_post.put("Images", Image_list);
-               // user_post.put("test_column",tesst);
+                // user_post.put("Images", Image_list);
+                // user_post.put("test_column",tesst);
                 user_post.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

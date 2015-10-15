@@ -76,7 +76,7 @@ public class Order_Fragment_View_Adapter extends BaseAdapter {
             // 2. Get rowView from inflater
             //rowView = inflater.inflate(R.layout.fragment_order_view_list_item, parent, false);
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.fragment_order_view_list_item, parent, false);
+            rowView = inflater.inflate(R.layout.home_list_item, parent, false);
 
         }
 

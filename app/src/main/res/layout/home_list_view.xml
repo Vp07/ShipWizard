@@ -10,7 +10,7 @@
         android:id="@+id/imageView_test" />
 
     <ListView
-        android:id="@+id/lvOrder_view"
+        android:id="@+id/ads_list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

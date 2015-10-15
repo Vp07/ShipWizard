@@ -94,7 +94,7 @@ public class Order_Fragment_View extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment__order_view, container, false);
+        view = inflater.inflate(R.layout.home_list_view, container, false);
         user = new UserInfo();
         //test_view = (ImageView) view.findViewById(R.id.imageView_test);
 
@@ -125,26 +125,10 @@ public class Order_Fragment_View extends Fragment{
         // Pass context and data to the custom adapter
 
         for (i = 0; i<objectList.size(); i++) {
-
-
             temp_object = objectList.get(i);
-
-            //bitmap[position] = null;
-
-            // Get image file from Parse object
             ParseFile img_file = temp_object.getParseFile("Image_1");
-
-            // Hiep -> Do something to get bitmap data from img_file
             if (img_file != null) {
 
-//                img_file.getDataInBackground(new GetDataCallback() {
-//                    @Override
-//                    public void done(byte[] bytes, ParseException e) {
-//                        temp_bm = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-//                    }
-//                });
-//                bitmap[i] = temp_bm;
-//                Log.d("","position inside : "+ i);
                 try {
                     byte[] data = img_file.getData();
                     if(data!=null){
@@ -168,7 +152,7 @@ public class Order_Fragment_View extends Fragment{
 
 
         // Get ListView from activity_main.xml
-        listView = (ListView) view.findViewById(R.id.lvOrder_view);
+        listView = (ListView) view.findViewById(R.id.ads_list_view);
         adapter = new Order_Fragment_View_Adapter(this.getContext() , bitmap,title,time,location,price);
         // SetListAdapter
         listView.setAdapter(adapter);

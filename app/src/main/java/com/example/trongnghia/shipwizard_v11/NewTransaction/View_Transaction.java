@@ -129,7 +129,8 @@ public class View_Transaction extends AppCompatActivity implements View.OnClickL
         mTextView_AccountEmail.setText(UserInfo.email);
         mCircleImageView_Avatar = (de.hdodenhof.circleimageview.CircleImageView ) findViewById(R.id.navigation_drawer_user_account_picture_profile);
 
-       ParseFile avatar = DispatchActivity.current_user.getAvatar();
+        UserInfo current_user = new UserInfo();
+       ParseFile avatar = current_user.getAvatar();
         if (avatar!=null) {
             avatar.getDataInBackground(new GetDataCallback() {
                 @Override
