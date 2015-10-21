@@ -92,6 +92,6 @@ public class Message extends ParseObject {
     }
 
     public void setAdsTitle(String title) {
-        put("AdsTitle", title);
+       // put("AdsTitle", title);
     }
 }

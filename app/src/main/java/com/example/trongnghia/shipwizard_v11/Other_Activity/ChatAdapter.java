@@ -33,7 +33,7 @@ import com.squareup.picasso.Picasso;
 /**
  * Created by Trong Nghia on 9/23/2015.
  */
-public class ChatAdapter extends ArrayAdapter<Message> {
+public class ChatAdapter extends ArrayAdapter<String[][]> {
 
     private String FromUserID;
     ParseQuery<ParseObject> query;
