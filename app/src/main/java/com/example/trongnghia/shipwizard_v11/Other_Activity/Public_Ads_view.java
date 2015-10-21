@@ -206,6 +206,7 @@ public class Public_Ads_view extends AppCompatActivity implements View.OnClickLi
                 intent.putExtra("UserID", toUserID );
                 intent.putExtra("UserName", username);
                 intent.putExtra("AdsID",objectID);
+                intent.putExtra("Source", "Ads_view");
                 startActivity(intent);
                 break;
 

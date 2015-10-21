@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.trongnghia.shipwizard_v11.R;
+import com.squareup.picasso.Picasso;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -38,7 +41,8 @@ public class ChatAdapter extends ArrayAdapter<Message> {
     Bitmap avatar_other_user;
     Bitmap avatar_current_user;
 
-    public ChatAdapter(Context context, final String FromUserID, List<Message> messages) {
+   // public ChatAdapter(Context context, String FromUserID, List<Message> messages) {
+    public ChatAdapter(Context context, String FromUserID, List<String[][]> messages) {
         super(context, 0, messages);
         this.FromUserID = FromUserID;
         UserInfo current_user = new UserInfo();
@@ -100,9 +104,11 @@ public class ChatAdapter extends ArrayAdapter<Message> {
             holder.content = (TextView)convertView.findViewById(R.id.tvMessage);
             convertView.setTag(holder);
         }
-        final Message message = (Message)getItem(position);
+        //final Message message = (Message)getItem(position);
+        final String[][] message = (String[][])getItem(position);
         final ViewHolder holder = (ViewHolder)convertView.getTag();
-        final boolean isMe = message.getFromUserID().equals(FromUserID);
+        //final boolean isMe = message.getFromUserID().equals(FromUserID);
+        final boolean isMe = message[0][1].equals(FromUserID);
 
         // Show-hide image based on the logged-in user.
         // Display the profile image to the right for our user, left for other users.
@@ -117,8 +123,9 @@ public class ChatAdapter extends ArrayAdapter<Message> {
             holder.content.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         }
         final ImageView profileView = isMe ? holder.imageRight : holder.imageLeft;
-        Picasso.with(getContext()).load(getProfileUrl(message.getFromUserID())).into(profileView);
-        holder.content.setText(message.getContent());
+        //Picasso.with(getContext()).load(getProfileUrl(message.getFromUserID())).into(profileView);
+        Picasso.with(getContext()).load(getProfileUrl(message[0][1])).into(profileView);
+        holder.content.setText(message[0][0]);
         return convertView;
     }
 
