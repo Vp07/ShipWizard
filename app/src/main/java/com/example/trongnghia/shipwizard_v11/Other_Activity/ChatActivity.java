@@ -21,6 +21,7 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
@@ -170,6 +171,11 @@ public class ChatActivity extends AppCompatActivity {
                     //receiveMessage();
                 } else { // If there is already this chat box on Parse, just update it
                     //Toast.makeText(ChatActivity.this, "i am B", Toast.LENGTH_SHORT).show();
+                    ParsePush push = new ParsePush();
+                    push.setChannel("Giants");
+                    push.setMessage("The Giants just scored! It's now 2-2 against the Mets.");
+                    push.sendInBackground();
+
                     query_msg.whereEqualTo("objectId", objectID);
                     query_msg.findInBackground(new FindCallback<Message>() {
                         public void done(List<Message> object, ParseException e) {
